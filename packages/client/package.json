@@ -11,6 +11,11 @@
     "test": "jest ./"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@mantine/core": "^6.0.14",
+    "@mantine/form": "^6.0.14",
+    "@mantine/hooks": "^6.0.14",
+    "@mantine/prism": "^6.0.14",
     "dotenv": "^16.0.2",
     "eslint-config-prettier": "^8.5.0",
     "prettier": "^2.7.1",
