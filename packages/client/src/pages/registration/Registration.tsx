@@ -1,1 +1,3 @@
-export const Registration = (): JSX.Element => <>Registration Page</>;
+import { Text } from '@mantine/core';
+
+export const Registration = (): JSX.Element => <Text>Registration Page</Text>;
