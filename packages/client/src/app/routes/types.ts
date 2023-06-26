@@ -1,10 +1,10 @@
-import { ComponentType } from 'react';
+import { ComponentType } from 'react'
 
 export interface RouteConfig {
-  title: string;
-  path: string;
-  component: ComponentType;
-  type: PageType;
+  title: string
+  path: string
+  component: ComponentType
+  type: PageType
 }
 
 export enum PageType {
@@ -13,7 +13,7 @@ export enum PageType {
   notAuthenticated = 'notAuthenticated',
 }
 
-export type RoutesType = Record<RouteName, RouteConfig>;
+export type RoutesType = Record<RouteName, RouteConfig>
 
 export enum RouteName {
   Main = 'main',

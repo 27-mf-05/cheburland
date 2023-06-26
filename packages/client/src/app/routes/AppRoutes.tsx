@@ -1,16 +1,16 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import {
   AppLayout,
   AuthenticatedLayout,
   NotAuthenticatedLayout,
-} from '@/layout';
-import { RouteConfig } from './types';
+} from '@/layout'
+import { RouteConfig } from './types'
 import {
   authenticatedRoutes,
   commonRoutes,
   notAuthenticatedRoutes,
-} from './helper';
-import { routes } from './routes';
+} from './helper'
+import { routes } from './routes'
 
 export const AppRoutes = (): JSX.Element => {
   return (
@@ -27,7 +27,7 @@ export const AppRoutes = (): JSX.Element => {
           <Route element={<NotAuthenticatedLayout />}>
             {notAuthenticatedRoutes(routes).map(
               ({ title, component: Element, path }: RouteConfig) => {
-                return <Route key={title} element={<Element />} path={path} />;
+                return <Route key={title} element={<Element />} path={path} />
               }
             )}
           </Route>
@@ -39,5 +39,5 @@ export const AppRoutes = (): JSX.Element => {
         </Route>
       </Routes>
     </BrowserRouter>
-  );
-};
+  )
+}

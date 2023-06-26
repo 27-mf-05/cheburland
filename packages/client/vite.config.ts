@@ -1,8 +1,8 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import dotenv from 'dotenv';
-import * as path from 'path';
-dotenv.config();
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import dotenv from 'dotenv'
+import * as path from 'path'
+dotenv.config()
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -25,4 +25,4 @@ export default defineConfig({
       shared: path.resolve(__dirname, '.src/shared'),
     },
   },
-});
+})
