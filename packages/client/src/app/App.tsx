@@ -1,4 +1,5 @@
 import { MantineProvider } from '@mantine/core'
+
 import { AppRoutes } from '@/app/routes'
 
 const App = () => (

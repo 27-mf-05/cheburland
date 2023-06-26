@@ -1,5 +1,6 @@
-import { Main } from './Main'
 import { render, screen } from '@testing-library/react'
+
+import { Main } from './Main'
 
 const appContent = 'Main Page'
 
