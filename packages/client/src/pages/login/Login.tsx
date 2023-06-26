@@ -1,3 +1,3 @@
-import { Text } from '@mantine/core';
+import { Text } from '@mantine/core'
 
-export const Login = (): JSX.Element => <Text>Login Page</Text>;
+export const Login = (): JSX.Element => <Text>Login Page</Text>

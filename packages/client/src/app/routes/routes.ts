@@ -9,8 +9,8 @@ import {
   Profile as ProfilePage,
   Registration as RegistrationPage,
   Page404,
-} from '@/pages';
-import { PageType, RouteName, RoutesType } from './types';
+} from '@/pages'
+import { PageType, RouteName, RoutesType } from './types'
 
 export const routes: RoutesType = {
   [RouteName.Main]: {
@@ -73,4 +73,4 @@ export const routes: RoutesType = {
     component: Page404,
     type: PageType.common,
   },
-};
+}

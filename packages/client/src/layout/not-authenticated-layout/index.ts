@@ -1,1 +1,1 @@
-export * from './NotAuthenticatedLayout';
+export * from './NotAuthenticatedLayout'
