@@ -27,6 +27,7 @@
     "babel-jest": "29.0.1",
     "eslint": "8.22.0",
     "eslint-config-prettier": "8.5.0",
+    "eslint-plugin-simple-import-sort": "10.0.0",
     "jest": "28",
     "nodemon": "2.0.19",
     "prettier": "2.7.1",

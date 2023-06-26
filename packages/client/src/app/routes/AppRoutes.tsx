@@ -1,16 +1,18 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+
 import {
   AppLayout,
   AuthenticatedLayout,
   NotAuthenticatedLayout,
 } from '@/layout'
-import { RouteConfig } from './types'
+
 import {
   authenticatedRoutes,
   commonRoutes,
   notAuthenticatedRoutes,
 } from './helper'
 import { routes } from './routes'
+import { RouteConfig } from './types'
 
 export const AppRoutes = (): JSX.Element => {
   return (
