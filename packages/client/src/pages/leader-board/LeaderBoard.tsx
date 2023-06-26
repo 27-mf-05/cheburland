@@ -1,3 +1,3 @@
-import { Text } from '@mantine/core';
+import { Text } from '@mantine/core'
 
-export const LeaderBoard = (): JSX.Element => <Text>Leader Board Page</Text>;
+export const LeaderBoard = (): JSX.Element => <Text>Leader Board Page</Text>

@@ -1,3 +1,3 @@
-import { Text } from '@mantine/core';
+import { Text } from '@mantine/core'
 
-export const Forum = (): JSX.Element => <Text>Forum Page</Text>;
+export const Forum = (): JSX.Element => <Text>Forum Page</Text>
