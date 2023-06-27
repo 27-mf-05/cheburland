@@ -1,9 +1,10 @@
 import { MantineProvider } from '@mantine/core'
 
 import { AppRoutes } from '@/app/routes'
+import { theme } from '@/app/theme'
 
 const App = () => (
-  <MantineProvider withGlobalStyles withNormalizeCSS>
+  <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
     <AppRoutes />
   </MantineProvider>
 )
