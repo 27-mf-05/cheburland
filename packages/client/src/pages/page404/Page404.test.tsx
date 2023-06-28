@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react'
 
-import { Main } from './Main'
+import { Page404 } from './Page404'
 
-const appContent = 'Начать игру'
+const appContent = 'Page 404'
 
 test('Default main page test', async () => {
-  render(<Main />)
+  render(<Page404 />)
   expect(screen.getByText(appContent)).toBeDefined()
 })
