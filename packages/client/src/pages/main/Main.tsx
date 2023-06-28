@@ -10,14 +10,14 @@ import {
   Tooltip,
 } from '@mantine/core'
 
-import bgImage from '@/assets/images/cheburashka_background.jpg'
+import cheburashka_background from '@/assets/images/cheburashka_background.jpg'
 
 import { gameDescription } from './constants'
 
 export const Main = (): JSX.Element => {
   return (
     <Box id="mainPage" m="-16px">
-      <BackgroundImage src={bgImage} h="100vh">
+      <BackgroundImage src={cheburashka_background} h="100vh">
         <Stack
           align="flex-start"
           justify="flex-start"
