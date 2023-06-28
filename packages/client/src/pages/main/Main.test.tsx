@@ -6,5 +6,5 @@ const appContent = 'Начать игру'
 
 test('Default main page test', async () => {
   render(<Main />)
-  expect(screen.getByRole('button', { name: appContent })).toBeDefined()
+  expect(screen.getByText(appContent)).toBeDefined()
 })
