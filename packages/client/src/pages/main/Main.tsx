@@ -1,80 +1,86 @@
+import { Link } from 'react-router-dom'
+
 import {
   BackgroundImage,
   Box,
   Button,
-  Center,
+  Menu,
   Stack,
+  Text,
   Tooltip,
 } from '@mantine/core'
 
-const gameDescription =
-  'Все мы прекрасно знаем, что лучшее лакомство для Чебурашки - это апельсин 🍊. Ваша цель - за минуту собрать как можно больше апельсинов, двигаясь по лабиринту. Апельсин может появляться в рандомном месте.'
+import bgImage from '@/assets/images/cheburashka_background.jpg'
+
+import { gameDescription } from './constants'
 
 export const Main = (): JSX.Element => {
   return (
     <Box id="mainPage" m="-16px">
-      <BackgroundImage src="/cheburashka_background.jpg" h="100vh">
-        <Center
-          p="md"
+      <BackgroundImage src={bgImage} h="100vh">
+        <Stack
+          align="flex-start"
+          justify="flex-start"
+          pl="20%"
+          pt="10%"
           h="100%"
           sx={() => ({
             background: 'rgba(0,0,0,0.4)',
           })}>
-          <Stack align="flex-start" justify="flex-start" ml="-550px">
-            <Button size="lg" bg="brand.2" w={230} component="a" href="/game">
-              Начать игру
-            </Button>
-            <Tooltip
-              label={gameDescription}
-              bg="brand.0"
-              withArrow
-              multiline
-              width={350}>
-              <Button
-                size="lg"
-                mt="md"
-                variant="light"
-                bg="brand.3"
-                c="brand.2"
-                w={230}>
-                Описание игры
-              </Button>
-            </Tooltip>
+          <Menu width={200}>
+            <Menu.Item bg="brand.2" w={230} component={Link} to="/game">
+              <Text color="white" size="lg" weight="600" align="center">
+                Начать игру
+              </Text>
+            </Menu.Item>
+            <Menu.Item
+              mt="md"
+              bg="brand.3"
+              w={230}
+              component={Link}
+              to="/profile">
+              <Text color="brand.2" size="lg" weight="600" align="center">
+                Профиль
+              </Text>
+            </Menu.Item>
+            <Menu.Item
+              mt="md"
+              bg="brand.3"
+              w={230}
+              component={Link}
+              to="/leader-board">
+              <Text color="brand.2" size="lg" weight="600" align="center">
+                Лидерборд
+              </Text>
+            </Menu.Item>
+            <Menu.Item
+              mt="md"
+              bg="brand.3"
+              w={230}
+              component={Link}
+              to="/forum">
+              <Text color="brand.2" size="lg" weight="600" align="center">
+                Форум
+              </Text>
+            </Menu.Item>
+          </Menu>
+          <Tooltip
+            label={gameDescription}
+            bg="brand.0"
+            withArrow
+            multiline
+            width={350}>
             <Button
               size="lg"
               mt="md"
               variant="light"
               bg="brand.3"
               c="brand.2"
-              w={230}
-              component="a"
-              href="/profile">
-              Профиль
+              w={230}>
+              Описание игры
             </Button>
-            <Button
-              size="lg"
-              mt="md"
-              variant="light"
-              bg="brand.3"
-              c="brand.2"
-              w={230}
-              component="a"
-              href="/leader-board">
-              Лидерборд
-            </Button>
-            <Button
-              size="lg"
-              mt="md"
-              variant="light"
-              bg="brand.3"
-              c="brand.2"
-              w={230}
-              component="a"
-              href="/forum">
-              Форум
-            </Button>
-          </Stack>
-        </Center>
+          </Tooltip>
+        </Stack>
       </BackgroundImage>
     </Box>
   )
