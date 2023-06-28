@@ -4,7 +4,6 @@ import {
   Button,
   Center,
   Stack,
-  Text,
   Tooltip,
 } from '@mantine/core'
 
@@ -13,11 +12,7 @@ const gameDescription =
 
 export const Main = (): JSX.Element => {
   return (
-    <Box
-      id="mainPage"
-      sx={() => ({
-        margin: '-16px',
-      })}>
+    <Box id="mainPage" m="-16px">
       <BackgroundImage src="/cheburashka_background.jpg" h="100vh">
         <Center
           p="md"
