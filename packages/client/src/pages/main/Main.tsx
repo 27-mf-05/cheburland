@@ -4,6 +4,7 @@ import {
   Button,
   Center,
   Stack,
+  Text,
   Tooltip,
 } from '@mantine/core'
 
@@ -13,6 +14,7 @@ const gameDescription =
 export const Main = (): JSX.Element => {
   return (
     <Box
+      id="mainPage"
       sx={() => ({
         margin: '-16px',
       })}>

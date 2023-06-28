@@ -2,9 +2,9 @@ import { render, screen } from '@testing-library/react'
 
 import { Main } from './Main'
 
-const appContent = 'Main Page'
+const appContent = 'Начать игру'
 
 test('Default main page test', async () => {
   render(<Main />)
-  expect(screen.getByText(appContent)).toBeDefined()
+  expect(screen.getByRole('button', { name: appContent })).toBeDefined()
 })
