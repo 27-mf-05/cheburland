@@ -5,7 +5,7 @@ export const theme: MantineThemeOverride = {
   colors: {
     brand: ['#4C4B16', '#898121', '#E7B10A', '#F7F1E5', '#A4907C'],
   },
-  primaryColor: 'brand',
+  primaryColor: 'yellow',
   white: '#fff',
   black: '#000',
 }
