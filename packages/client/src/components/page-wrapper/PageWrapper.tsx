@@ -2,6 +2,8 @@ import { FC, ReactNode } from 'react'
 
 import { Container, SimpleGrid } from '@mantine/core'
 
+import { GameOverScreenModal } from '@/components'
+
 export const PageWrapper: FC<{
   children: ReactNode
   columns: number
@@ -16,6 +18,7 @@ export const PageWrapper: FC<{
           ? theme.colors.dark[8]
           : theme.colors.gray[0],
     })}>
+    <GameOverScreenModal isOpenned={true}></GameOverScreenModal>
     <SimpleGrid cols={columns} sx={{ gap: 'initial' }}>
       {children}
     </SimpleGrid>
