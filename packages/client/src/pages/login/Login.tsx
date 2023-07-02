@@ -20,7 +20,7 @@ export const Login = (): JSX.Element => {
 
   return (
     <Flex id="loginPage" align="center" justify="center" h="100vh" w="100vw">
-      <Paper shadow="sm" radius="md" w="340px" h="340px" p="md">
+      <Paper shadow="sm" radius="md" w="340px" h="auto" p="md">
         <Title align="center">Вход</Title>
         <form onSubmit={form.onSubmit(values => console.log(values))}>
           <TextInput
