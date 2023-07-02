@@ -1,20 +1,21 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { Button, Text } from '@mantine/core'
-import { useDisclosure } from '@mantine/hooks'
 
-import { ModalWrapper } from '../modalWrapper'
+import { ModalWrapper } from '@/components/modalWrapper'
 
-export const GameOverScreenModal = ({ isOpenned = false }) => {
-  const [opened, { close }] = useDisclosure(isOpenned)
+export const GameOver = ({ isOpenned = false }) => {
+  const [opened, setOpened] = useState(isOpenned)
 
   return (
-    <ModalWrapper
-      size="md"
-      openned={opened}
-      title="Игра завершена"
-      close={close}>
-      <Button mt="md" ml="33%" component={Link} to="/game" onClick={close}>
+    <ModalWrapper size="md" isOpenned={opened} title="Игра завершена">
+      <Button
+        mt="md"
+        ml="33%"
+        component={Link}
+        to="/game"
+        onClick={() => setOpened(false)}>
         Начать заново
       </Button>
       <Text fz="md" mt="md" ta="center">
@@ -27,7 +28,7 @@ export const GameOverScreenModal = ({ isOpenned = false }) => {
         variant="outline"
         component={Link}
         to="/"
-        onClick={close}>
+        onClick={() => setOpened(false)}>
         Вернуться в главное меню
       </Button>
     </ModalWrapper>
