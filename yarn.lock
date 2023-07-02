@@ -5788,7 +5788,7 @@ makeerror@1.0.12:
   dependencies:
     tmpl "1.0.5"
 
-mantine-datatable@2.7.1:
+mantine-datatable@^2.7.1:
   version "2.7.1"
   resolved "https://registry.yarnpkg.com/mantine-datatable/-/mantine-datatable-2.7.1.tgz#919703def61b616953371a354b35df4b88c8305e"
   integrity sha512-GovffrUTkdrRPL27q3kwjUFfypyH9Dum7sVzSWswCT5VHdQH9hkh52QEpC1BqTnF55KRErhdWKM4sxOAhuH5Sw==
