@@ -1,8 +1,11 @@
 /*
+=======
+>>>>>>> c5508f4689d64a0696c260241bf4057561743bd3
 import Maze from "../maze/Maze";
 
 export default class Oranges {
   private canvas: HTMLCanvasElement;
+<<<<<<< HEAD
   private context: CanvasRenderingContext2D | null;
   private _cells: any[];
   private _randomCell: Record<string, any> | undefined;
@@ -10,6 +13,15 @@ export default class Oranges {
 
   constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas
+=======
+  private context: CanvasRenderingContext2D;
+  private _cells: any[];
+  private _randomCell: Record<string, any>;
+  private maze;
+
+  constructor(maze: Maze) {
+    this.canvas = maze._canvas;
+>>>>>>> c5508f4689d64a0696c260241bf4057561743bd3
     this.context = this.canvas.getContext("2d");
     this._cells = maze.getTrueCells();
     this.maze = maze;
@@ -37,4 +49,5 @@ export default class Oranges {
     this.context.closePath();
   }
 }
+<<<<<<< HEAD
 */
