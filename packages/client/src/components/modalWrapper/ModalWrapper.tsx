@@ -1,19 +1,24 @@
 import { FC, ReactNode } from 'react'
 
 import { Modal } from '@mantine/core'
-// import { useDisclosure } from '@mantine/hooks'
+import { useDisclosure } from '@mantine/hooks'
 
 export const ModalWrapper: FC<{
   size: string
   title: string
-  openned: boolean
-  close: () => void
+  isOpenned: boolean
   children: ReactNode
-}> = ({ title = '', size = 'md', openned = false, close, children }) => {
-  // const [openned] = useDisclosure(isOpenned)
+}> = ({ title = '', size = 'md', isOpenned = false, children }) => {
+  const [opened, { close }] = useDisclosure(isOpenned)
 
   return (
-    <Modal size={size} opened={openned} onClose={close} title={title} centered>
+    <Modal
+      size={size}
+      opened={opened}
+      onClose={close}
+      title={title}
+      centered
+      closeOnEscape={true}>
       {children}
     </Modal>
   )
