@@ -1,3 +1,4 @@
+/*
 export default class Maze {
   public readonly ROWS
   public readonly COLUMNS
@@ -195,3 +196,4 @@ export default class Maze {
     this.drawMaze()
   }
 }
+*/

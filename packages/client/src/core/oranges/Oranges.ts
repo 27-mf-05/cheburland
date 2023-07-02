@@ -3,13 +3,13 @@ import Maze from "../maze/Maze";
 
 export default class Oranges {
   private canvas: HTMLCanvasElement;
-  private context: CanvasRenderingContext2D;
+  private context: CanvasRenderingContext2D | null;
   private _cells: any[];
-  private _randomCell: Record<string, any>;
+  private _randomCell: Record<string, any> | undefined;
   private maze;
 
-  constructor(maze: Maze) {
-    this.canvas = maze._canvas;
+  constructor(canvas: HTMLCanvasElement) {
+    this.canvas = canvas
     this.context = this.canvas.getContext("2d");
     this._cells = maze.getTrueCells();
     this.maze = maze;

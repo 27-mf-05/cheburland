@@ -1,10 +1,11 @@
 /*
+import { createContext, useEffect, useRef } from 'react'
 
-import { Component, createContext, useContext, useEffect, useRef } from 'react'
-import Hero from '@/temp/Hero'
+import Hero from '@/core/hero/Hero'
+import { HeroTest } from '@/core/hero/HeroTest'
+import Maze from '@/core/maze/Maze'
 
 const canvas = document.querySelector('canvas')
-
 
 /!*let keys = {
   w: {
@@ -95,10 +96,9 @@ window.addEventListener('keyup', function (event) {
   }
 })*!/
 
-
 const GameContext = createContext(null)
 
-export class Game extends Component{
+/!*export class Game extends Component{
   protected maze = new Maze(canvas, 13, 65, 10, 10)
   protected player = null
   protected oranges = null
@@ -209,18 +209,57 @@ export class Game extends Component{
     this.player.update()
   }
 
-}
+}*!/
 
-const Game = ()=>  {
+export const Game = () => {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null)
+  let maze: Maze | null = null
+  let hero: typeof HeroTest | null = null
 
-  const ref = useRef(null);
+  useEffect(() => {
+    const canvas = canvasRef.current
+    const context = canvas?.getContext('2d')
 
-  useEffect(()=> {
+    if (!canvas || !context) {
+      return
+    }
 
+    maze = new Maze(canvas, 13, 65, 10, 10)
+    /!*hero = new Hero(canvas, {
+      position: {
+        x:
+          maze.PADDING +
+          Math.floor(maze.ROWS / 2) * maze.CELL_SIZE +
+          maze.CELL_SIZE / 2,
+        y:
+          maze.PADDING +
+          Math.floor(maze.COLUMNS / 2) * maze.CELL_SIZE +
+          maze.CELL_SIZE / 2,
+      },
+      velocity: {
+        x: 0,
+        y: 0,
+      },
+    });*!/
+    hero = () => HeroTest(canvas)
+
+    maze.generate()
+    hero
+    animate()
+    return () => {
+      cancelAnimationFrame(animationFrame)
+    }
   }, [])
 
-  const generateEnteties = async ()=>  {
-    await this.maze.generate()
+  let animationFrame: number
+
+  const animate = () => {
+    animationFrame = requestAnimationFrame(animate)
+    maze!.drawMaze()
+  }
+
+  /!*const generateEnteties = async ()=>  {
+    await this.maze!.generate()
 
     this.player = new Player(this.maze, {
       position: {
@@ -247,9 +286,9 @@ const Game = ()=>  {
     this.oranges.draw(true)
 
     this.animate()
-  }
+  }*!/
 
-  const startTimer = (counterEl)=> {
+  /!* const startTimer = (counterEl)=> {
     let counter = 60
 
     const timerId = setInterval(() => {
@@ -316,16 +355,8 @@ const Game = ()=>  {
       this.player.velocity.y = 0
     }
     this.player.update()
-  }
+  }*!/
 
-  return (
-    <canvas ref={ref} width={300} height={300}/>
-  );
+  return <canvas ref={canvasRef} width={300} height={300} />
 }
-
-export  refContext
-
-const game = new Game()
-
-game.startGame()
 */
