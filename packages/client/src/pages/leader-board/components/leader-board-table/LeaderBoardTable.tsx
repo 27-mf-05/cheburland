@@ -3,7 +3,7 @@ import type { FC } from 'react'
 import { Avatar } from '@mantine/core'
 import { DataTable } from 'mantine-datatable'
 
-import type { Leader } from './types'
+import type { Leader } from '../../types'
 
 type LeaderBoardTableProps = {
   leaders: Leader[]
