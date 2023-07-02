@@ -6,16 +6,16 @@ import { DataTable } from 'mantine-datatable'
 import type { Leader } from './types'
 
 type LeaderBoardTableProps = {
-  data: Leader[]
+  leaders: Leader[]
 }
 
 export const LeaderBoardTable: FC<LeaderBoardTableProps> = ({
-  data,
+  leaders,
 }): JSX.Element => {
   return (
     <DataTable
       striped
-      records={data}
+      records={leaders}
       columns={[
         { accessor: 'rank', title: '№', width: '1%' },
         {
