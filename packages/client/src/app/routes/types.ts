@@ -24,6 +24,7 @@ export enum RouteName {
   Page404 = 'page404',
   LeaderBoard = 'leaderBoard',
   Game = 'game',
+  AddForumTopic = 'add-forum-topic',
   ForumTopic = 'forum-topic',
   Forum = 'forum',
 }
