@@ -3,14 +3,18 @@ import { Link } from 'react-router-dom'
 import { Button, Flex, NavLink, Paper, TextInput, Title } from '@mantine/core'
 import { useForm } from '@mantine/form'
 
+import { loginRule, passwordRule } from '@/shared/validations/rules'
+
 export const Login = (): JSX.Element => {
   const form = useForm({
+    validateInputOnBlur: true,
     initialValues: {
       login: '',
       password: '',
     },
     validate: {
-      //здесь будут валидации
+      login: value => loginRule(value),
+      password: value => passwordRule(value),
     },
   })
 
