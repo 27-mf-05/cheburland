@@ -13,6 +13,6 @@
 
  [Режим разработки](./docs/development.md)
 
- [Игровой движок](./docs/gameEngine.md) - Описание игрового движка
+ [Игровой движок](./docs/gameEngine.md)
 
- [Сценарий игры](./docs/gameScenario.md) - Разработка сценария игры
+ [Сценарий игры](./docs/gameScenario.md)
