@@ -1,8 +1,6 @@
 import { Container, Flex, Title } from '@mantine/core'
 
-import { BackButton } from '@/components/back-button'
-
-import { LeaderBoardTable } from './LeaderBoardTable'
+import { LeaderBoardTable } from './components/leader-board-table/LeaderBoardTable'
 import type { Leader } from './types'
 
 const leaders: Leader[] = [
@@ -18,9 +16,6 @@ export const LeaderBoard = (): JSX.Element => {
       <Title mb="xl" ta="center">
         Лидерборд
       </Title>
-      <Flex mb="xl">
-        <BackButton />
-      </Flex>
       <LeaderBoardTable leaders={leaders} />
     </Container>
   )
