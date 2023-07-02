@@ -54,7 +54,7 @@ export const Registration = (): JSX.Element => {
             label="Телефон"
             {...form.getInputProps('phone')}
           />
-          <Button mb="2rem" variant="default" fullWidth={true} type="submit">
+          <Button mb="2rem" fullWidth={true} type="submit">
             Зарегестрироваться
           </Button>
           <NavLink
