@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-import { Button, Flex, Paper, Text, TextInput } from '@mantine/core'
+import { Button, Flex, NavLink, Paper, TextInput } from '@mantine/core'
 import { useForm } from '@mantine/form'
 
 export const Registration = (): JSX.Element => {
@@ -54,18 +54,15 @@ export const Registration = (): JSX.Element => {
             label="Телефон"
             {...form.getInputProps('phone')}
           />
-          <Button mb="2rem" fullWidth={true} variant="default" type="submit">
+          <Button mb="2rem" variant="default" fullWidth={true} type="submit">
             Зарегестрироваться
           </Button>
-          <Text
-            underline={true}
-            w="100%"
-            display="inline-block"
-            ta="center"
+          <NavLink
+            label="Уже зарегестрированы?"
             component={Link}
-            to="/login">
-            Уже зарегестрированы?
-          </Text>
+            to="/login"
+            ta="center"
+          />
         </form>
       </Paper>
     </Flex>
