@@ -1,3 +1,4 @@
+/*
 import Maze from "../maze/Maze";
 
 export default class Oranges {
@@ -36,3 +37,4 @@ export default class Oranges {
     this.context.closePath();
   }
 }
+*/
