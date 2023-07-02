@@ -3,6 +3,14 @@ import { Link } from 'react-router-dom'
 import { Button, Flex, NavLink, Paper, TextInput } from '@mantine/core'
 import { useForm } from '@mantine/form'
 
+import {
+  firstNameForm,
+  loginForm,
+  passwordForm,
+  phoneForm,
+  secondNameForm,
+} from '@/shared/validations/rules'
+
 export const Registration = (): JSX.Element => {
   const form = useForm({
     validateInputOnBlur: true,
@@ -13,6 +21,14 @@ export const Registration = (): JSX.Element => {
       email: '',
       password: '',
       phone: '',
+    },
+    validate: {
+      first_name: value => firstNameForm(value),
+      second_name: value => secondNameForm(value),
+      login: value => loginForm(value),
+      email: value => firstNameForm(value),
+      password: value => passwordForm(value),
+      phone: value => phoneForm(value),
     },
   })
 
