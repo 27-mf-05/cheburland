@@ -1,5 +1,4 @@
 import {
-  AddForumTopic as AddForumTopicPage,
   Forum as ForumPage,
   ForumTopic as ForumTopicPage,
   Game as GamePage,
@@ -33,12 +32,6 @@ export const routes: RoutesType = {
     component: RegistrationPage,
     type: PageType.notAuthenticated,
   },
-  [RouteName.AddForumTopic]: {
-    title: 'Add Forum Topic',
-    path: '/add-forum-topic',
-    component: AddForumTopicPage,
-    type: PageType.authenticated,
-  },
   [RouteName.Forum]: {
     title: 'Forum',
     path: '/forum',
@@ -47,7 +40,7 @@ export const routes: RoutesType = {
   },
   [RouteName.ForumTopic]: {
     title: 'Forum Topic',
-    path: '/forum/:id',
+    path: '/forum-topic',
     component: ForumTopicPage,
     type: PageType.authenticated,
   },
