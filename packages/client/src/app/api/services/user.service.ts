@@ -10,7 +10,7 @@ import {
 import request from '../request'
 
 const UploadFileHeaders = {
-  Accept: 'application/json',
+  'Content-Type': 'multipart/form-data',
 }
 
 export default class UserService {

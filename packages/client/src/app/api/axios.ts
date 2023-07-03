@@ -1,11 +1,10 @@
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios'
 
-const { REACT_APP_API_URL } = process.env
-
-const VERSION = 'v1'
+const API_BASE_URL = `https://ya-praktikum.tech/api`
+const VERSION = 'v2'
 
 export const client = axios.create({
-  baseURL: `${REACT_APP_API_URL}/${VERSION}`,
+  baseURL: `${API_BASE_URL}/${VERSION}`,
   headers: {
     'Content-Type': 'application/json',
   },
