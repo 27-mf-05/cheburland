@@ -7,6 +7,7 @@ import QueryClientProvider from './api/QueryClientProvider'
 
 const App = () => (
   <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
+    {/* TODO: should be removed */}
     <QueryClientProvider>
       <AppRoutes />
     </QueryClientProvider>

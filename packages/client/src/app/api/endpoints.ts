@@ -1,4 +1,3 @@
-// Auth services
 export const USER_PATH = 'user'
 export const USER_SEARCH_PATH = `${USER_PATH}/search`
 export const USER_PASSWORD_PATH = `${USER_PATH}/password`
