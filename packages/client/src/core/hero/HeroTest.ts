@@ -1,100 +1,167 @@
-/*
-import { useEffect, useState } from 'react'
-
-export enum DIRECTION {
-  LEFT = 'left',
-  RIGHT = 'right',
-  UP = 'up',
-  DOWN = 'down',
+const keys = {
+  87: {
+    pressed: false,
+  },
+  65: {
+    pressed: false,
+  },
+  83: {
+    pressed: false,
+  },
+  68: {
+    pressed: false,
+  },
 }
 
-export enum ARROW {
-  LEFT = 37,
-  RIGHT = 39,
-  UP = 38,
-  DOWN = 40,
-}
-
-export type Position = {
+type Position = {
   x: number
   y: number
 }
 
-export type Velocity = {
+type Velocity = {
   x: number
   y: number
 }
 
-export const HeroTest = (canvas: HTMLCanvasElement) => {
-  const context = canvas.getContext('2d')
-  if (!context) {
-    return
-  }
-  const velocity = {
-    x: 5,
-    y: 5,
+export default class HeroTest {
+  private readonly _context: CanvasRenderingContext2D | null
+  private _velocity: Velocity
+  public position: Position
+  private _lastKey: number | undefined
+  private _canvas: HTMLCanvasElement
+  private _radius = 15
+  private _falseCells: { x: number; y: number }[]
+  private _cellSize: number
+
+  constructor(
+    canvas: HTMLCanvasElement,
+    falseCells: { x: number; y: number }[],
+    cellSize: number
+  ) {
+    this._canvas = canvas
+    this._cellSize = cellSize
+    this._falseCells = falseCells
+    this._context = canvas.getContext('2d')
+    this._velocity = { x: 3, y: 3 }
+    this.position = { x: 300, y: 300 }
+    this.addEvents()
   }
 
-  const handleKeyDown = (e: any) => {
-    const arrows = [ARROW.LEFT, ARROW.UP, ARROW.RIGHT, ARROW.DOWN]
+  handleKeyUp = (e: KeyboardEvent) => {
+    switch (e.keyCode) {
+      case 87:
+        keys[87].pressed = false
+        break
 
-    if (arrows.indexOf(e.keyCode) >= 0) {
-      accelerate(e.keyCode)
+      case 65:
+        keys[65].pressed = false
+        break
+
+      case 83:
+        keys[83].pressed = false
+        break
+
+      case 68:
+        keys[68].pressed = false
+        break
     }
   }
 
-  useEffect(() => {
-    document.addEventListener('keydown', handleKeyDown)
+  handleKeyDown = (e: KeyboardEvent) => {
+    switch (e.keyCode) {
+      case 87:
+        keys[87].pressed = true
+        this._lastKey = 87
+        break
+
+      case 65:
+        keys[65].pressed = true
+        this._lastKey = 65
+        break
+
+      case 83:
+        keys[83].pressed = true
+        this._lastKey = 83
+        break
+
+      case 68:
+        keys[68].pressed = true
+        this._lastKey = 68
+        break
+    }
+  }
+
+  addEvents() {
+    document.addEventListener('keydown', this.handleKeyDown)
+    document.addEventListener('keyup', this.handleKeyUp)
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [])
-
-  const [position, setPosition] = useState({
-    x: 0,
-    y: 0,
-  })
-
-  const accelerate = (keypressed: number) => {
-    switch (keypressed) {
-      case ARROW.UP:
-        setPosition({ x: position.x + velocity.x, y: position.y - 1 })
-        break
-      case ARROW.LEFT:
-        setPosition({ x: position.x + 1, y: position.y - 1 })
-        break
-      case ARROW.RIGHT:
-        setPosition({ x: position.x + 1, y: position.y - 1 })
-        break
-      default:
-        setPosition({ x: position.x + 1, y: position.y - 1 })
+      document.removeEventListener('keydown', this.handleKeyDown)
+      document.removeEventListener('keyup', this.handleKeyUp)
     }
   }
 
-  useEffect(() => {
-    draw(position)
-  }, [position])
+  accelerate() {
+    if (keys[87].pressed && this._lastKey === 87) {
+      this._velocity.y = -5
+    } else if (keys[65].pressed && this._lastKey === 65) {
+      this._velocity.x = -5
+    } else if (keys[83].pressed && this._lastKey === 83) {
+      this._velocity.y = 5
+    } else if (keys[68].pressed && this._lastKey === 68) {
+      this._velocity.x = 5
+    } else {
+      this._velocity.x = 0
+      this._velocity.y = 0
+    }
 
-  const draw = (position: Position) => {
+    if (this.playerCollidesWithWalls()) {
+      this._velocity.x = 0
+      this._velocity.y = 0
+    }
+  }
+
+  playerCollidesWithWalls() {
+    if (
+      this.position.x - this._radius + this._velocity.x <= 0 ||
+      this.position.y - this._radius + this._velocity.y <= 0 ||
+      this.position.x + this._velocity.x >= this._canvas.width - this._radius ||
+      this.position.y + this._velocity.y >= this._canvas.height - this._radius
+    ) {
+      return true
+    }
+
+    for (const cell of this._falseCells) {
+      const cellX = cell.x * this._cellSize
+      const cellY = cell.y * this._cellSize
+
+      if (
+        this.position.x + this._velocity.x >= cellX &&
+        this.position.x + this._velocity.x <= cellX + this._cellSize &&
+        this.position.y + this._velocity.y >= cellY &&
+        this.position.y + this._velocity.y <= cellY + this._cellSize
+      ) {
+        return true
+      }
+    }
+  }
+
+  draw() {
+    const context = this._context
+    if (!context) return
+
     context.beginPath()
-    context.arc(position.x, position.y, 15, 0, Math.PI * 2)
+    context.arc(this.position.x, this.position.y, 15, 0, Math.PI * 2)
     context.fillStyle = 'brown'
     context.fill()
     context.closePath()
   }
 
-  const update = (position: Position) => {
-    position.x += velocity.x
-    position.y += velocity.y
-    draw({ x: position.x, y: position.y })
-  }
+  update() {
+    this.accelerate()
+    this.draw()
 
-  const move = () => {
-    requestAnimationFrame(move)
-    update({ x: position.x, y: position.y })
+    this.position.x += this._velocity.x
+    this.position.y += this._velocity.y
   }
-
-  move()
 }
-*/

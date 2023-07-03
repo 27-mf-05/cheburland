@@ -1,53 +1,55 @@
-/*
-=======
->>>>>>> c5508f4689d64a0696c260241bf4057561743bd3
-import Maze from "../maze/Maze";
+import Maze from '../maze/Maze'
 
 export default class Oranges {
-  private canvas: HTMLCanvasElement;
-<<<<<<< HEAD
-  private context: CanvasRenderingContext2D | null;
-  private _cells: any[];
-  private _randomCell: Record<string, any> | undefined;
-  private maze;
+  private canvas: HTMLCanvasElement
+  private context: CanvasRenderingContext2D | null
+  private _cells: { x: number; y: number }[]
+  private _randomCell: Record<string, any> | undefined
+  private _cellSize: number
 
-  constructor(canvas: HTMLCanvasElement) {
+  constructor(
+    canvas: HTMLCanvasElement,
+    trueCells: { x: number; y: number }[],
+    cellSize: number
+  ) {
     this.canvas = canvas
-=======
-  private context: CanvasRenderingContext2D;
-  private _cells: any[];
-  private _randomCell: Record<string, any>;
-  private maze;
-
-  constructor(maze: Maze) {
-    this.canvas = maze._canvas;
->>>>>>> c5508f4689d64a0696c260241bf4057561743bd3
-    this.context = this.canvas.getContext("2d");
-    this._cells = maze.getTrueCells();
-    this.maze = maze;
+    this.context = this.canvas.getContext('2d')
+    this._cells = trueCells
+    this._cellSize = cellSize
   }
 
-  getRandomCell(array) {
-    const index = Math.floor(Math.random() * array.length);
-    return array[index];
+  getRandomCell(array: { x: number; y: number }[]) {
+    const index = Math.floor(Math.random() * array.length)
+    return array[index]
+  }
+
+  collapseWithFruit(xPosition: number, yPosition: number) {
+    const orangeX = this._randomCell!.x * this._cellSize + this._randomCell!.x
+    const orangeY = this._randomCell!.y * this._cellSize + this._randomCell!.y
+    const distance = Math.sqrt(
+      (xPosition - orangeX) ** 2 + (yPosition - orangeY) ** 2
+    )
+    return distance <= 50
   }
 
   draw(state: boolean) {
-    if (state) {
-      this._randomCell = this.getRandomCell(this._cells);
+    if (!this.canvas || !this.context) {
+      return
     }
-    this.context.beginPath();
+
+    if (state) {
+      this._randomCell = this.getRandomCell(this._cells)
+    }
+    this.context.beginPath()
     this.context.rect(
-      this._randomCell.x * this.maze.CELL_SIZE + this.maze.PADDING + 20,
-      this._randomCell.y * this.maze.CELL_SIZE + this.maze.PADDING + 20,
+      this._randomCell?.x * this._cellSize + 20,
+      this._randomCell?.y * this._cellSize + 20,
       20,
       20
-    );
+    )
 
-    this.context.fillStyle = "orange";
-    this.context.fill();
-    this.context.closePath();
+    this.context.fillStyle = 'orange'
+    this.context.fill()
+    this.context.closePath()
   }
 }
-<<<<<<< HEAD
-*/

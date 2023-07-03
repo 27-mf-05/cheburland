@@ -1,5 +1,1 @@
-
-/*
-export * from "./Maze"
-*/
-
+export * from './Maze'

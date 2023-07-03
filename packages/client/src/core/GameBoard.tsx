@@ -1,13 +1,12 @@
-/*
-import { Game } from '@/core/game/Game'
+import { GameTest } from '@/core/game/GameTest'
 
 export const GameBoard = () => {
-  /!*const {
+  /*const {
     gameStatus,
-  } = useGameContext();*!/
+  } = useGameContext();*/
 
   return (
-    /!*{{gameStatus !== GAME_STATUS.WIN ?
+    /*{{gameStatus !== GAME_STATUS.WIN ?
       (
         <div>
               <div>
@@ -24,8 +23,7 @@ export const GameBoard = () => {
         {this.game.startGame()}
         </>
 
-      )}}*!/
-    <Game />
+      )}}*/
+    <GameTest />
   )
 }
-*/

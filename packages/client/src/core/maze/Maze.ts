@@ -1,39 +1,37 @@
-/*
 export default class Maze {
-  public readonly ROWS
-  public readonly COLUMNS
-  public readonly CELL_SIZE
-  public readonly PADDING
-  public MATRIX: boolean[][] | undefined
-  private _ERASERS: { x: number; y: number }[] = []
-  private readonly _DELAY
-  public readonly _canvas: HTMLCanvasElement
+  private readonly _rows
+  private readonly _columns
+  public readonly cellSize
+  private readonly _padding
+  private _matrix: boolean[][] | undefined
+  private _erasers: { x: number; y: number }[] = []
+  private readonly _delay
+  private readonly _canvas: HTMLCanvasElement
   private _context
 
   constructor(
     element: HTMLCanvasElement,
     rowsAndColumns: number,
-    CELL_SIZE: number,
-    PADDING: number,
-    ERASERS: number,
-    DELAY?: number
+    cellSize: number,
+    padding: number,
+    erasers: number,
+    delay?: number
   ) {
-    this.ROWS = rowsAndColumns
-    this.COLUMNS = rowsAndColumns
-    this.PADDING = PADDING
-    this.CELL_SIZE = CELL_SIZE
-    this._DELAY = DELAY
+    this._rows = rowsAndColumns
+    this._columns = rowsAndColumns
+    this._padding = padding
+    this.cellSize = cellSize
+    this._delay = delay
     this._canvas = element
     this._context = this._canvas.getContext('2d')
 
-    for (let i = 0; i < ERASERS; i++) {
-      this._ERASERS.push({
+    for (let i = 0; i < erasers; i++) {
+      this._erasers.push({
         x: 0,
         y: 0,
       })
     }
-
-    this.createMatrix(this.ROWS, this.COLUMNS)
+    this.createMatrix(this._rows, this._columns)
   }
 
   createMatrix(rows: number, columns: number) {
@@ -47,34 +45,37 @@ export default class Maze {
       }
       matrix.push(row)
     }
-    this.MATRIX = matrix
+    this._matrix = matrix
   }
 
   drawMaze() {
+    if (!this._context || !this._canvas || !this._matrix) {
+      return
+    }
     const WALL_COLOR = 'black'
     const FREE_COLOR = 'gray'
     const BACKGROUND_COLOR = 'blue'
 
-    this._canvas.width = this.PADDING * 2 + this.COLUMNS * this.CELL_SIZE
-    this._canvas.height = this.PADDING * 2 + this.ROWS * this.CELL_SIZE
+    this._canvas.width = this._padding * 2 + this._columns * this.cellSize
+    this._canvas.height = this._padding * 2 + this._rows * this.cellSize
 
-    this._context!.rect(0, 0, this._canvas.width, this._canvas.height)
-    this._context!.fillStyle = BACKGROUND_COLOR
-    this._context!.fill()
+    this._context.rect(0, 0, this._canvas.width, this._canvas.height)
+    this._context.fillStyle = BACKGROUND_COLOR
+    this._context.fill()
 
-    for (let y = 0; y < this.COLUMNS; y++) {
-      for (let x = 0; x < this.ROWS; x++) {
+    for (let y = 0; y < this._columns; y++) {
+      for (let x = 0; x < this._rows; x++) {
         //если координаты x и y true - тогда рисуем проход, если нет, тогда стену
-        const color = this.MATRIX![y][x] ? FREE_COLOR : WALL_COLOR
-        this._context!.beginPath()
-        this._context!.rect(
-          this.PADDING + x * this.CELL_SIZE,
-          this.PADDING + y * this.CELL_SIZE,
-          this.CELL_SIZE,
-          this.CELL_SIZE
+        const color = this._matrix[y][x] ? FREE_COLOR : WALL_COLOR
+        this._context.beginPath()
+        this._context.rect(
+          this._padding + x * this.cellSize,
+          this._padding + y * this.cellSize,
+          this.cellSize,
+          this.cellSize
         )
-        this._context!.fillStyle = color
-        this._context!.fill()
+        this._context.fillStyle = color
+        this._context.fill()
       }
     }
   }
@@ -85,10 +86,10 @@ export default class Maze {
 
     this._context!.beginPath()
     this._context!.rect(
-      PADDING + eraser.x * this.CELL_SIZE,
-      PADDING + eraser.y * this.CELL_SIZE,
-      this.CELL_SIZE,
-      this.CELL_SIZE
+      PADDING + eraser.x * this.cellSize,
+      PADDING + eraser.y * this.cellSize,
+      this.cellSize,
+      this.cellSize
     )
     this._context!.fillStyle = ERASER_COLOR
     this._context!.fill()
@@ -101,7 +102,7 @@ export default class Maze {
       directions.push([-2, 0])
     }
 
-    if (eraser.x < this.COLUMNS - 1) {
+    if (eraser.x < this._columns - 1) {
       directions.push([2, 0])
     }
 
@@ -109,7 +110,7 @@ export default class Maze {
       directions.push([0, -2])
     }
 
-    if (eraser.y < this.ROWS - 1) {
+    if (eraser.y < this._rows - 1) {
       directions.push([0, 2])
     }
 
@@ -121,17 +122,17 @@ export default class Maze {
 
     // проверяем если клетка false, делаем ее в true, тем самым появляется проход
     // так как ластик по дефолту проходит 2!!! клетки, мы должны еще закрасить предыдущюю, то есть length/2
-    if (!this.MATRIX![eraser.y][eraser.x]) {
-      this.MATRIX![eraser.y][eraser.x] = true
-      this.MATRIX![eraser.y - dy / 2][eraser.x - dx / 2] = true
+    if (!this._matrix![eraser.y][eraser.x]) {
+      this._matrix![eraser.y][eraser.x] = true
+      this._matrix![eraser.y - dy / 2][eraser.x - dx / 2] = true
     }
   }
 
   public getFalseCells() {
     const falseCells = []
-    for (let y = 0; y < this.ROWS; y++) {
-      for (let x = 0; x < this.COLUMNS; x++) {
-        if (!this.MATRIX![y][x]) {
+    for (let y = 0; y < this._rows; y++) {
+      for (let x = 0; x < this._columns; x++) {
+        if (!this._matrix![y][x]) {
           falseCells.push({ x, y })
         }
       }
@@ -143,9 +144,9 @@ export default class Maze {
   public getTrueCells() {
     const trueCells = []
 
-    for (let y = 0; y < this.ROWS; y++) {
-      for (let x = 0; x < this.COLUMNS; x++) {
-        if (this.MATRIX![y][x]) {
+    for (let y = 0; y < this._rows; y++) {
+      for (let x = 0; x < this._columns; x++) {
+        if (this._matrix![y][x]) {
           trueCells.push({ x, y })
         }
       }
@@ -164,9 +165,9 @@ export default class Maze {
   }
 
   isValidMaze() {
-    for (let y = 0; y < this.ROWS; y += 2) {
-      for (let x = 0; x < this.COLUMNS; x += 2) {
-        if (!this.MATRIX![y][x]) {
+    for (let y = 0; y < this._rows; y += 2) {
+      for (let x = 0; x < this._columns; x += 2) {
+        if (!this._matrix![y][x]) {
           return false
         }
       }
@@ -177,23 +178,22 @@ export default class Maze {
   async generate() {
     while (!this.isValidMaze()) {
       // прописываем для каждого ластика движение
-      for (const eraser of this._ERASERS) {
+      for (const eraser of this._erasers) {
         this.eraserMovement(eraser)
       }
 
-      if (this._DELAY! > -1) {
+      if (this._delay! > -1) {
         //рисуем лабиринт
         this.drawMaze()
 
         //рисуем ластики
-        for (const eraser of this._ERASERS) {
+        for (const eraser of this._erasers) {
           this.drawEraser(eraser)
         }
 
-        await this.delay(this._DELAY!)
+        await this.delay(this._delay!)
       }
     }
     this.drawMaze()
   }
 }
-*/
