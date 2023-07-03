@@ -14,7 +14,6 @@ export const useProfile = ({
   isError: boolean
   profile: (data: Profile) => void
   search: (data: { login: 'string' }) => void
-  avatar: (data: FormData) => void
   password: (data: { oldPassword: 'string'; newPassword: 'string' }) => void
 } => {
   const {
@@ -39,16 +38,8 @@ export const useProfile = ({
     }
   )
 
-  const { mutate: avatar, isLoading: isLoadingAvatar } = useApiMutation(
-    ['avatar'],
-    (data: FormData) => UserService.avatar(data),
-    {
-      onSuccess,
-    }
-  )
-
   const { mutate: search, isLoading: isLoadingSearch } = useApiMutation(
-    ['avatar'],
+    ['search'],
     (data: { login: 'string' }) => UserService.search(data),
     {
       onSuccess,
@@ -58,15 +49,10 @@ export const useProfile = ({
   return {
     user,
     isLoading:
-      isLoadingProfile ||
-      isLoadingUser ||
-      isLoadingPassword ||
-      isLoadingAvatar ||
-      isLoadingSearch,
+      isLoadingProfile || isLoadingUser || isLoadingPassword || isLoadingSearch,
     isError: isErrorUser,
     profile,
     password,
-    avatar,
     search,
   }
 }
