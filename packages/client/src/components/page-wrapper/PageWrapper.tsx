@@ -9,6 +9,7 @@ export const PageWrapper: FC<{
   <Container
     fluid
     py={16}
+    h={'100vh'}
     sx={theme => ({
       backgroundColor:
         theme.colorScheme === 'dark'
