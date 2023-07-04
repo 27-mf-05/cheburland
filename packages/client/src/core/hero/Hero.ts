@@ -22,13 +22,28 @@ export default class Hero {
     87: {
       pressed: false,
     },
+    38: {
+      pressed: false,
+    },
+
     65: {
       pressed: false,
     },
+    37: {
+      pressed: false,
+    },
+
     83: {
       pressed: false,
     },
+    40: {
+      pressed: false,
+    },
+
     68: {
+      pressed: false,
+    },
+    39: {
       pressed: false,
     },
   }
@@ -76,13 +91,25 @@ export default class Hero {
   }
 
   accelerate() {
-    if (this._keys[87].pressed && this._lastKey === 87) {
+    if (
+      (this._keys[87].pressed && this._lastKey === 87) ||
+      (this._keys[38].pressed && this._lastKey === 38)
+    ) {
       this._velocity.y = -5
-    } else if (this._keys[65].pressed && this._lastKey === 65) {
+    } else if (
+      (this._keys[65].pressed && this._lastKey === 65) ||
+      (this._keys[37].pressed && this._lastKey === 37)
+    ) {
       this._velocity.x = -5
-    } else if (this._keys[83].pressed && this._lastKey === 83) {
+    } else if (
+      (this._keys[83].pressed && this._lastKey === 83) ||
+      (this._keys[40].pressed && this._lastKey === 40)
+    ) {
       this._velocity.y = 5
-    } else if (this._keys[68].pressed && this._lastKey === 68) {
+    } else if (
+      (this._keys[68].pressed && this._lastKey === 68) ||
+      (this._keys[39].pressed && this._lastKey === 39)
+    ) {
       this._velocity.x = 5
     } else {
       this._velocity.x = 0
