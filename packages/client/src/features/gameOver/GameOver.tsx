@@ -5,11 +5,15 @@ import { Button, Text } from '@mantine/core'
 
 import { ModalWrapper } from '@/components/modalWrapper'
 
-export const GameOver = ({ isOpenned = false }) => {
-  const [opened, setOpened] = useState(isOpenned)
+export const GameOver = ({ isOpened = false }) => {
+  const [opened, setOpened] = useState(isOpened)
 
   return (
-    <ModalWrapper size="md" isOpenned={opened} title="Игра завершена">
+    <ModalWrapper
+      size="md"
+      isOpened={opened}
+      setOpened={setOpened}
+      title="Игра завершена">
       <Button
         mt="md"
         ml="33%"
