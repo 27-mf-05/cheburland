@@ -1,3 +1,4 @@
+import { GameStart } from '@/features/GameStart'
 import {
   AddForumTopic as AddForumTopicPage,
   ChangePassword as ChangePasswordPage,
@@ -56,6 +57,12 @@ export const routes: RoutesType = {
     title: 'Game',
     path: '/game',
     component: GamePage,
+    type: PageType.authenticated,
+  },
+  [RouteName.GameStart]: {
+    title: 'Game start',
+    path: '/game-start',
+    component: GameStart,
     type: PageType.authenticated,
   },
   [RouteName.LeaderBoard]: {
