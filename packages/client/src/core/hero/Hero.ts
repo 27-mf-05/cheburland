@@ -1,18 +1,3 @@
-const keys = {
-  87: {
-    pressed: false,
-  },
-  65: {
-    pressed: false,
-  },
-  83: {
-    pressed: false,
-  },
-  68: {
-    pressed: false,
-  },
-}
-
 type Position = {
   x: number
   y: number
@@ -23,7 +8,7 @@ type Velocity = {
   y: number
 }
 
-export default class HeroTest {
+export default class Hero {
   private readonly _context: CanvasRenderingContext2D | null
   private _velocity: Velocity
   public position: Position
@@ -33,82 +18,71 @@ export default class HeroTest {
   private _falseCells: { x: number; y: number }[]
   private _cellSize: number
 
+  private _keys: { [key: number]: { pressed: boolean } } = {
+    87: {
+      pressed: false,
+    },
+    65: {
+      pressed: false,
+    },
+    83: {
+      pressed: false,
+    },
+    68: {
+      pressed: false,
+    },
+  }
+
   constructor(
     canvas: HTMLCanvasElement,
     falseCells: { x: number; y: number }[],
-    cellSize: number
+    cellSize: number,
+    rows: number,
+    columns: number
   ) {
     this._canvas = canvas
     this._cellSize = cellSize
     this._falseCells = falseCells
     this._context = canvas.getContext('2d')
     this._velocity = { x: 3, y: 3 }
-    this.position = { x: 300, y: 300 }
+    this.position = {
+      x: Math.floor(rows / 2) * cellSize + cellSize / 2,
+      y: Math.floor(columns / 2) * cellSize + cellSize / 2,
+    }
     this.addEvents()
   }
 
-  handleKeyUp = (e: KeyboardEvent) => {
-    switch (e.keyCode) {
-      case 87:
-        keys[87].pressed = false
-        break
-
-      case 65:
-        keys[65].pressed = false
-        break
-
-      case 83:
-        keys[83].pressed = false
-        break
-
-      case 68:
-        keys[68].pressed = false
-        break
+  private _handleKeyUp = (e: KeyboardEvent) => {
+    if (e.keyCode in this._keys) {
+      this._keys[e.keyCode].pressed = false
     }
   }
 
-  handleKeyDown = (e: KeyboardEvent) => {
-    switch (e.keyCode) {
-      case 87:
-        keys[87].pressed = true
-        this._lastKey = 87
-        break
-
-      case 65:
-        keys[65].pressed = true
-        this._lastKey = 65
-        break
-
-      case 83:
-        keys[83].pressed = true
-        this._lastKey = 83
-        break
-
-      case 68:
-        keys[68].pressed = true
-        this._lastKey = 68
-        break
+  private _handleKeyDown = (e: KeyboardEvent) => {
+    if (e.keyCode in this._keys) {
+      this._lastKey = e.keyCode
+      this._keys[e.keyCode].pressed = true
     }
   }
 
   addEvents() {
-    document.addEventListener('keydown', this.handleKeyDown)
-    document.addEventListener('keyup', this.handleKeyUp)
+    document.addEventListener('keydown', this._handleKeyDown)
+    document.addEventListener('keyup', this._handleKeyUp)
 
     return () => {
-      document.removeEventListener('keydown', this.handleKeyDown)
-      document.removeEventListener('keyup', this.handleKeyUp)
+      document.removeEventListener('keydown', this._handleKeyDown)
+      document.removeEventListener('keyup', this._handleKeyUp)
     }
   }
 
   accelerate() {
-    if (keys[87].pressed && this._lastKey === 87) {
+    if (this._keys[87].pressed && this._lastKey === 87) {
       this._velocity.y = -5
-    } else if (keys[65].pressed && this._lastKey === 65) {
+    } else if (this._keys[65].pressed && this._lastKey === 65) {
       this._velocity.x = -5
-    } else if (keys[83].pressed && this._lastKey === 83) {
+    } else if (this._keys[83].pressed && this._lastKey === 83) {
       this._velocity.y = 5
-    } else if (keys[68].pressed && this._lastKey === 68) {
+    } else if (this._keys[68].pressed && this._lastKey === 68) {
       this._velocity.x = 5
     } else {
       this._velocity.x = 0

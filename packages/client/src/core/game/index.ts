@@ -1,1 +1,1 @@
-export * from './GameTest'
+export * from './Game'
