@@ -1,3 +1,4 @@
+export * from './add-forum-topic'
 export * from './forum'
 export * from './forum-topic'
 export * from './game'
