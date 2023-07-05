@@ -3,11 +3,11 @@ import { FC, FormEventHandler } from 'react'
 import { FileInput } from '@mantine/core'
 import { useForm } from '@mantine/form'
 
-type AvatarFormProps = {
+type ImageFormProps = {
   handleChange: FormEventHandler<HTMLFormElement>
 }
 
-export const ImageForm: FC<AvatarFormProps> = ({ handleChange }) => {
+export const ImageForm: FC<ImageFormProps> = ({ handleChange }) => {
   const form = useForm({
     validateInputOnBlur: true,
     initialValues: {

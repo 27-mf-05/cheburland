@@ -1,9 +1,10 @@
-import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios'
+import axios from 'axios'
+import { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 
-const API_BASE_URL = `https://ya-praktikum.tech/api`
+const API_BASE_URL = 'https://ya-praktikum.tech/api'
 const VERSION = 'v2'
 
-export const client = axios.create({
+const client = axios.create({
   baseURL: `${API_BASE_URL}/${VERSION}`,
   headers: {
     'Content-Type': 'application/json',
@@ -20,7 +21,7 @@ client.interceptors.request.use(
 )
 
 client.interceptors.response.use(
-  response => {
+  (response: AxiosResponse) => {
     return response
   },
   async (error: AxiosError) => {

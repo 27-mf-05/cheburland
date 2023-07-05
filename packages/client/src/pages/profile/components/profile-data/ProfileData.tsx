@@ -1,3 +1,5 @@
+import { FC } from 'react'
+
 import { Box, SimpleGrid, Text } from '@mantine/core'
 
 import { User } from '@/shared'
@@ -6,7 +8,7 @@ type ProfileDataProps = {
   user: User
 }
 
-export const ProfileData = ({ user }: ProfileDataProps) => {
+export const ProfileData: FC<ProfileDataProps> = ({ user }) => {
   const { first_name, second_name, email, phone, login, display_name } = user
   return (
     <SimpleGrid cols={2} verticalSpacing="xl" spacing="xl" mb="xl">
