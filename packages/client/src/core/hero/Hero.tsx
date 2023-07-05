@@ -1,3 +1,5 @@
+import { keys } from '@/shared/core'
+
 type Position = {
   x: number
   y: number
@@ -11,42 +13,13 @@ type Velocity = {
 export class Hero {
   private readonly _context: CanvasRenderingContext2D | null
   private _velocity: Velocity
+  private _speed = 3
   public position: Position
   private _lastKey: number | undefined
   private _canvas: HTMLCanvasElement
   private _radius = 15
   private readonly _falseCells: { x: number; y: number }[]
   private readonly _cellSize: number
-
-  private _keys: { [key: number]: { pressed: boolean } } = {
-    87: {
-      pressed: false,
-    },
-    38: {
-      pressed: false,
-    },
-
-    65: {
-      pressed: false,
-    },
-    37: {
-      pressed: false,
-    },
-
-    83: {
-      pressed: false,
-    },
-    40: {
-      pressed: false,
-    },
-
-    68: {
-      pressed: false,
-    },
-    39: {
-      pressed: false,
-    },
-  }
 
   constructor(
     canvas: HTMLCanvasElement,
@@ -67,39 +40,39 @@ export class Hero {
   }
 
   public handleKeyUp = (e: KeyboardEvent) => {
-    if (e.keyCode in this._keys) {
-      this._keys[e.keyCode].pressed = false
+    if (e.keyCode in keys) {
+      keys[e.keyCode].pressed = false
     }
   }
 
   public handleKeyDown = (e: KeyboardEvent) => {
-    if (e.keyCode in this._keys) {
+    if (e.keyCode in keys) {
       this._lastKey = e.keyCode
-      this._keys[e.keyCode].pressed = true
+      keys[e.keyCode].pressed = true
     }
   }
 
   accelerate() {
     if (
-      (this._keys[87].pressed && this._lastKey === 87) ||
-      (this._keys[38].pressed && this._lastKey === 38)
+      (keys[87].pressed && this._lastKey === 87) ||
+      (keys[38].pressed && this._lastKey === 38)
     ) {
-      this._velocity.y = -3
+      this._velocity.y = -this._speed
     } else if (
-      (this._keys[65].pressed && this._lastKey === 65) ||
-      (this._keys[37].pressed && this._lastKey === 37)
+      (keys[65].pressed && this._lastKey === 65) ||
+      (keys[37].pressed && this._lastKey === 37)
     ) {
-      this._velocity.x = -3
+      this._velocity.x = -this._speed
     } else if (
-      (this._keys[83].pressed && this._lastKey === 83) ||
-      (this._keys[40].pressed && this._lastKey === 40)
+      (keys[83].pressed && this._lastKey === 83) ||
+      (keys[40].pressed && this._lastKey === 40)
     ) {
-      this._velocity.y = 3
+      this._velocity.y = this._speed
     } else if (
-      (this._keys[68].pressed && this._lastKey === 68) ||
-      (this._keys[39].pressed && this._lastKey === 39)
+      (keys[68].pressed && this._lastKey === 68) ||
+      (keys[39].pressed && this._lastKey === 39)
     ) {
-      this._velocity.x = 3
+      this._velocity.x = this._speed
     } else {
       this._velocity.x = 0
       this._velocity.y = 0
