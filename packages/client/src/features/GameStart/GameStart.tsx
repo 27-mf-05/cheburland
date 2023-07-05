@@ -22,7 +22,13 @@ export const GameStart = (): JSX.Element => {
 
   return (
     <BackgroundImage src={bgImage}>
-      <Flex align="center" justify="center" id="gameStart" h="100vh" w="100vw">
+      <Flex
+        align="center"
+        justify="center"
+        id="gameStart"
+        h="100vh"
+        w="100vw"
+        sx={() => ({ background: 'rgba(0,0,0,0.4)' })}>
         <Text size="150px" weight={700} color="white">
           {count}
         </Text>
