@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 
-import { BackgroundImage, Flex, Text } from '@mantine/core'
+import { Text } from '@mantine/core'
 
-import bgImage from '@/assets/images/cheburashka_background.jpg'
+import { BgWrapper } from '@/components/bgWrapper'
 
 export const GameStart = (): JSX.Element => {
   const [count, setCount] = useState(3)
@@ -21,18 +21,10 @@ export const GameStart = (): JSX.Element => {
   }, [])
 
   return (
-    <BackgroundImage src={bgImage}>
-      <Flex
-        align="center"
-        justify="center"
-        id="gameStart"
-        h="100vh"
-        w="100vw"
-        sx={() => ({ background: 'rgba(0,0,0,0.4)' })}>
-        <Text size="150px" weight={700} color="white">
-          {count}
-        </Text>
-      </Flex>
-    </BackgroundImage>
+    <BgWrapper>
+      <Text size="150px" weight={700} color="white">
+        {count}
+      </Text>
+    </BgWrapper>
   )
 }
