@@ -1,12 +1,14 @@
 import { Button, Textarea, TextInput } from '@mantine/core'
 import { isNotEmpty, useForm } from '@mantine/form'
 
+const initialValues = {
+  subject: '',
+  message: '',
+}
+
 export const AddForumTopicForm = (): JSX.Element => {
   const form = useForm({
-    initialValues: {
-      subject: '',
-      message: '',
-    },
+    initialValues,
     validate: {
       subject: isNotEmpty('Поле обязательно для заполнения'),
       message: isNotEmpty('Поле обязательно для заполнения'),
@@ -28,7 +30,9 @@ export const AddForumTopicForm = (): JSX.Element => {
         mb="10px"
         {...form.getInputProps('message')}
       />
-      <Button type="submit">Отправить</Button>
+      <Button fullWidth type="submit">
+        Отправить
+      </Button>
     </form>
   )
 }

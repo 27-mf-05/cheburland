@@ -9,7 +9,7 @@ import {
   passwordRule,
   phoneRule,
   secondNameRule,
-} from '@/shared/validations/rules'
+} from '@/shared'
 
 export const Registration = (): JSX.Element => {
   const form = useForm({

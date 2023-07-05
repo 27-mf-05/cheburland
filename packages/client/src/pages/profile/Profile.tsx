@@ -32,7 +32,7 @@ export const Profile = (): JSX.Element => {
         <Anchor component={Link} to={'#'}>
           Изменить данные
         </Anchor>
-        <Anchor component={Link} to={'#'}>
+        <Anchor component={Link} to={'/change-password'}>
           Изменить пароль
         </Anchor>
         <Anchor component={Link} to={'#'} color="red">
