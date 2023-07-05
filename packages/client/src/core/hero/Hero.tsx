@@ -15,8 +15,8 @@ export class Hero {
   private _lastKey: number | undefined
   private _canvas: HTMLCanvasElement
   private _radius = 15
-  private _falseCells: { x: number; y: number }[]
-  private _cellSize: number
+  private readonly _falseCells: { x: number; y: number }[]
+  private readonly _cellSize: number
 
   private _keys: { [key: number]: { pressed: boolean } } = {
     87: {
@@ -59,34 +59,23 @@ export class Hero {
     this._cellSize = cellSize
     this._falseCells = falseCells
     this._context = canvas.getContext('2d')
-    this._velocity = { x: 3, y: 3 }
+    this._velocity = { x: 0, y: 0 }
     this.position = {
       x: Math.floor(rows / 2) * cellSize + cellSize / 2,
       y: Math.floor(columns / 2) * cellSize + cellSize / 2,
     }
-    this.addEvents()
   }
 
-  private _handleKeyUp = (e: KeyboardEvent) => {
+  public handleKeyUp = (e: KeyboardEvent) => {
     if (e.keyCode in this._keys) {
       this._keys[e.keyCode].pressed = false
     }
   }
 
-  private _handleKeyDown = (e: KeyboardEvent) => {
+  public handleKeyDown = (e: KeyboardEvent) => {
     if (e.keyCode in this._keys) {
       this._lastKey = e.keyCode
       this._keys[e.keyCode].pressed = true
-    }
-  }
-
-  addEvents() {
-    document.addEventListener('keydown', this._handleKeyDown)
-    document.addEventListener('keyup', this._handleKeyUp)
-
-    return () => {
-      document.removeEventListener('keydown', this._handleKeyDown)
-      document.removeEventListener('keyup', this._handleKeyUp)
     }
   }
 
@@ -95,22 +84,22 @@ export class Hero {
       (this._keys[87].pressed && this._lastKey === 87) ||
       (this._keys[38].pressed && this._lastKey === 38)
     ) {
-      this._velocity.y = -5
+      this._velocity.y = -3
     } else if (
       (this._keys[65].pressed && this._lastKey === 65) ||
       (this._keys[37].pressed && this._lastKey === 37)
     ) {
-      this._velocity.x = -5
+      this._velocity.x = -3
     } else if (
       (this._keys[83].pressed && this._lastKey === 83) ||
       (this._keys[40].pressed && this._lastKey === 40)
     ) {
-      this._velocity.y = 5
+      this._velocity.y = 3
     } else if (
       (this._keys[68].pressed && this._lastKey === 68) ||
       (this._keys[39].pressed && this._lastKey === 39)
     ) {
-      this._velocity.x = 5
+      this._velocity.x = 3
     } else {
       this._velocity.x = 0
       this._velocity.y = 0
@@ -137,10 +126,12 @@ export class Hero {
       const cellY = cell.y * this._cellSize
 
       if (
-        this.position.x + this._velocity.x >= cellX &&
-        this.position.x + this._velocity.x <= cellX + this._cellSize &&
-        this.position.y + this._velocity.y >= cellY &&
-        this.position.y + this._velocity.y <= cellY + this._cellSize
+        this.position.x + this._radius + this._velocity.x >= cellX &&
+        this.position.x - this._radius + this._velocity.x <=
+          cellX + this._cellSize &&
+        this.position.y + this._radius + this._velocity.y >= cellY &&
+        this.position.y - this._radius + this._velocity.y <=
+          cellY + this._cellSize
       ) {
         return true
       }
@@ -152,7 +143,7 @@ export class Hero {
     if (!context) return
 
     context.beginPath()
-    context.arc(this.position.x, this.position.y, 15, 0, Math.PI * 2)
+    context.arc(this.position.x, this.position.y, this._radius, 0, Math.PI * 2)
     context.fillStyle = 'brown'
     context.fill()
     context.closePath()
