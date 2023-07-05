@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Button, Flex, NavLink, Paper, TextInput, Title } from '@mantine/core'
 import { useForm } from '@mantine/form'
 
-import { loginRule, passwordRule } from '@/shared/validations/rules'
+import { loginRule, passwordRule } from '@/shared'
 
 export const Login = (): JSX.Element => {
   const form = useForm({

@@ -1,27 +1,19 @@
+import { useCallback } from 'react'
+
 import { UserService } from '@/app/api'
-import { useApiMutation, useApiQuery } from '@/hooks'
-import { Profile, User } from '@/shared'
+import { useApiMutation } from '@/hooks'
+import { Password, Profile } from '@/shared'
 
 export const useProfile = ({
-  id,
   onSuccess,
 }: {
-  id: number
   onSuccess?: () => void
 }): {
-  user?: User
   isLoading: boolean
-  isError: boolean
   profile: (data: Profile) => void
   search: (data: { login: string }) => void
-  password: (data: { oldPassword: string; newPassword: string }) => void
+  handleSubmitPassword: (data: Password) => void
 } => {
-  const {
-    data: user,
-    isLoading: isLoadingUser,
-    isError: isErrorUser,
-  } = useApiQuery(['user'], () => UserService.get({ id }))
-
   const { mutate: profile, isLoading: isLoadingProfile } = useApiMutation(
     ['profile'],
     (data: Profile) => UserService.profile(data),
@@ -31,8 +23,7 @@ export const useProfile = ({
   )
   const { mutate: password, isLoading: isLoadingPassword } = useApiMutation(
     ['password'],
-    (data: { oldPassword: string; newPassword: string }) =>
-      UserService.password(data),
+    (data: Password) => UserService.password(data),
     {
       onSuccess,
     }
@@ -46,13 +37,15 @@ export const useProfile = ({
     }
   )
 
+  const handleSubmitPassword = useCallback(
+    (values: Password) => password(values),
+    [password]
+  )
+
   return {
-    user,
-    isLoading:
-      isLoadingProfile || isLoadingUser || isLoadingPassword || isLoadingSearch,
-    isError: isErrorUser,
+    isLoading: isLoadingProfile || isLoadingPassword || isLoadingSearch,
     profile,
-    password,
     search,
+    handleSubmitPassword,
   }
 }

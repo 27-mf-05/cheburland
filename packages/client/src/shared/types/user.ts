@@ -10,3 +10,5 @@ export type User = {
 }
 
 export type Profile = Omit<User, 'id | avatar'>
+
+export type Password = { oldPassword: string; newPassword: string }
