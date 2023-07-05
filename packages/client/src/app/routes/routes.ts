@@ -1,5 +1,6 @@
 import {
   AddForumTopic as AddForumTopicPage,
+  ChangePassword as ChangePasswordPage,
   Forum as ForumPage,
   ForumTopic as ForumTopicPage,
   Game as GamePage,
@@ -67,6 +68,12 @@ export const routes: RoutesType = {
     title: 'Profile',
     path: '/profile',
     component: ProfilePage,
+    type: PageType.authenticated,
+  },
+  [RouteName.ChangePassword]: {
+    title: 'Change Password',
+    path: '/change-password',
+    component: ChangePasswordPage,
     type: PageType.authenticated,
   },
   [RouteName.Page500]: {

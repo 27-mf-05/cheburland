@@ -25,7 +25,7 @@ export const loginRule = (value: string) => {
 export const emailRule = (value: string) => {
   return emailRegexp.test(value)
     ? null
-    : 'Обязательно должна быть «собака» и точка после неё, но перед точкой обязательно должны быть буквы.'
+    : 'Обязательно должна быть «@» и точка после неё, но перед точкой обязательно должны быть буквы.'
 }
 export const passwordRule = (value: string) => {
   return passwordRegexp.test(value)

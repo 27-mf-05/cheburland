@@ -1,4 +1,4 @@
-import { Profile, User } from '@/shared'
+import { Password, Profile, User } from '@/shared'
 
 import {
   USER_AVATAR_PATH,
@@ -29,7 +29,7 @@ export default class UserService {
     })
   }
 
-  static password = (data: { oldPassword: string; newPassword: string }) => {
+  static password = (data: Password) => {
     return request({
       url: USER_PASSWORD_PATH,
       method: 'put',
