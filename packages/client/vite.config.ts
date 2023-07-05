@@ -23,6 +23,7 @@ export default defineConfig({
       layout: path.resolve(__dirname, '.src/layout'),
       pages: path.resolve(__dirname, '.src/pages'),
       shared: path.resolve(__dirname, '.src/shared'),
+      core: path.resolve(__dirname, '.src/core'),
     },
   },
 })
