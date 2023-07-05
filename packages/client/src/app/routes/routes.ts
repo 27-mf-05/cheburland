@@ -3,7 +3,6 @@ import {
   Forum as ForumPage,
   ForumTopic as ForumTopicPage,
   Game as GamePage,
-  GameStart as GameStartPage,
   LeaderBoard as LeaderBoardPage,
   Login as LoginPage,
   Main as MainPage,
@@ -56,12 +55,6 @@ export const routes: RoutesType = {
     title: 'Game',
     path: '/game',
     component: GamePage,
-    type: PageType.authenticated,
-  },
-  [RouteName.GameStart]: {
-    title: 'Game start',
-    path: '/game-start',
-    component: GameStartPage,
     type: PageType.authenticated,
   },
   [RouteName.LeaderBoard]: {
