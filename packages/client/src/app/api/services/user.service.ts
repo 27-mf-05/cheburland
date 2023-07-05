@@ -9,7 +9,7 @@ import {
 } from '../endpoints'
 import request from '../request'
 
-const UploadFileHeaders = {
+const uploadFileHeaders = {
   'Content-Type': 'multipart/form-data',
 }
 
@@ -29,10 +29,7 @@ export default class UserService {
     })
   }
 
-  static password = (data: {
-    oldPassword: 'string'
-    newPassword: 'string'
-  }) => {
+  static password = (data: { oldPassword: string; newPassword: string }) => {
     return request({
       url: USER_PASSWORD_PATH,
       method: 'put',
@@ -45,11 +42,11 @@ export default class UserService {
       url: USER_AVATAR_PATH,
       method: 'put',
       data,
-      headers: UploadFileHeaders,
+      headers: uploadFileHeaders,
     })
   }
 
-  static search = (data: { login: 'string' }) => {
+  static search = (data: { login: string }) => {
     return request<User>({
       url: USER_SEARCH_PATH,
       method: 'post',
