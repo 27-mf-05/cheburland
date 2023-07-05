@@ -16,32 +16,38 @@ export const Game = () => {
       return
     }
 
-    const maze = new Maze(canvas, 13, 65, 10, 10)
+    const maze = new Maze(canvas, 9, 65, 10)
     mazeRef.current = maze
 
     maze.generate().then(() => {
-      const cellSize = mazeRef.current!.cellSize
-      const hero = new Hero(
+      if (!mazeRef.current) {
+        return
+      }
+
+      const cellSize = mazeRef.current.cellSize
+      heroRef.current = new Hero(
         canvas,
-        mazeRef.current!.getFalseCells(),
+        maze.getFalseCells(),
         cellSize,
-        mazeRef.current!.rows,
-        mazeRef.current!.columns
+        mazeRef.current.rows,
+        mazeRef.current.columns
       )
-      heroRef.current = hero
 
-      const oranges = new Oranges(
-        canvas,
-        mazeRef.current!.getTrueCells(),
-        cellSize
-      )
-      orangesRef.current = oranges
+      document.addEventListener('keydown', heroRef.current?.handleKeyDown)
+      document.addEventListener('keyup', heroRef.current?.handleKeyUp)
 
-      orangesRef.current?.draw(true)
+      orangesRef.current = new Oranges(canvas, maze.getTrueCells(), cellSize)
+
+      orangesRef.current?.draw(false)
       animate()
     })
     return () => {
       cancelAnimationFrame(animationFrame)
+      if (!heroRef.current) {
+        return
+      }
+      document.removeEventListener('keydown', heroRef.current.handleKeyDown)
+      document.removeEventListener('keyup', heroRef.current.handleKeyUp)
     }
   }, [])
 
@@ -51,16 +57,21 @@ export const Game = () => {
     animationFrame = requestAnimationFrame(animate)
     mazeRef.current?.drawMaze()
     heroRef.current?.update()
+    if (!heroRef.current) {
+      return
+    }
     if (
       orangesRef.current?.collapseWithFruit(
-        heroRef.current!.position.x,
-        heroRef.current!.position.y
+        heroRef.current.position.x,
+        heroRef.current.position.y
       )
     ) {
-      orangesRef.current!.draw(true)
+      orangesRef.current.draw(true)
     }
-
-    orangesRef.current?.draw(false)
+    if (!orangesRef.current) {
+      return
+    }
+    orangesRef.current.draw(false)
   }
 
   return <canvas ref={canvasRef} width={300} height={300} />

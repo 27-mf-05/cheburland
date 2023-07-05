@@ -2,7 +2,7 @@ export class Oranges {
   private readonly _canvas: HTMLCanvasElement
   private readonly _context: CanvasRenderingContext2D | null
   private readonly _cells: { x: number; y: number }[]
-  private _randomCell: Record<string, any> | undefined
+  private _randomCell: Record<string, number>
   private readonly _cellSize: number
 
   constructor(
@@ -14,9 +14,10 @@ export class Oranges {
     this._context = this._canvas.getContext('2d')
     this._cells = trueCells
     this._cellSize = cellSize
+    this._randomCell = Oranges._getRandomCell(this._cells)
   }
 
-  private _getRandomCell(array: { x: number; y: number }[]) {
+  private static _getRandomCell(array: { x: number; y: number }[]) {
     const index = Math.floor(Math.random() * array.length)
     return array[index]
   }
@@ -24,8 +25,12 @@ export class Oranges {
   public collapseWithFruit(xPosition: number, yPosition: number) {
     const collusionRadius = 50
 
-    const orangeX = this._randomCell!.x * this._cellSize + this._randomCell!.x
-    const orangeY = this._randomCell!.y * this._cellSize + this._randomCell!.y
+    if (!this._randomCell) {
+      return
+    }
+
+    const orangeX = this._randomCell.x * this._cellSize + this._randomCell.x
+    const orangeY = this._randomCell.y * this._cellSize + this._randomCell.y
     const distance = Math.sqrt(
       (xPosition - orangeX) ** 2 + (yPosition - orangeY) ** 2
     )
@@ -38,12 +43,13 @@ export class Oranges {
     }
 
     if (state) {
-      this._randomCell = this._getRandomCell(this._cells)
+      this._randomCell = Oranges._getRandomCell(this._cells)
     }
+
     this._context.beginPath()
     this._context.rect(
-      this._randomCell?.x * this._cellSize + 20,
-      this._randomCell?.y * this._cellSize + 20,
+      this._randomCell.x * this._cellSize + 20,
+      this._randomCell.y * this._cellSize + 20,
       20,
       20
     )
