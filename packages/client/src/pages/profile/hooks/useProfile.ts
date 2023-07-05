@@ -13,8 +13,8 @@ export const useProfile = ({
   isLoading: boolean
   isError: boolean
   profile: (data: Profile) => void
-  search: (data: { login: 'string' }) => void
-  password: (data: { oldPassword: 'string'; newPassword: 'string' }) => void
+  search: (data: { login: string }) => void
+  password: (data: { oldPassword: string; newPassword: string }) => void
 } => {
   const {
     data: user,
@@ -31,7 +31,7 @@ export const useProfile = ({
   )
   const { mutate: password, isLoading: isLoadingPassword } = useApiMutation(
     ['password'],
-    (data: { oldPassword: 'string'; newPassword: 'string' }) =>
+    (data: { oldPassword: string; newPassword: string }) =>
       UserService.password(data),
     {
       onSuccess,
@@ -40,7 +40,7 @@ export const useProfile = ({
 
   const { mutate: search, isLoading: isLoadingSearch } = useApiMutation(
     ['search'],
-    (data: { login: 'string' }) => UserService.search(data),
+    (data: { login: string }) => UserService.search(data),
     {
       onSuccess,
     }

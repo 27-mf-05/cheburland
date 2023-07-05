@@ -1,4 +1,4 @@
-import { AxiosError, AxiosResponse } from 'axios'
+import type { AxiosError, AxiosResponse } from 'axios'
 
 export const DEFAULT_ERROR_MESSAGE = 'Something went wrong!'
 
