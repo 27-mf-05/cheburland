@@ -32,6 +32,7 @@ export const Game = (): JSX.Element => (
               modal: 'gameOver',
               title: '',
               innerProps: null,
+              centered: true,
             })
           }>
           Завершить игру
