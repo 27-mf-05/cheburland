@@ -1,18 +1,8 @@
 import { Link } from 'react-router-dom'
 
-import {
-  BackgroundImage,
-  Box,
-  Button,
-  Menu,
-  Stack,
-  Text,
-  Tooltip,
-} from '@mantine/core'
+import { BackgroundImage, Box, Menu, Stack, Text } from '@mantine/core'
 
 import bgImage from '@/assets/images/cheburashka_background.jpg'
-
-import { gameDescription } from './constants'
 
 export const Main = (): JSX.Element => {
   return (
@@ -30,7 +20,7 @@ export const Main = (): JSX.Element => {
           <Menu width={200}>
             <Menu.Item bg="brand.2" w={230} component={Link} to="/game">
               <Text color="white" size="lg" weight="600" align="center">
-                Начать игру
+                Игра
               </Text>
             </Menu.Item>
             <Menu.Item
@@ -64,22 +54,6 @@ export const Main = (): JSX.Element => {
               </Text>
             </Menu.Item>
           </Menu>
-          <Tooltip
-            label={gameDescription}
-            bg="brand.0"
-            withArrow
-            multiline
-            width={350}>
-            <Button
-              size="lg"
-              mt="md"
-              variant="light"
-              bg="brand.3"
-              c="brand.2"
-              w={230}>
-              Описание игры
-            </Button>
-          </Tooltip>
         </Stack>
       </BackgroundImage>
     </Box>
