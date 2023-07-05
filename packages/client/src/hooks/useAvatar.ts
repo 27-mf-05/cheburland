@@ -23,10 +23,12 @@ export const useAvatar = ({
   const handleChange = (event: FormEvent) => {
     const input = event.target as HTMLInputElement
     const file = input.files?.[0]
-    const formData = new FormData()
-    formData.append('avatar', file as Blob)
+    if (file) {
+      const formData = new FormData()
+      formData.append('avatar', file as Blob)
 
-    avatar(formData)
+      avatar(formData)
+    }
   }
 
   return {
