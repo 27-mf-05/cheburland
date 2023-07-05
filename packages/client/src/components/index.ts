@@ -1,2 +1,2 @@
-export * from './modalWrapper'
-export * from './pageWrapper'
+export * from './page-wrapper'
+export * from './image-form'

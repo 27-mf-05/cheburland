@@ -1,25 +1,20 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { Button, Text } from '@mantine/core'
+import { ContextModalProps } from '@mantine/modals'
 
-import { ModalWrapper } from '@/components/modalWrapper'
-
-export const GameOver = ({ isOpened = false }) => {
-  const [opened, setOpened] = useState(isOpened)
-
+export const GameOver = ({
+  context,
+  id,
+}: ContextModalProps<{ id: string }>) => {
   return (
-    <ModalWrapper
-      size="md"
-      isOpened={opened}
-      setOpened={setOpened}
-      title="Игра завершена">
+    <>
       <Button
         mt="md"
         ml="33%"
         component={Link}
         to="/game"
-        onClick={() => setOpened(false)}>
+        onClick={() => context.closeModal(id)}>
         Начать заново
       </Button>
       <Text fz="md" mt="md" ta="center">
@@ -32,9 +27,9 @@ export const GameOver = ({ isOpened = false }) => {
         variant="outline"
         component={Link}
         to="/"
-        onClick={() => setOpened(false)}>
+        onClick={() => context.closeModal(id)}>
         Вернуться в главное меню
       </Button>
-    </ModalWrapper>
+    </>
   )
 }
