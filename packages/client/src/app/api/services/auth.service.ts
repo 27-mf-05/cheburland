@@ -36,3 +36,5 @@ export default class AuthService {
     })
   }
 }
+// @ts-ignore
+window.AuthService = AuthService
