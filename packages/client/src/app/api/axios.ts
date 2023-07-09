@@ -6,6 +6,7 @@ const VERSION = 'v2'
 
 const client = axios.create({
   baseURL: `${API_BASE_URL}/${VERSION}`,
+  withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
   },
