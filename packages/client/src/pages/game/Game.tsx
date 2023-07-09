@@ -1,43 +1,36 @@
-import { Button, Flex, Stack, Text } from '@mantine/core'
-import { ContextModalProps, modals, ModalsProvider } from '@mantine/modals'
+import { Button, Flex, Image, Stack, Text } from '@mantine/core'
+import { ModalsProvider } from '@mantine/modals'
 
-import { GameOver } from '@/features'
+import cheburashka from '@/assets/images/cheburashka.png'
+import maze from '@/assets/images/maze.png'
 
 import { gameDescription } from './constants'
 
-const TestModal = ({ context, id }: ContextModalProps<{ id: string }>) => (
-  <>
-    <Text size="sm">Test</Text>
-    <Button fullWidth mt="md" onClick={() => context.closeModal(id)}>
-      Close modal
-    </Button>
-  </>
-)
-
 export const Game = (): JSX.Element => (
-  <ModalsProvider modals={{ gameOver: GameOver, test: TestModal }}>
-    {/* TODO: add styling for page */}
-    <Stack id="game">
-      {/* game board component */}
-      <Flex bg="brand.0">
+  <ModalsProvider>
+    <Flex justify="center" p="lg">
+      <Stack id="game" w="500px">
         <Text>{gameDescription}</Text>
-      </Flex>
-      <Flex>
-        <Button>Начать</Button>
-
-        {/* TODO: just gor test. Should be removed */}
-        <Button
-          onClick={() =>
-            modals.openContextModal({
-              modal: 'gameOver',
-              title: '',
-              innerProps: null,
-              centered: true,
-            })
-          }>
-          Завершить игру
+        <Flex>
+          <Image
+            width={240}
+            mx="auto"
+            src={cheburashka}
+            alt="Cheburashka image"
+          />
+          <Image
+            width={240}
+            mx="auto"
+            mt="lg"
+            mb="xl"
+            src={maze}
+            alt="Maze image"
+          />
+        </Flex>
+        <Button w="300px" mx="auto" mt="xl" size="lg">
+          Начать
         </Button>
-      </Flex>
-    </Stack>
+      </Stack>
+    </Flex>
   </ModalsProvider>
 )
