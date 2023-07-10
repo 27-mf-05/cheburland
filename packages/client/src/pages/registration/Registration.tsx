@@ -37,27 +37,53 @@ export const Registration = (): JSX.Element => {
   })
 
   return (
-    <FormWrapper width={480} formId="registration" height={'auto'}>
+    <FormWrapper formId="registration">
       <Title align="center" mb={16}>
         Регистрация
       </Title>
       <form onSubmit={form.onSubmit(values => console.log(values))}>
-        <TextInput mb={32} label="Имя" {...form.getInputProps('first_name')} />
         <TextInput
+          withAsterisk
+          mb={32}
+          label="Имя"
+          {...form.getInputProps('first_name')}
+        />
+        <TextInput
+          withAsterisk
           mb={32}
           label="Фамилия"
           {...form.getInputProps('second_name')}
         />
-        <TextInput mb={32} label="Логин" {...form.getInputProps('login')} />
-        <TextInput mb={32} label="Почта" {...form.getInputProps('email')} />
-        <TextInput mb={32} label="Пароль" {...form.getInputProps('password')} />
-        <TextInput mb={32} label="Телефон" {...form.getInputProps('phone')} />
+        <TextInput
+          withAsterisk
+          mb={32}
+          label="Логин"
+          {...form.getInputProps('login')}
+        />
+        <TextInput
+          withAsterisk
+          mb={32}
+          label="Почта"
+          {...form.getInputProps('email')}
+        />
+        <TextInput
+          withAsterisk
+          mb={32}
+          label="Пароль"
+          {...form.getInputProps('password')}
+        />
+        <TextInput
+          withAsterisk
+          mb={32}
+          label="Телефон"
+          {...form.getInputProps('phone')}
+        />
         <Button mb={16} fullWidth={true} type="submit">
           Зарегистрироваться
         </Button>
         <Box ta="center">
           <Anchor component={Link} to={paths.Login}>
-            Уже зарегестрированы?
+            Уже зарегистрированы?
           </Anchor>
         </Box>
       </form>

@@ -37,5 +37,12 @@ export const theme: MantineThemeOverride = {
         },
       },
     },
+    AppShell: {
+      styles: {
+        main: {
+          padding: 0,
+        },
+      },
+    },
   },
 }
