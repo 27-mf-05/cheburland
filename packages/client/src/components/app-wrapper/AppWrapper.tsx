@@ -9,6 +9,7 @@ export const AppWrapper: FC<{
   <Container
     fluid
     h="100vh"
+    px={0}
     sx={theme => ({
       backgroundColor:
         theme.colorScheme === 'dark'

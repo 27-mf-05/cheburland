@@ -32,16 +32,16 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
       <PasswordInput
         withAsterisk
         label="Текущий пароль"
-        mb="10px"
+        mb={32}
         {...form.getInputProps('oldPassword')}
       />
       <PasswordInput
         withAsterisk
         label="Новый пароль"
-        mb="10px"
+        mb={32}
         {...form.getInputProps('newPassword')}
       />
-      <Button fullWidth type="submit">
+      <Button mb={16} fullWidth type="submit">
         Изменить
       </Button>
     </form>

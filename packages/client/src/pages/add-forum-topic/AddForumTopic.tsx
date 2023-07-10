@@ -1,14 +1,16 @@
-import { Container, Title } from '@mantine/core'
+import { Title } from '@mantine/core'
+
+import { FormWrapper } from '@/components'
 
 import { AddForumTopicForm } from './components'
 
 export const AddForumTopic = (): JSX.Element => {
   return (
-    <Container size="xl">
+    <FormWrapper width={'100vh'} formId="add-forum-topic">
       <Title mb="xl" ta="center">
         Добавить тему
       </Title>
       <AddForumTopicForm />
-    </Container>
+    </FormWrapper>
   )
 }

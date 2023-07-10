@@ -14,7 +14,7 @@ export const LeaderBoardTable: FC<LeaderBoardTableProps> = ({
 }): JSX.Element => {
   return (
     <DataTable
-      striped
+      w="100vh"
       records={leaders}
       columns={[
         { accessor: 'rank', title: '№', width: '1%' },
