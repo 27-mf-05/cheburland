@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-import { Button, Container, Flex, Title } from '@mantine/core'
+import { Button, Flex, Paper, Title } from '@mantine/core'
 
 import { ForumTable } from './components'
 import type { Topic } from './types'
@@ -14,16 +14,18 @@ const topics: Topic[] = [
 
 export const Forum = (): JSX.Element => {
   return (
-    <Container size="xl">
-      <Title mb="xl" ta="center">
-        Форум
-      </Title>
-      <Flex mb="xl" justify="space-between">
-        <Button component={Link} to="/add-forum-topic">
-          Добавить тему
-        </Button>
-      </Flex>
-      <ForumTable topics={topics} />
-    </Container>
+    <Flex id="forum" py={16} mih={50} justify="center" align="center">
+      <Paper shadow="xs" p="md">
+        <Title mb="xl" ta="center">
+          Форум
+        </Title>
+        <Flex mb="xl" justify="space-between">
+          <Button component={Link} to="/add-forum-topic">
+            Добавить тему
+          </Button>
+        </Flex>
+        <ForumTable topics={topics} />
+      </Paper>
+    </Flex>
   )
 }

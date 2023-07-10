@@ -12,7 +12,7 @@ const comments: Comment[] = [
 
 export const ForumTopic = (): JSX.Element => {
   return (
-    <Flex h="calc(100vh - 64px)" gap="lg" direction="column">
+    <Flex id="forum-topic" h="calc(100vh - 64px)" gap="lg" direction="column">
       <Box>
         <Container size="xl">
           <Title mb="xl" ta="center">
