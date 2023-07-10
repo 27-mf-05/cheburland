@@ -1,6 +1,14 @@
 import { Link } from 'react-router-dom'
 
-import { Anchor, Button, Flex, Paper, TextInput, Title } from '@mantine/core'
+import {
+  Anchor,
+  Box,
+  Button,
+  Flex,
+  Paper,
+  TextInput,
+  Title,
+} from '@mantine/core'
 import { useForm } from '@mantine/form'
 
 import { loginRule, passwordRule } from '@/shared'
@@ -45,9 +53,11 @@ export const Login = (): JSX.Element => {
           <Button fullWidth type="submit" mb={16}>
             Войти
           </Button>
-          <Anchor component={Link} to="/registration" ta="center">
-            Нет аккаунта?
-          </Anchor>
+          <Box ta="center">
+            <Anchor component={Link} to="/registration">
+              Нет аккаунта?
+            </Anchor>
+          </Box>
         </form>
       </Paper>
     </Flex>
