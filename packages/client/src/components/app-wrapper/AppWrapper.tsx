@@ -1,14 +1,13 @@
 import { FC, ReactNode } from 'react'
 
-import { Container, SimpleGrid } from '@mantine/core'
+import { AppShell, Container } from '@mantine/core'
 
 export const AppWrapper: FC<{
   children: ReactNode
-  columns: number
-}> = ({ children, columns }) => (
+}> = ({ children }) => (
   <Container
     fluid
-    h="100vh"
+    h="100%"
     px={0}
     sx={theme => ({
       backgroundColor:
@@ -16,8 +15,6 @@ export const AppWrapper: FC<{
           ? theme.colors.dark[8]
           : theme.colors.gray[0],
     })}>
-    <SimpleGrid cols={columns} sx={{ gap: 'initial' }}>
-      {children}
-    </SimpleGrid>
+    <AppShell>{children}</AppShell>
   </Container>
 )

@@ -9,7 +9,7 @@ export const Main = (): JSX.Element => {
   const { paths } = useRoutes()
 
   return (
-    <BackgroundImage id="main" src={bgImage} h="100vh">
+    <BackgroundImage id="main" src={bgImage} h="100%">
       <Stack
         align="flex-start"
         justify="flex-start"
