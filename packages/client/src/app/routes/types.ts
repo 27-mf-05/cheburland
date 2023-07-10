@@ -27,5 +27,5 @@ export enum RouteName {
   AddForumTopic = 'add-forum-topic',
   ForumTopic = 'forum-topic',
   Forum = 'forum',
-  ChangePassword = 'change-password',
+  ChangePassword = 'changePassword',
 }

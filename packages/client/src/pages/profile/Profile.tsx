@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 
 import { Anchor, Flex, Paper, SimpleGrid, Title } from '@mantine/core'
 
+import { useRoutes } from '@/hooks'
 import { User } from '@/shared'
 
 import { ProfileData, ProfileHeader } from './components'
@@ -18,6 +19,8 @@ const user: User = {
 }
 
 export const Profile = (): JSX.Element => {
+  const { paths } = useRoutes()
+
   return (
     <Flex
       id="profile"
@@ -36,7 +39,7 @@ export const Profile = (): JSX.Element => {
           <Anchor component={Link} to={'#'}>
             Изменить данные
           </Anchor>
-          <Anchor component={Link} to={'/change-password'}>
+          <Anchor component={Link} to={paths.ChangePassword}>
             Изменить пароль
           </Anchor>
           <Anchor component={Link} to={'#'} color="red">

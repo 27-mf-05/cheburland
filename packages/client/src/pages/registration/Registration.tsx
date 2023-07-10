@@ -4,6 +4,7 @@ import { Anchor, Box, Button, TextInput, Title } from '@mantine/core'
 import { useForm } from '@mantine/form'
 
 import { FormWrapper } from '@/components'
+import { useRoutes } from '@/hooks'
 import {
   firstNameRule,
   loginRule,
@@ -13,6 +14,7 @@ import {
 } from '@/shared'
 
 export const Registration = (): JSX.Element => {
+  const { paths } = useRoutes()
   const form = useForm({
     validateInputOnBlur: true,
     initialValues: {
@@ -54,7 +56,7 @@ export const Registration = (): JSX.Element => {
           Зарегистрироваться
         </Button>
         <Box ta="center">
-          <Anchor component={Link} to="/login">
+          <Anchor component={Link} to={paths.Login}>
             Уже зарегестрированы?
           </Anchor>
         </Box>

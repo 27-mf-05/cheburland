@@ -3,17 +3,20 @@ import { Link } from 'react-router-dom'
 import { Button, Text } from '@mantine/core'
 import { ContextModalProps } from '@mantine/modals'
 
+import { useRoutes } from '@/hooks'
+
 export const GameOver = ({
   context,
   id,
 }: ContextModalProps<{ id: string }>) => {
+  const { paths } = useRoutes()
   return (
     <>
       <Button
         mt="md"
         ml="33%"
         component={Link}
-        to="/game"
+        to={paths.Game}
         onClick={() => context.closeModal(id)}>
         Начать заново
       </Button>
@@ -26,7 +29,7 @@ export const GameOver = ({
         ml="22%"
         variant="outline"
         component={Link}
-        to="/"
+        to={paths.Main}
         onClick={() => context.closeModal(id)}>
         Вернуться в главное меню
       </Button>
