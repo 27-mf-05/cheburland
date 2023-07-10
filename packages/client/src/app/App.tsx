@@ -1,5 +1,6 @@
 import { MantineProvider } from '@mantine/core'
 
+import { AuthContextProvider } from '@/app/context/AuthContextProvider'
 import { AppRoutes } from '@/app/routes'
 import { theme } from '@/app/theme'
 
@@ -9,7 +10,9 @@ const App = () => (
   <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
     {/* TODO: should be removed */}
     <QueryClientProvider>
-      <AppRoutes />
+      <AuthContextProvider>
+        <AppRoutes />
+      </AuthContextProvider>
     </QueryClientProvider>
   </MantineProvider>
 )
