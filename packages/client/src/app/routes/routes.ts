@@ -20,7 +20,7 @@ export const routes: RoutesType = {
     title: 'Main',
     path: '/',
     component: MainPage,
-    type: PageType.notAuthenticated,
+    type: PageType.authenticated,
   },
   [RouteName.Login]: {
     title: 'Login',
