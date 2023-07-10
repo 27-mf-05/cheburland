@@ -3,8 +3,11 @@ import { Link } from 'react-router-dom'
 import { BackgroundImage, Menu, Stack, Text } from '@mantine/core'
 
 import bgImage from '@/assets/images/cheburashka_background.jpg'
+import { useRoutes } from '@/hooks'
 
 export const Main = (): JSX.Element => {
+  const { paths } = useRoutes()
+
   return (
     <BackgroundImage id="main" src={bgImage} h="100vh">
       <Stack
@@ -17,7 +20,7 @@ export const Main = (): JSX.Element => {
           background: 'rgba(0,0,0,0.4)',
         })}>
         <Menu width={200}>
-          <Menu.Item bg="brand.2" w={230} component={Link} to="/game">
+          <Menu.Item bg="brand.2" w={230} component={Link} to={paths.Game}>
             <Text color="white" size="lg" weight="600" align="center">
               Игра
             </Text>
@@ -27,7 +30,7 @@ export const Main = (): JSX.Element => {
             bg="brand.3"
             w={230}
             component={Link}
-            to="/profile">
+            to={paths.Profile}>
             <Text color="brand.2" size="lg" weight="600" align="center">
               Профиль
             </Text>
@@ -37,12 +40,17 @@ export const Main = (): JSX.Element => {
             bg="brand.3"
             w={230}
             component={Link}
-            to="/leader-board">
+            to={paths.LeaderBoard}>
             <Text color="brand.2" size="lg" weight="600" align="center">
               Лидерборд
             </Text>
           </Menu.Item>
-          <Menu.Item mt="md" bg="brand.3" w={230} component={Link} to="/forum">
+          <Menu.Item
+            mt="md"
+            bg="brand.3"
+            w={230}
+            component={Link}
+            to={paths.Forum}>
             <Text color="brand.2" size="lg" weight="600" align="center">
               Форум
             </Text>
