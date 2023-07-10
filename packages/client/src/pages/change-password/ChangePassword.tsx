@@ -8,7 +8,7 @@ import { ChangePasswordForm } from './components'
 export const ChangePassword = (): JSX.Element => {
   const { handleSubmitPassword } = useProfile({})
   return (
-    <FormWrapper width={480} formId="change-password">
+    <FormWrapper formId="change-password">
       <Title align="center" mb={16}>
         Изменить пароль
       </Title>

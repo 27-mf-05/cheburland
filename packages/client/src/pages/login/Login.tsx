@@ -23,7 +23,7 @@ export const Login = (): JSX.Element => {
   const { paths } = useRoutes()
 
   return (
-    <FormWrapper width={480} formId="login">
+    <FormWrapper formId="login">
       <Title align="center" mb={16}>
         Вход
       </Title>

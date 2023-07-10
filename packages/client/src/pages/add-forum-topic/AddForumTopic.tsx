@@ -6,7 +6,7 @@ import { AddForumTopicForm } from './components'
 
 export const AddForumTopic = (): JSX.Element => {
   return (
-    <FormWrapper width={'100vh'} formId="add-forum-topic">
+    <FormWrapper formId="add-forum-topic">
       <Title mb="xl" ta="center">
         Добавить тему
       </Title>

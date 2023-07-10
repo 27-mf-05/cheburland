@@ -27,8 +27,7 @@ export const Profile = (): JSX.Element => {
       py={16}
       justify="center"
       align="center"
-      direction="column"
-      h="100vh">
+      direction="column">
       <Paper shadow="xs" py="md" w="100vh" px="xl">
         <Title mb="xl" ta="center">
           Профиль пользователя

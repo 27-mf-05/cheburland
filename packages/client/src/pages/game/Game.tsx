@@ -8,14 +8,9 @@ import { gameDescription } from './constants'
 
 export const Game = (): JSX.Element => (
   <ModalsProvider>
-    <Paper id="game" shadow="xs" py="md" px="xl">
-      <Flex
-        py={16}
-        justify="center"
-        align="center"
-        direction="column"
-        h="100vh">
-        <Stack id="game" w="500px">
+    <Stack id="game" h="100%">
+      <Paper shadow="xs" py="md" px="xl" h="100%">
+        <Stack p={32}>
           <Text>{gameDescription}</Text>
           <Flex>
             <Image width={240} mx="auto" src={cheburashka} alt="Cheburashka" />
@@ -32,7 +27,7 @@ export const Game = (): JSX.Element => (
             Начать
           </Button>
         </Stack>
-      </Flex>
-    </Paper>
+      </Paper>
+    </Stack>
   </ModalsProvider>
 )
