@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-import { Button, Flex, NavLink, Paper, TextInput } from '@mantine/core'
+import { Anchor, Button, Flex, Paper, TextInput, Title } from '@mantine/core'
 import { useForm } from '@mantine/form'
 
 import {
@@ -34,52 +34,36 @@ export const Registration = (): JSX.Element => {
   })
 
   return (
-    <Flex
-      id="registrationPage"
-      align="center"
-      justify="center"
-      m="-16px"
-      h="100vh">
-      <Paper
-        w={600}
-        h="auto"
-        px="50px"
-        py="50px"
-        radius="md"
-        shadow="sm"
-        withBorder={true}>
+    <Flex id="registrationPage" align="center" py={16} justify="center">
+      <Paper shadow="sm" radius="md" w={480} h="auto" p="md" withBorder={true}>
+        <Title align="center" mb={16}>
+          Регистрация
+        </Title>
         <form onSubmit={form.onSubmit(values => console.log(values))}>
           <TextInput
-            mb="2rem"
+            mb={32}
             label="Имя"
             {...form.getInputProps('first_name')}
           />
           <TextInput
-            mb="2rem"
+            mb={32}
             label="Фамилия"
             {...form.getInputProps('second_name')}
           />
-          <TextInput mb="2rem" label="Логин" {...form.getInputProps('login')} />
-          <TextInput mb="2rem" label="Почта" {...form.getInputProps('email')} />
+          <TextInput mb={32} label="Логин" {...form.getInputProps('login')} />
+          <TextInput mb={32} label="Почта" {...form.getInputProps('email')} />
           <TextInput
-            mb="2rem"
+            mb={32}
             label="Пароль"
             {...form.getInputProps('password')}
           />
-          <TextInput
-            mb="2rem"
-            label="Телефон"
-            {...form.getInputProps('phone')}
-          />
-          <Button mb="2rem" fullWidth={true} type="submit">
+          <TextInput mb={32} label="Телефон" {...form.getInputProps('phone')} />
+          <Button mb={16} fullWidth={true} type="submit">
             Зарегестрироваться
           </Button>
-          <NavLink
-            label="Уже зарегестрированы?"
-            component={Link}
-            to="/login"
-            ta="center"
-          />
+          <Anchor component={Link} to="/login" ta="center">
+            Уже зарегестрированы?
+          </Anchor>
         </form>
       </Paper>
     </Flex>

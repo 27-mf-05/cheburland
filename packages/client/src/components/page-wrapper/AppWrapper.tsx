@@ -2,14 +2,13 @@ import { FC, ReactNode } from 'react'
 
 import { Container, SimpleGrid } from '@mantine/core'
 
-export const PageWrapper: FC<{
+export const AppWrapper: FC<{
   children: ReactNode
   columns: number
 }> = ({ children, columns }) => (
   <Container
     fluid
-    py={16}
-    h={'100vh'}
+    h="100vh"
     sx={theme => ({
       backgroundColor:
         theme.colorScheme === 'dark'
