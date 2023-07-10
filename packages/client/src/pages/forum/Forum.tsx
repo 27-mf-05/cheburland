@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom'
 
 import { Button, Flex, Paper, Title } from '@mantine/core'
 
+import { useRoutes } from '@/hooks'
+
 import { ForumTable } from './components'
 import type { Topic } from './types'
 
@@ -13,6 +15,8 @@ const topics: Topic[] = [
 ]
 
 export const Forum = (): JSX.Element => {
+  const { paths } = useRoutes()
+
   return (
     <Flex id="forum" py={16} mih={50} justify="center" align="center">
       <Paper shadow="xs" p="md">
@@ -20,7 +24,7 @@ export const Forum = (): JSX.Element => {
           Форум
         </Title>
         <Flex mb="xl" justify="space-between">
-          <Button component={Link} to="/add-forum-topic">
+          <Button component={Link} to={paths.AddForumTopic}>
             Добавить тему
           </Button>
         </Flex>

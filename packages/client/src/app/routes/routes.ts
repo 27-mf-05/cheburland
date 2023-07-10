@@ -48,7 +48,7 @@ export const routes: RoutesType = {
   },
   [RouteName.ForumTopic]: {
     title: 'Forum Topic',
-    path: '/forum/:id',
+    path: '/forum/:forumTopicId',
     component: ForumTopicPage,
     type: PageType.authenticated,
   },

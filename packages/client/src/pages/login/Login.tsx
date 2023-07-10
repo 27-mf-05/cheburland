@@ -4,6 +4,7 @@ import { Anchor, Box, Button, TextInput, Title } from '@mantine/core'
 import { useForm } from '@mantine/form'
 
 import { FormWrapper } from '@/components'
+import { useRoutes } from '@/hooks'
 import { loginRule, passwordRule } from '@/shared'
 
 export const Login = (): JSX.Element => {
@@ -18,6 +19,8 @@ export const Login = (): JSX.Element => {
       password: value => passwordRule(value),
     },
   })
+
+  const { paths } = useRoutes()
 
   return (
     <FormWrapper width={480} formId="login">
@@ -46,7 +49,7 @@ export const Login = (): JSX.Element => {
           Войти
         </Button>
         <Box ta="center">
-          <Anchor component={Link} to="/registration">
+          <Anchor component={Link} to={paths.Registration}>
             Нет аккаунта?
           </Anchor>
         </Box>

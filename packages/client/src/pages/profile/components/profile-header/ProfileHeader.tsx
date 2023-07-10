@@ -28,7 +28,7 @@ export const ProfileHeader = ({
       </Title>
 
       {/*TODO: just for test. Need to add conditional rendering  */}
-      <ImageForm handleChange={handleChange} />
+      {/* <ImageForm handleChange={handleChange} /> */}
     </SimpleGrid>
   )
 }
