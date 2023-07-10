@@ -16,6 +16,7 @@ export const ForumTable: FC<ForumTableProps> = ({ topics }): JSX.Element => {
     <DataTable
       highlightOnHover
       verticalSpacing="xl"
+      w="100vh"
       records={topics}
       columns={[
         { accessor: 'subject', title: 'Тема' },

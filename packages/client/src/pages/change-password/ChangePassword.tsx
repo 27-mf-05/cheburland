@@ -1,5 +1,6 @@
-import { Container, Title } from '@mantine/core'
+import { Title } from '@mantine/core'
 
+import { FormWrapper } from '@/components'
 import { useProfile } from '@/hooks'
 
 import { ChangePasswordForm } from './components'
@@ -7,11 +8,11 @@ import { ChangePasswordForm } from './components'
 export const ChangePassword = (): JSX.Element => {
   const { handleSubmitPassword } = useProfile({})
   return (
-    <Container size="xl">
-      <Title mb="xl" ta="center">
+    <FormWrapper width={480} formId="change-password">
+      <Title align="center" mb={16}>
         Изменить пароль
       </Title>
       <ChangePasswordForm handleSubmit={handleSubmitPassword} />
-    </Container>
+    </FormWrapper>
   )
 }
