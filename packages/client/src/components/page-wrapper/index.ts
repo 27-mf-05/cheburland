@@ -1,1 +1,1 @@
-export * from './PageWrapper'
+export * from './AppWrapper'

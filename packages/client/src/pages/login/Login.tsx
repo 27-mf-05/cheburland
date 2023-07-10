@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-import { Button, Flex, NavLink, Paper, TextInput, Title } from '@mantine/core'
+import { Anchor, Button, Flex, Paper, TextInput, Title } from '@mantine/core'
 import { useForm } from '@mantine/form'
 
 import { loginRule, passwordRule } from '@/shared'
@@ -19,16 +19,18 @@ export const Login = (): JSX.Element => {
   })
 
   return (
-    <Flex id="loginPage" align="center" justify="center" h="100vh" w="100vw">
-      <Paper shadow="sm" radius="md" w="340px" h="auto" p="md">
-        <Title align="center">Вход</Title>
+    <Flex id="loginPage" align="center" justify="center" h="100vh">
+      <Paper shadow="sm" radius="md" w={480} h="auto" p="md" withBorder={true}>
+        <Title align="center" mb={16}>
+          Вход
+        </Title>
         <form onSubmit={form.onSubmit(values => console.log(values))}>
           <TextInput
             withAsterisk
             label="Логин"
             placeholder="Ваш логин"
             type="text"
-            mt="10px"
+            mb={32}
             {...form.getInputProps('login')}
           />
           <TextInput
@@ -36,20 +38,16 @@ export const Login = (): JSX.Element => {
             label="Пароль"
             placeholder="Ваш пароль"
             type="password"
-            mt="10px"
+            mb={32}
             {...form.getInputProps('password')}
           />
 
-          <Button fullWidth type="submit" mt="40px">
+          <Button fullWidth type="submit" mb={16}>
             Войти
           </Button>
-          <NavLink
-            label="Нет аккаунта?"
-            component={Link}
-            to="/registration"
-            ta="center"
-            mt="4px"
-          />
+          <Anchor component={Link} to="/registration" ta="center">
+            Нет аккаунта?
+          </Anchor>
         </form>
       </Paper>
     </Flex>

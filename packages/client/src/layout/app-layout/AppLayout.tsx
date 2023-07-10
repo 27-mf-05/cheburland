@@ -1,10 +1,10 @@
 import { FC } from 'react'
 import { Outlet } from 'react-router-dom'
 
-import { PageWrapper } from '@/components'
+import { AppWrapper } from '@/components'
 
 export const AppLayout: FC = (): JSX.Element => (
-  <PageWrapper columns={1}>
+  <AppWrapper columns={1}>
     <Outlet />
-  </PageWrapper>
+  </AppWrapper>
 )
