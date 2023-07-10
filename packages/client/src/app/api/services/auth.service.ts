@@ -17,7 +17,7 @@ export default class AuthService {
     })
   }
   static signup = (data: SignupData) => {
-    return request({
+    return request<{ id: number }>({
       url: AUTH_SIGNUP_PATH,
       method: 'post',
       data,
