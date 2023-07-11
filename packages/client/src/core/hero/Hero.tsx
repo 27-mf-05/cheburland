@@ -46,13 +46,14 @@ export class Hero {
   }
 
   public handleKeyDown = (e: KeyboardEvent) => {
+    console.log(e.code)
     if (e.keyCode in keys) {
       this._lastKey = e.keyCode
       keys[e.keyCode].pressed = true
     }
   }
 
-  accelerate() {
+  private _accelerate() {
     if (
       (keys[87].pressed && this._lastKey === 87) ||
       (keys[38].pressed && this._lastKey === 38)
@@ -78,13 +79,13 @@ export class Hero {
       this._velocity.y = 0
     }
 
-    if (this.playerCollidesWithWalls()) {
+    if (this._playerCollidesWithWalls()) {
       this._velocity.x = 0
       this._velocity.y = 0
     }
   }
 
-  playerCollidesWithWalls() {
+  private _playerCollidesWithWalls() {
     if (
       this.position.x - this._radius + this._velocity.x <= 0 ||
       this.position.y - this._radius + this._velocity.y <= 0 ||
@@ -111,7 +112,7 @@ export class Hero {
     }
   }
 
-  draw() {
+  private _draw() {
     const context = this._context
     if (!context) return
 
@@ -122,9 +123,9 @@ export class Hero {
     context.closePath()
   }
 
-  update() {
-    this.accelerate()
-    this.draw()
+  public update() {
+    this._accelerate()
+    this._draw()
 
     this.position.x += this._velocity.x
     this.position.y += this._velocity.y
