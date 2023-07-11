@@ -14,8 +14,13 @@ import { useForm } from '@mantine/form'
 import AuthService from '@/app/api/services/auth.service'
 import { AuthContext } from '@/app/context/AuthContextProvider'
 import { FormWrapper } from '@/components'
-import { useRoutes } from '@/hooks'
-import { loginRule, passwordRule, SigninData } from '@/shared'
+import { useErrors, useRoutes } from '@/hooks'
+import {
+  loginRule,
+  passwordRule,
+  SigninData,
+  WRONG_LOGIN_PASSWORD_MESSAGE,
+} from '@/shared'
 
 export const Login = (): JSX.Element => {
   const form = useForm({
@@ -31,13 +36,13 @@ export const Login = (): JSX.Element => {
   })
 
   const { fetchUser } = useContext(AuthContext)
-
+  const { handleErrors } = useErrors()
   const submitHandler = async (data: SigninData) => {
     try {
       await AuthService.signin(data)
       await fetchUser()
     } catch (e) {
-      form.setFieldError('password', 'Неверный логин или пароль')
+      handleErrors(WRONG_LOGIN_PASSWORD_MESSAGE)
     }
   }
 
