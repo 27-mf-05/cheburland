@@ -1,4 +1,3 @@
-import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 
 import {
@@ -11,16 +10,10 @@ import {
 } from '@mantine/core'
 import { useForm } from '@mantine/form'
 
-import AuthService from '@/app/api/services/auth.service'
-import { AuthContext } from '@/app/context/AuthContextProvider'
 import { FormWrapper } from '@/components'
-import { useErrors, useRoutes } from '@/hooks'
-import {
-  loginRule,
-  passwordRule,
-  SigninData,
-  WRONG_LOGIN_PASSWORD_MESSAGE,
-} from '@/shared'
+import { useRoutes } from '@/hooks'
+import { useLogin } from '@/hooks/useLogin'
+import { loginRule, passwordRule } from '@/shared'
 
 export const Login = (): JSX.Element => {
   const form = useForm({
@@ -35,16 +28,7 @@ export const Login = (): JSX.Element => {
     },
   })
 
-  const { fetchUser } = useContext(AuthContext)
-  const { handleErrors } = useErrors()
-  const submitHandler = async (data: SigninData) => {
-    try {
-      await AuthService.signin(data)
-      await fetchUser()
-    } catch (e) {
-      handleErrors(WRONG_LOGIN_PASSWORD_MESSAGE)
-    }
-  }
+  const { handleLogin } = useLogin()
 
   const { paths } = useRoutes()
 
@@ -53,7 +37,7 @@ export const Login = (): JSX.Element => {
       <Title align="center" mb={16}>
         Вход
       </Title>
-      <form onSubmit={form.onSubmit(submitHandler)}>
+      <form onSubmit={form.onSubmit(handleLogin)}>
         <TextInput
           withAsterisk
           label="Логин"
