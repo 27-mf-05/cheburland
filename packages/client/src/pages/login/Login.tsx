@@ -1,11 +1,15 @@
+import { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { Anchor, Box, Button, TextInput, Title } from '@mantine/core'
 import { useForm } from '@mantine/form'
 
+import AuthService from '@/app/api/services/auth.service'
+import { AuthContext } from '@/app/context/AuthContextProvider'
+import { RouteName, routes } from '@/app/routes'
 import { FormWrapper } from '@/components'
 import { useRoutes } from '@/hooks'
-import { loginRule, passwordRule } from '@/shared'
+import { loginRule, passwordRule, SigninData } from '@/shared'
 
 export const Login = (): JSX.Element => {
   const form = useForm({
@@ -19,6 +23,17 @@ export const Login = (): JSX.Element => {
       password: value => passwordRule(value),
     },
   })
+
+  const { fetchUser } = useContext(AuthContext)
+
+  const submitHandler = async (data: SigninData) => {
+    try {
+      await AuthService.signin(data)
+      await fetchUser()
+    } catch (e) {
+      setPasswordError('Неверный логин или пароль')
+    }
+  }
 
   const { paths } = useRoutes()
 
