@@ -60,6 +60,7 @@ export const Game = () => {
     if (!heroRef.current) {
       return
     }
+
     if (
       orangesRef.current?.collapseWithFruit(
         heroRef.current.position.x,
@@ -68,9 +69,11 @@ export const Game = () => {
     ) {
       orangesRef.current.draw(true)
     }
+
     if (!orangesRef.current) {
       return
     }
+
     orangesRef.current.draw(false)
   }
 
