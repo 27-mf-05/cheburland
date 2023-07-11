@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 
 import { Anchor, Box, Button, TextInput, Title } from '@mantine/core'
@@ -31,7 +31,7 @@ export const Login = (): JSX.Element => {
       await AuthService.signin(data)
       await fetchUser()
     } catch (e) {
-      setPasswordError('Неверный логин или пароль')
+      form.setFieldError('password', 'Неверный логин или пароль')
     }
   }
 
