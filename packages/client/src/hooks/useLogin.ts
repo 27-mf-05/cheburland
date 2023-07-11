@@ -3,7 +3,7 @@ import { useCallback, useContext } from 'react'
 import AuthService from '@/app/api/services/auth.service'
 import { AuthContext } from '@/app/context/AuthContextProvider'
 import { useApiMutation } from '@/hooks/useApiMutation'
-import { Password, SigninData } from '@/shared'
+import { SigninData } from '@/shared'
 
 export const useLogin = (): {
   handleLogin: (data: SigninData) => void
