@@ -1,12 +1,18 @@
 import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 
-import { Anchor, Box, Button, TextInput, Title } from '@mantine/core'
+import {
+  Anchor,
+  Box,
+  Button,
+  PasswordInput,
+  TextInput,
+  Title,
+} from '@mantine/core'
 import { useForm } from '@mantine/form'
 
 import AuthService from '@/app/api/services/auth.service'
 import { AuthContext } from '@/app/context/AuthContextProvider'
-import { RouteName, routes } from '@/app/routes'
 import { FormWrapper } from '@/components'
 import { useRoutes } from '@/hooks'
 import { loginRule, passwordRule, SigninData } from '@/shared'
@@ -42,7 +48,7 @@ export const Login = (): JSX.Element => {
       <Title align="center" mb={16}>
         Вход
       </Title>
-      <form onSubmit={form.onSubmit(values => console.log(values))}>
+      <form onSubmit={form.onSubmit(submitHandler)}>
         <TextInput
           withAsterisk
           label="Логин"
@@ -51,11 +57,10 @@ export const Login = (): JSX.Element => {
           mb={32}
           {...form.getInputProps('login')}
         />
-        <TextInput
+        <PasswordInput
           withAsterisk
           label="Пароль"
           placeholder="Ваш пароль"
-          type="password"
           mb={32}
           {...form.getInputProps('password')}
         />
