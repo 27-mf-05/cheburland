@@ -6,9 +6,9 @@ import { AxiosError } from 'axios'
 import { getMessage } from '@/shared'
 
 export const useErrors = (): {
-  handleErrors: (error: AxiosError | string) => void
+  handleErrors: (error: AxiosError) => void
 } => {
-  const handleErrors = useCallback((error: AxiosError | string) => {
+  const handleErrors = useCallback((error: AxiosError) => {
     toast.error(getMessage(error))
   }, [])
 
