@@ -38,7 +38,6 @@ export const Game = () => {
 
       orangesRef.current = new Oranges(canvas, maze.getTrueCells(), cellSize)
 
-      orangesRef.current?.draw(false)
       animate()
     })
     return () => {
@@ -57,6 +56,7 @@ export const Game = () => {
     animationFrame = requestAnimationFrame(animate)
     mazeRef.current?.drawMaze()
     heroRef.current?.update()
+    orangesRef.current?.draw(false)
     if (!heroRef.current) {
       return
     }
