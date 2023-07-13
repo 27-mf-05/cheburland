@@ -8,7 +8,6 @@ interface AuthContextProps {
   isAuthenticated: boolean
   login: () => void
   logout: () => void
-  fetchUser: () => void
 }
 
 export const AuthContext = createContext<AuthContextProps>(
@@ -49,7 +48,7 @@ export const AuthContextProvider: FC<AuthContextProviderProps> = ({
   }, [])
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout, fetchUser }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
       {children}
     </AuthContext.Provider>
   )

@@ -1,11 +1,12 @@
-import { FC, useContext, useEffect } from 'react'
+import { FC, useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 
-import { AuthContext } from '@/app/context/AuthContextProvider'
 import { RouteName, routes } from '@/app/routes'
+import { withAuth, withAuthProps } from '@/hocs'
 
-export const AuthenticatedLayout: FC = (): JSX.Element => {
-  const { isAuthenticated } = useContext(AuthContext)
+const AuthenticatedLayoutComponent: FC<withAuthProps> = ({
+  isAuthenticated,
+}): JSX.Element => {
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -16,3 +17,5 @@ export const AuthenticatedLayout: FC = (): JSX.Element => {
 
   return <Outlet />
 }
+
+export const AuthenticatedLayout = withAuth(AuthenticatedLayoutComponent)
