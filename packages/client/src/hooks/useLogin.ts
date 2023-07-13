@@ -9,13 +9,13 @@ export const useLogin = (): {
   handleLogin: (data: SigninData) => void
   isLoading: boolean
 } => {
-  const { login } = useContext(AuthContext)
+  const { fetchUser } = useContext(AuthContext)
 
   const { mutate: signin, isLoading } = useApiMutation(
     ['signin'],
     (data: SigninData) => AuthService.signin(data),
     {
-      onSuccess: login,
+      onSuccess: fetchUser,
     }
   )
 

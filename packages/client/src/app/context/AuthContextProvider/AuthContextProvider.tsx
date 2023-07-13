@@ -8,6 +8,7 @@ interface AuthContextProps {
   isAuthenticated: boolean
   login: () => void
   logout: () => void
+  fetchUser: () => void
 }
 
 export const AuthContext = createContext<AuthContextProps>(
@@ -21,7 +22,7 @@ interface AuthContextProviderProps {
 export const AuthContextProvider: FC<AuthContextProviderProps> = ({
   children,
 }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState(true)
 
   const login = () => {
     setIsAuthenticated(true)
@@ -31,7 +32,7 @@ export const AuthContextProvider: FC<AuthContextProviderProps> = ({
   }
 
   const dispatch = useAppDispatch()
-  const { addUser } = userActions
+  const { addUser, deleteUser } = userActions
 
   const fetchUser = async () => {
     try {
@@ -40,15 +41,17 @@ export const AuthContextProvider: FC<AuthContextProviderProps> = ({
       login()
     } catch (e) {
       console.error(e)
+      dispatch(deleteUser())
+      logout()
     }
   }
 
   useEffect(() => {
     fetchUser()
   }, [])
-
+  console.log(isAuthenticated)
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout, fetchUser }}>
       {children}
     </AuthContext.Provider>
   )

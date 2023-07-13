@@ -5,11 +5,14 @@ import { Anchor, Flex, Paper, SimpleGrid, Title } from '@mantine/core'
 import { RESOURCES_URL } from '@/app/api/axios'
 import { useRoutes } from '@/hooks'
 import { useAppSelector } from '@/hooks/useAppSelector'
+import { useLogout } from '@/hooks/useLogout'
 
 import { ProfileData, ProfileHeader } from './components'
 
 export const Profile = (): JSX.Element => {
   const { paths } = useRoutes()
+  const { handleLogout } = useLogout()
+
   const user = useAppSelector(state => state.user.currentUser)!
 
   return (
@@ -36,7 +39,7 @@ export const Profile = (): JSX.Element => {
             <Anchor component={Link} to={paths.ChangePassword}>
               Изменить пароль
             </Anchor>
-            <Anchor component={Link} to={'#'} color="red">
+            <Anchor onClick={handleLogout} color="red">
               Выйти
             </Anchor>
           </SimpleGrid>
