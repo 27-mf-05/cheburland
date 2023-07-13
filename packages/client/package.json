@@ -17,6 +17,7 @@
     "@mantine/hooks": "6.0.14",
     "@mantine/modals": "6.0.16",
     "@mantine/prism": "6.0.14",
+    "@reduxjs/toolkit": "1.9.5",
     "@tanstack/react-query": "4.29.19",
     "@tanstack/react-query-devtools": "4.29.19",
     "axios": "1.4.0",
@@ -24,6 +25,7 @@
     "mantine-datatable": "2.7.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-redux": "8.1.1",
     "react-router-dom": "6.13.0",
     "react-toastify": "9.1.3"
   },
