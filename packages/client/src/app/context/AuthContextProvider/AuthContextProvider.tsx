@@ -1,6 +1,8 @@
 import React, { createContext, FC, ReactNode, useEffect, useState } from 'react'
 
 import AuthService from '@/app/api/services/auth.service'
+import { userActions } from '@/app/redux/store/reducers'
+import { useAppDispatch } from '@/hooks/useAppDispatch'
 
 interface AuthContextProps {
   isAuthenticated: boolean
@@ -29,9 +31,13 @@ export const AuthContextProvider: FC<AuthContextProviderProps> = ({
     setIsAuthenticated(false)
   }
 
+  const dispatch = useAppDispatch()
+  const { addUser } = userActions
+
   const fetchUser = async () => {
     try {
-      await AuthService.getUser()
+      const user = await AuthService.getUser()
+      dispatch(addUser(user))
       login()
     } catch (e) {
       console.error(e)
