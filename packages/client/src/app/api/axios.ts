@@ -4,6 +4,8 @@ import { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 const API_BASE_URL = 'https://ya-praktikum.tech/api'
 const VERSION = 'v2'
 
+export const RESOURCES_URL = `${API_BASE_URL}/${VERSION}/resources`
+
 const client = axios.create({
   baseURL: `${API_BASE_URL}/${VERSION}`,
   withCredentials: true,
