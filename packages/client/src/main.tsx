@@ -3,9 +3,11 @@ import ReactDOM from 'react-dom/client'
 
 import App from '@/app/App'
 
-import './index.css'
+import AppServiceWorker from './AppServiceWorker'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
+
+AppServiceWorker.register()
 
 root.render(
   <React.StrictMode>
