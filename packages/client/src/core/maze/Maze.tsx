@@ -67,7 +67,6 @@ export class Maze {
     this._canvas.height = this.rows * this.cellSize
 
     this._context.rect(0, 0, this._canvas.width, this._canvas.height)
-    // this._context.drawImage(this._image, 0, 0, this._canvas.width, this._canvas.height)
     this._context.fillStyle = BACKGROUND_COLOR
     this._context.fill()
 
