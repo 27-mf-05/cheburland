@@ -3,6 +3,7 @@ import { ModalsProvider } from '@mantine/modals'
 
 import cheburashka from '@/assets/images/cheburashka.png'
 import maze from '@/assets/images/maze.png'
+import { Game as GameCore } from '@/core/game'
 
 import { gameDescription } from './constants'
 
@@ -11,7 +12,8 @@ export const Game = (): JSX.Element => (
     <Stack id="game" h="100%">
       <Paper shadow="xs" py="md" px="xl" h="100%">
         <Stack p={32}>
-          <Text>{gameDescription}</Text>
+          <GameCore></GameCore>
+          {/* <Text>{gameDescription}</Text>
           <Flex>
             <Image width={240} mx="auto" src={cheburashka} alt="Cheburashka" />
             <Image
@@ -25,7 +27,7 @@ export const Game = (): JSX.Element => (
           </Flex>
           <Button mx="auto" mt="xl" size="lg">
             Начать
-          </Button>
+          </Button> */}
         </Stack>
       </Paper>
     </Stack>
