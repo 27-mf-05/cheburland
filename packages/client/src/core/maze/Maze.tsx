@@ -1,3 +1,5 @@
+import mazeTexture from './mazeTexture.webp'
+
 export class Maze {
   public readonly rows
   public readonly columns
@@ -7,6 +9,7 @@ export class Maze {
   private readonly _delay
   private readonly _canvas: HTMLCanvasElement
   private readonly _context
+  private _image: HTMLImageElement
 
   constructor(
     element: HTMLCanvasElement,
@@ -21,6 +24,7 @@ export class Maze {
     this._delay = delay
     this._canvas = element
     this._context = this._canvas.getContext('2d')
+    this._image = Maze.createImage(mazeTexture)
 
     for (let i = 0; i < erasers; i++) {
       this._erasers.push({
@@ -29,6 +33,12 @@ export class Maze {
       })
     }
     this._createMatrix(this.rows, this.columns)
+  }
+
+  public static createImage(src: string) {
+    const image = new Image()
+    image.src = src
+    return image
   }
 
   private _createMatrix(rows: number, columns: number) {
@@ -57,6 +67,7 @@ export class Maze {
     this._canvas.height = this.rows * this.cellSize
 
     this._context.rect(0, 0, this._canvas.width, this._canvas.height)
+    // this._context.drawImage(this._image, 0, 0, this._canvas.width, this._canvas.height)
     this._context.fillStyle = BACKGROUND_COLOR
     this._context.fill()
 
@@ -71,8 +82,18 @@ export class Maze {
           this.cellSize,
           this.cellSize
         )
-        this._context.fillStyle = color
-        this._context.fill()
+        if (this._matrix[y][x]) {
+          this._context.fillStyle = color
+          this._context.fill()
+        } else {
+          this._context.drawImage(
+            this._image,
+            x * this.cellSize,
+            y * this.cellSize,
+            this.cellSize,
+            this.cellSize
+          )
+        }
       }
     }
   }
