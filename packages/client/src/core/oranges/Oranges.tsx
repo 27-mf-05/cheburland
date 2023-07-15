@@ -1,5 +1,20 @@
 import orange from './orangeTexture.jpg'
 
+type Particle = {
+  x: number
+  y: number
+  radius: number
+  color: string
+  rotation: number
+  speed: number
+  friction: number
+  opacity: number
+  yVel: number
+  gravity: number
+}
+
+const greenColor = 'rgb(11, 85, 22)'
+
 export class Oranges {
   private readonly _canvas: HTMLCanvasElement
   private readonly _context: CanvasRenderingContext2D | null
@@ -46,14 +61,14 @@ export class Oranges {
     return distance <= collusionRadius
   }
 
-  private explodeAnimation(clientX: number, clientY: number) {
-    const particles: any[] = []
+  private explodeAnimation(x: number, y: number) {
+    const particles: Particle[] = []
     const ctx = this._context
 
     function Particle() {
       return {
-        x: clientX,
-        y: clientY,
+        x,
+        y,
         radius: random(20, 30),
         color:
           'rgb(' +
@@ -113,20 +128,21 @@ export class Oranges {
         p.yVel += p.gravity
         p.y += p.yVel
 
-        if (p.opacity < 0) return
-        if (p.radius < 0) return
+        if (p.opacity < 0 || p.radius < 0) {
+          return
+        }
 
         ctx.beginPath()
-        ctx.globalAlpha = p.opacity
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2)
         ctx.fillStyle = p.color
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2, false)
         ctx.fill()
+        ctx.closePath()
       })
     }
 
     ;(function renderLoop() {
       requestAnimationFrame(renderLoop)
-      render(ctx)
+      if (ctx !== null) render(ctx)
     })()
 
     function random(a: number, b: number) {
@@ -161,6 +177,7 @@ export class Oranges {
       Math.PI * 2
     )
     this._context.fillStyle = 'orange'
+    this._context.fill()
     this._context.save()
     this._context.clip()
     this._context.drawImage(
@@ -188,7 +205,7 @@ export class Oranges {
       Math.PI,
       1.5 * Math.PI
     )
-    this._context.fillStyle = 'rgb(11, 85, 22)'
+    this._context.fillStyle = greenColor
     this._context.fill()
 
     this._context.closePath()

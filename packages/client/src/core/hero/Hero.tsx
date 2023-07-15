@@ -12,7 +12,7 @@ type Velocity = {
   y: number
 }
 
-const beigeСolor = 'rgb(202, 132, 69)'
+const beigeColor = 'rgb(202, 132, 69)'
 
 export class Hero {
   private readonly _context: CanvasRenderingContext2D | null
@@ -241,7 +241,7 @@ export class Hero {
       0,
       Math.PI * 2
     )
-    context.fillStyle = beigeСolor
+    context.fillStyle = beigeColor
     context.fill()
 
     // head
@@ -277,7 +277,7 @@ export class Hero {
       0,
       Math.PI * 2
     )
-    context.fillStyle = beigeСolor
+    context.fillStyle = beigeColor
     context.fill()
 
     // left eye
@@ -299,7 +299,6 @@ export class Hero {
     context.lineTo(this.position.x - 1, this.position.y - 8)
     context.fillStyle = 'black'
     context.fill()
-    // context.restore()
 
     // smile
     context.beginPath()
