@@ -45,12 +45,12 @@ export class Oranges {
     )
 
     if (distance <= collusionRadius) {
-      this.explodeAnimation(orangeX, orangeY)
+      this.renderAnimation(orangeX, orangeY)
     }
     return distance <= collusionRadius
   }
 
-  private explodeAnimation(x: number, y: number) {
+  private renderAnimation(x: number, y: number) {
     renderParticleAnimation(x, y, this._context)
   }
 
