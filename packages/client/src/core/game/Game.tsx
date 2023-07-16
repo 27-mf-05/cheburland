@@ -1,14 +1,21 @@
+import type { FC } from 'react'
 import { useEffect, useRef } from 'react'
 
 import { Hero, Maze, Oranges } from '@/core'
 
-export const Game = ({ ...props }) => {
+type GameProps = {
+  onCollision: () => void
+  rowsAndColumns: number
+  cellSize: number
+  erasers: number
+  delay: number
+}
+
+export const Game: FC<GameProps> = ({ rowsAndColumns, cellSize, erasers, delay, onCollision }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const mazeRef = useRef<Maze | null>(null)
   const heroRef = useRef<Hero | null>(null)
   const orangesRef = useRef<Oranges | null>(null)
-
-  const { rowsAndColumns, cellSize, erasers, delay } = props
 
   if (rowsAndColumns >= 17 || rowsAndColumns <= 5 || rowsAndColumns % 2 == 0) {
     throw new Error('rowsAndColumns should be <17, >5 and odd')
@@ -78,6 +85,7 @@ export const Game = ({ ...props }) => {
       )
     ) {
       orangesRef.current.draw(true)
+      onCollision()
     }
 
     if (!orangesRef.current) {
