@@ -1,17 +1,6 @@
-import orange from './orangeTexture.jpg'
+import { renderParticleAnimation } from '@/core/lib'
 
-type Particle = {
-  x: number
-  y: number
-  radius: number
-  color: string
-  rotation: number
-  speed: number
-  friction: number
-  opacity: number
-  yVel: number
-  gravity: number
-}
+import orange from './orangeTexture.jpg'
 
 const greenColor = 'rgb(11, 85, 22)'
 
@@ -62,94 +51,7 @@ export class Oranges {
   }
 
   private explodeAnimation(x: number, y: number) {
-    const particles: Particle[] = []
-    const ctx = this._context
-
-    function Particle() {
-      return {
-        x,
-        y,
-        radius: random(20, 30),
-        color:
-          'rgb(' +
-          [random(0, 255), random(0, 255), random(0, 255)].join(',') +
-          ')',
-        rotation: random(0, 360),
-        speed: random(8, 12),
-        friction: 0.9,
-        opacity: random(0, 0.5),
-        yVel: 0,
-        gravity: 0.1,
-      }
-    }
-
-    for (let i = 0; i < 25; i++) {
-      particles.push(Particle())
-    }
-
-    const angleTools = {
-      getAngle: function (
-        t: { x: number; y: number },
-        n: { x: number; y: number }
-      ) {
-        const x = n.x - t.x
-        const y = n.y - t.y
-        return (Math.atan2(y, x) / Math.PI) * 180
-      },
-      getDistance: function (
-        t: { x: number; y: number },
-        n: { x: number; y: number }
-      ) {
-        const x = t.x - n.x
-        const y = t.y - n.y
-        return Math.sqrt(x * x + y * y)
-      },
-      moveOnAngle: function (t: { x: number; y: number }, n: number) {
-        const distance = this.getOneFrameDistance(n)
-        t.x += distance.x
-        t.y += distance.y
-      },
-      getOneFrameDistance: function (n: number) {
-        return {
-          x: n * Math.cos((random(0, 360) * Math.PI) / 180),
-          y: n * Math.sin((random(0, 360) * Math.PI) / 180),
-        }
-      },
-    }
-
-    const render = (ctx: CanvasRenderingContext2D) => {
-      particles.forEach(p => {
-        angleTools.moveOnAngle(p, p.speed)
-
-        p.opacity -= 0.01
-        p.speed *= p.friction
-        p.radius *= p.friction
-
-        p.yVel += p.gravity
-        p.y += p.yVel
-
-        if (p.opacity < 0 || p.radius < 0) {
-          return
-        }
-
-        ctx.beginPath()
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2)
-        ctx.fillStyle = p.color
-        ctx.fill()
-        ctx.closePath()
-      })
-    }
-
-    ;(function renderLoop() {
-      requestAnimationFrame(renderLoop)
-      if (ctx !== null) render(ctx)
-    })()
-
-    function random(a: number, b: number) {
-      return parseFloat(
-        (Math.random() * ((a ? a : 1) - (b ? b : 0)) + (b ? b : 0)).toFixed(1)
-      )
-    }
+    renderParticleAnimation(x, y, this._context)
   }
 
   public static createImage(src: string) {
