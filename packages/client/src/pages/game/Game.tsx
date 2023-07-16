@@ -1,33 +1,57 @@
-import { Button, Flex, Image, Paper, Stack, Text } from '@mantine/core'
-import { ModalsProvider } from '@mantine/modals'
+import { useCallback } from 'react'
 
-import cheburashka from '@/assets/images/cheburashka.png'
-import maze from '@/assets/images/maze.png'
+import { modals, ModalsProvider } from '@mantine/modals'
 
-import { gameDescription } from './constants'
+import { gameActions } from '@/app/redux/store/reducers'
+import { GameOver } from '@/features/gameOver'
+import { GameStart } from '@/features/gameStart'
+import { useAppDispatch, useAppSelector } from '@/hooks'
+import { GameStatus } from '@/shared'
 
-export const Game = (): JSX.Element => (
-  <ModalsProvider>
-    <Stack id="game" h="100%">
-      <Paper shadow="xs" py="md" px="xl" h="100%">
-        <Stack p={32}>
-          <Text>{gameDescription}</Text>
-          <Flex>
-            <Image width={240} mx="auto" src={cheburashka} alt="Cheburashka" />
-            <Image
-              width={240}
-              mx="auto"
-              mt="lg"
-              mb="xl"
-              src={maze}
-              alt="Maze"
-            />
-          </Flex>
-          <Button mx="auto" mt="xl" size="lg">
-            Начать
-          </Button>
-        </Stack>
-      </Paper>
-    </Stack>
-  </ModalsProvider>
-)
+import { GameBoard, GameRules } from './components'
+
+export const Game = (): JSX.Element => {
+  const dispatch = useAppDispatch()
+  const { startGame, finishGame, increaseScore } = gameActions
+  const { status: gameStatus } = useAppSelector(({ game }) => game)
+
+  const handleStartGame = useCallback(() => {
+    modals.closeAll()
+
+    dispatch(startGame())
+  }, [])
+
+  const handleOpenGameStartModal = useCallback(() => {
+    modals.open({
+      children: <GameStart onCountdownEnd={handleStartGame} />,
+      centered: true,
+    })
+  }, [])
+
+  const handleFinishGame = useCallback(() => {
+    dispatch(finishGame())
+
+    modals.openContextModal({
+      modal: 'gameOver',
+      innerProps: { onOpenGameStartModal: handleOpenGameStartModal },
+      centered: true,
+    })
+  }, [])
+
+  const handleIncreaseScore = useCallback(() => {
+    dispatch(increaseScore())
+  }, [])
+
+  return (
+    <ModalsProvider modals={{ gameOver: GameOver }}>
+      {gameStatus === GameStatus.Started ? (
+        <GameBoard
+          onFinishGame={handleFinishGame}
+          onIncreaseScore={handleIncreaseScore}
+        />
+      ) : (
+        <GameRules onOpenGameStartModal={handleOpenGameStartModal} />
+      )}
+    </ModalsProvider>
+  )
+}
