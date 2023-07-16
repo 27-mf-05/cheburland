@@ -1,4 +1,5 @@
 export * from './game'
 export * from './hero'
+export * from './lib'
 export * from './maze'
 export * from './oranges'
