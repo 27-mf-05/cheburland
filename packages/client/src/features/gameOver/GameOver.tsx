@@ -3,25 +3,25 @@ import { Link } from 'react-router-dom'
 import { Button, Text } from '@mantine/core'
 import { ContextModalProps } from '@mantine/modals'
 
-import { useRoutes } from '@/hooks'
+import { useAppSelector, useRoutes } from '@/hooks'
 
-export const GameOver = ({
-  context,
-  id,
-}: ContextModalProps<{ id: string }>) => {
+type GameOverProps = ContextModalProps<{
+  id: string
+  onOpenGameStartModal: () => void
+}>
+
+export const GameOver = ({ context, id, innerProps }: GameOverProps) => {
   const { paths } = useRoutes()
+  const { score: gameScore } = useAppSelector(({ game }) => game)
+  const { onOpenGameStartModal } = innerProps
+
   return (
     <>
-      <Button
-        mt="md"
-        ml="33%"
-        component={Link}
-        to={paths.Game}
-        onClick={() => context.closeModal(id)}>
+      <Button mt="md" ml="33%" onClick={onOpenGameStartModal}>
         Начать заново
       </Button>
       <Text fz="md" mt="md" ta="center">
-        Счет игры: 12
+        Счет игры: {gameScore}
       </Text>
       <Button
         mt="lg"

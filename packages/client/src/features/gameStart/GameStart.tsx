@@ -1,8 +1,15 @@
+import type { FC } from 'react'
 import { useEffect, useState } from 'react'
 
 import { Flex, Text } from '@mantine/core'
 
-export const GameStart = (): JSX.Element => {
+type GameStartProps = {
+  onCountdownEnd: () => void
+}
+
+export const GameStart: FC<GameStartProps> = ({
+  onCountdownEnd,
+}): JSX.Element => {
   const [count, setCount] = useState(3)
 
   useEffect(() => {
@@ -20,7 +27,6 @@ export const GameStart = (): JSX.Element => {
         setCount(prevCount => {
           if (prevCount === 1) {
             cancelAnimationFrame(animationFrameId as number)
-            //здесь можно сделать переход на страницу игры
           }
           startTimestamp = timestamp
           return prevCount - 1
@@ -38,6 +44,12 @@ export const GameStart = (): JSX.Element => {
       }
     }
   }, [])
+
+  useEffect(() => {
+    if (count === 0) {
+      onCountdownEnd()
+    }
+  }, [count, onCountdownEnd])
 
   return (
     <Flex align="center" justify="center">
