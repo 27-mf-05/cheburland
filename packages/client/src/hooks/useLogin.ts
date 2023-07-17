@@ -1,7 +1,7 @@
-import { useCallback, useContext } from 'react'
+import { useCallback } from 'react'
 
 import AuthService from '@/app/api/services/auth.service'
-import { AuthContext } from '@/app/context/AuthContextProvider'
+import { useAuth } from '@/app/context'
 import { useApiMutation } from '@/hooks/useApiMutation'
 import { SigninData } from '@/shared'
 
@@ -9,7 +9,7 @@ export const useLogin = (): {
   handleLogin: (data: SigninData) => void
   isLoading: boolean
 } => {
-  const { login } = useContext(AuthContext)
+  const { login } = useAuth()
 
   const { mutate: signin, isLoading } = useApiMutation(
     ['signin'],

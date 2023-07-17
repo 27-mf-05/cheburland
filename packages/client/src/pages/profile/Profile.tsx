@@ -3,14 +3,16 @@ import { Link } from 'react-router-dom'
 import { Anchor, Flex, Paper, SimpleGrid, Title } from '@mantine/core'
 
 import { RESOURCES_URL } from '@/app/api/axios'
-import { useRoutes } from '@/hooks'
+import { useLogout, useRoutes } from '@/hooks'
 import { useAppSelector } from '@/hooks/useAppSelector'
 
 import { ProfileData, ProfileHeader } from './components'
 
 export const Profile = (): JSX.Element => {
   const { paths } = useRoutes()
+
   const user = useAppSelector(state => state.user.currentUser)!
+  const { handleLogout } = useLogout()
 
   return (
     user && (
@@ -36,7 +38,7 @@ export const Profile = (): JSX.Element => {
             <Anchor component={Link} to={paths.ChangePassword}>
               Изменить пароль
             </Anchor>
-            <Anchor component={Link} to={'#'} color="red">
+            <Anchor onClick={handleLogout} color="red">
               Выйти
             </Anchor>
           </SimpleGrid>
