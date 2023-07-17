@@ -7,7 +7,7 @@ import AppServiceWorker from './AppServiceWorker'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
-AppServiceWorker.register()
+AppServiceWorker.unregister()
 
 root.render(
   <React.StrictMode>

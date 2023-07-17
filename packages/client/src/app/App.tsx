@@ -2,7 +2,7 @@ import { Provider } from 'react-redux'
 
 import { MantineProvider } from '@mantine/core'
 
-import { AuthContextProvider } from '@/app/context/AuthContextProvider'
+import { AuthProvider } from '@/app/context'
 import { setupStore } from '@/app/redux/store'
 import { AppRoutes } from '@/app/routes'
 import { theme } from '@/app/theme'
@@ -15,9 +15,9 @@ const App = () => (
   <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
     <QueryClientProvider>
       <Provider store={store}>
-        <AuthContextProvider>
+        <AuthProvider>
           <AppRoutes />
-        </AuthContextProvider>
+        </AuthProvider>
       </Provider>
     </QueryClientProvider>
   </MantineProvider>
