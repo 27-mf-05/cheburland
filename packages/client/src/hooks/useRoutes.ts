@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
-import { generatePath, Params, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
-import { routes } from '@/app/routes'
+import { generateRoutePath } from '@/app/routes'
 import { RouteName } from '@/app/routes'
 
 import { useUrl } from './useUrl'
@@ -19,16 +19,6 @@ export const useRoutes = (): RoutesReturnType => {
   const navigate = useNavigate()
 
   const { forumTopicId } = useUrl()
-  const generateRoutePath = ({
-    name,
-    params,
-  }: {
-    name: RouteName
-    params?: Params<string>
-  }): string => {
-    const route = routes[name]
-    return generatePath(route.path, params)
-  }
 
   const Main = useMemo(
     () =>
