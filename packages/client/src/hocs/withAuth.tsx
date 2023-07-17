@@ -3,9 +3,9 @@ import { FC, useContext } from 'react'
 import { AuthContext } from '@/app/context/AuthContextProvider'
 
 export type withAuthProps = {
-  isAuthenticated: boolean
-  login: () => void
-  logout: () => void
+  isAuthenticated?: boolean
+  login?: () => void
+  logout?: () => void
 }
 
 export function withAuth<T>(Component: FC<T>): FC<T> {
