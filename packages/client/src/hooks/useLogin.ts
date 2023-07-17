@@ -1,7 +1,7 @@
 import { useCallback, useContext } from 'react'
 
 import AuthService from '@/app/api/services/auth.service'
-import { AuthContext } from '@/app/context/AuthContextProvider'
+import { AuthContext } from '@/app/context/auth-provider'
 import { useApiMutation } from '@/hooks/useApiMutation'
 import { SigninData } from '@/shared'
 

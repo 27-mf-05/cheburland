@@ -19,7 +19,6 @@ export default defineConfig({
       app: path.resolve(__dirname, '.src/app'),
       components: path.resolve(__dirname, '.src/components'),
       assets: path.resolve(__dirname, '.src/assets'),
-      hocs: path.resolve(__dirname, '.src/hocs'),
       hooks: path.resolve(__dirname, '.src/hooks'),
       layout: path.resolve(__dirname, '.src/layout'),
       pages: path.resolve(__dirname, '.src/pages'),
