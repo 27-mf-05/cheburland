@@ -82,7 +82,6 @@ const AuthProvider: FC<AuthContextProviderProps> = ({ children }) => {
     setInitializing()
     fetchUser()
   }, [])
-  // console.log(isAuthenticated)
 
   const value: AuthContextProps = {
     initializing: inStatus(AuthStatus.Initializing),
