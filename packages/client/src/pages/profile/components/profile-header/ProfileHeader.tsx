@@ -14,14 +14,13 @@ export const ProfileHeader = ({
   const { handleChange } = useAvatar({})
 
   return (
-    <SimpleGrid cols={1}>
+    <SimpleGrid cols={1} mb="xl">
       <Avatar
         src={avatar}
         alt="default avatar"
         size={120}
         radius={'50%'}
         mx="auto"
-        mb="xl"
       />
       <Title ta="center" order={3}>
         {userName}
