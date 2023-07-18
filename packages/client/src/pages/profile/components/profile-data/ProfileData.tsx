@@ -11,7 +11,7 @@ type ProfileDataProps = {
 export const ProfileData: FC<ProfileDataProps> = ({ user }) => {
   const { first_name, second_name, email, phone, login, display_name } = user
   return (
-    <SimpleGrid cols={2} verticalSpacing="xl" spacing="xl" mb="xl">
+    <SimpleGrid cols={2} verticalSpacing="xl" spacing="xl" mb={36}>
       <Box>
         <Text ta="left">Имя</Text>
       </Box>

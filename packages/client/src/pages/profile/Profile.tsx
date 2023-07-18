@@ -9,9 +9,10 @@ import { ProfileData, ProfileHeader } from '@/pages'
 
 export const Profile = (): JSX.Element => {
   const { paths } = useRoutes()
+  const { handleLogout } = useLogout()
 
   const user = useAppSelector(state => state.user.currentUser)!
-  const { handleLogout } = useLogout()
+  const avatar = user?.avatar ? RESOURCES_URL + user.avatar : ''
 
   return (
     user && (
@@ -21,14 +22,11 @@ export const Profile = (): JSX.Element => {
         justify="center"
         align="center"
         direction="column">
-        <Paper shadow="xs" py="md" w="100vh" px="xl">
+        <Paper shadow="xs" py="md" px="md">
           <Title mb="xl" ta="center">
             Профиль пользователя
           </Title>
-          <ProfileHeader
-            userName={user.first_name}
-            avatar={user.avatar ? RESOURCES_URL + user.avatar : ''}
-          />
+          <ProfileHeader userName={user.first_name} avatar={avatar} />
           <ProfileData user={user} />
           <SimpleGrid cols={1}>
             <Anchor component={Link} to={'#'}>
