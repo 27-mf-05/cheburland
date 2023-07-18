@@ -16,6 +16,7 @@ module.exports = {
   plugins: ['@typescript-eslint', 'simple-import-sort'],
   rules: {
     '@typescript-eslint/ban-ts-comment': 1,
+    '@typescript-eslint/no-non-null-assertion' : 'off',
     "simple-import-sort/imports": ["error", {
       groups: [
         ["^react"],
