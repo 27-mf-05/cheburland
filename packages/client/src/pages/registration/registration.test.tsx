@@ -5,17 +5,6 @@ import { fireEvent, render } from '@testing-library/react'
 
 import { RegistrationForm } from '@/pages/registration/components'
 
-jest.mock('react-toastify/dist/ReactToastify.css', () => {
-  return {}
-})
-
-jest.mock('@/assets/images/cheburashka.png', () => 'path/to/mock/image.png')
-jest.mock('@/assets/images/maze.png', () => 'path/to/mock/image.png')
-jest.mock(
-  '@/assets/images/cheburashka_background.jpg',
-  () => 'path/to/mock/image.png'
-)
-
 describe('RegistrationForm', () => {
   it('should be called on valid fields', () => {
     const handleSubmit = jest.fn()
