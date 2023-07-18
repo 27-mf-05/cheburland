@@ -8,10 +8,16 @@ type GameProps = {
   rowsAndColumns: number
   cellSize: number
   erasers: number
-  delay: number
+  delay?: number
 }
 
-export const Game: FC<GameProps> = ({ rowsAndColumns, cellSize, erasers, delay, onCollision }) => {
+export const Game: FC<GameProps> = ({
+  rowsAndColumns,
+  cellSize,
+  erasers,
+  delay,
+  onCollision,
+}) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const mazeRef = useRef<Maze | null>(null)
   const heroRef = useRef<Hero | null>(null)
