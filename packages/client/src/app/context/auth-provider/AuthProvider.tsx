@@ -44,7 +44,6 @@ enum AuthStatus {
 }
 
 const AuthProvider: FC<AuthContextProviderProps> = ({ children }) => {
-  // const [isAuthenticated, setIsAuthenticated] = useState(true)
   const [status, setStatus] = useState<AuthStatus>(AuthStatus.Initializing)
 
   const login = () => {
