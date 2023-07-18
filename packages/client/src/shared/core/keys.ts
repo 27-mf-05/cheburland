@@ -1,29 +1,29 @@
-export const keys: { [key: number]: { pressed: boolean } } = {
-  87: {
+export const keys: { [key: string]: { pressed: boolean } } = {
+  KeyW: {
     pressed: false,
   },
-  38: {
-    pressed: false,
-  },
-
-  65: {
-    pressed: false,
-  },
-  37: {
+  ArrowUp: {
     pressed: false,
   },
 
-  83: {
+  KeyA: {
     pressed: false,
   },
-  40: {
+  ArrowLeft: {
     pressed: false,
   },
 
-  68: {
+  KeyS: {
     pressed: false,
   },
-  39: {
+  ArrowDown: {
+    pressed: false,
+  },
+
+  KeyD: {
+    pressed: false,
+  },
+  ArrowRight: {
     pressed: false,
   },
 }
