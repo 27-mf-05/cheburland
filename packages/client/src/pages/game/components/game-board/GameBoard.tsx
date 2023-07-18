@@ -23,5 +23,12 @@ export const GameBoard: FC<GameBoardProps> = ({
     }
   }, [onFinishGame])
 
-  return <Game onCollision={onIncreaseScore} />
+  return (
+    <Game
+      onCollision={onIncreaseScore}
+      rowsAndColumns={9}
+      cellSize={65}
+      erasers={10}
+    />
+  )
 }
