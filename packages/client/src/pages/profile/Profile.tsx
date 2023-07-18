@@ -5,8 +5,7 @@ import { Anchor, Flex, Paper, SimpleGrid, Title } from '@mantine/core'
 import { RESOURCES_URL } from '@/app/api/axios'
 import { useLogout, useRoutes } from '@/hooks'
 import { useAppSelector } from '@/hooks/useAppSelector'
-
-import { ProfileData, ProfileHeader } from './components'
+import { ProfileData, ProfileHeader } from '@/pages'
 
 export const Profile = (): JSX.Element => {
   const { paths } = useRoutes()
