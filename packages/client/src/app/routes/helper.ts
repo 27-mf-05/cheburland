@@ -7,11 +7,15 @@ export const commonRoutes = () =>
   Object.values(routes).filter(route => route.type === PageType.common)
 
 export const authenticatedRoutes = () =>
-  Object.values(routes).filter(route => route.type === PageType.authenticated)
+  Object.values(routes).filter(
+    route =>
+      route.type === PageType.authenticated || route.type === PageType.common
+  )
 
 export const notAuthenticatedRoutes = () =>
   Object.values(routes).filter(
-    route => route.type === PageType.notAuthenticated
+    route =>
+      route.type === PageType.notAuthenticated || route.type === PageType.common
   )
 
 export const generateRoutePath = ({
