@@ -28,7 +28,7 @@ export const Profile = (): JSX.Element => {
           </Title>
           <ProfileHeader
             userName={user.first_name}
-            avatar={RESOURCES_URL + user.avatar}
+            avatar={user.avatar ? RESOURCES_URL + user.avatar : ''}
           />
           <ProfileData user={user} />
           <SimpleGrid cols={1}>
