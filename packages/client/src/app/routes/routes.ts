@@ -84,7 +84,7 @@ export const routes: RoutesType = {
   },
   [RouteName.Page404]: {
     title: 'Page 404',
-    path: '*',
+    path: '/page-404',
     component: Page404,
     type: PageType.common,
   },
