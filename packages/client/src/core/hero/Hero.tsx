@@ -19,7 +19,7 @@ export class Hero {
   private _velocity: Velocity
   private _speed = 3
   public position: Position
-  private _lastKey: number | undefined
+  private _lastKey: string | undefined
   private _canvas: HTMLCanvasElement
   private _radius = 20
   private readonly _falseCells: { x: number; y: number }[]
@@ -52,38 +52,37 @@ export class Hero {
   }
 
   public handleKeyUp = (e: KeyboardEvent) => {
-    if (e.keyCode in keys) {
-      keys[e.keyCode].pressed = false
+    if (e.code in keys) {
+      keys[e.code].pressed = false
     }
   }
 
   public handleKeyDown = (e: KeyboardEvent) => {
-    console.log(e.code)
-    if (e.keyCode in keys) {
-      this._lastKey = e.keyCode
-      keys[e.keyCode].pressed = true
+    if (e.code in keys) {
+      this._lastKey = e.code
+      keys[e.code].pressed = true
     }
   }
 
   private _accelerate() {
     if (
-      (keys[87].pressed && this._lastKey === 87) ||
-      (keys[38].pressed && this._lastKey === 38)
+      (keys['KeyW'].pressed && this._lastKey === 'KeyW') ||
+      (keys['ArrowUp'].pressed && this._lastKey === 'ArrowUp')
     ) {
       this._velocity.y = -this._speed
     } else if (
-      (keys[65].pressed && this._lastKey === 65) ||
-      (keys[37].pressed && this._lastKey === 37)
+      (keys['KeyA'].pressed && this._lastKey === 'KeyA') ||
+      (keys['ArrowLeft'].pressed && this._lastKey === 'ArrowLeft')
     ) {
       this._velocity.x = -this._speed
     } else if (
-      (keys[83].pressed && this._lastKey === 83) ||
-      (keys[40].pressed && this._lastKey === 40)
+      (keys['KeyS'].pressed && this._lastKey === 'KeyS') ||
+      (keys['ArrowDown'].pressed && this._lastKey === 'ArrowDown')
     ) {
       this._velocity.y = this._speed
     } else if (
-      (keys[68].pressed && this._lastKey === 68) ||
-      (keys[39].pressed && this._lastKey === 39)
+      (keys['KeyD'].pressed && this._lastKey === 'KeyD') ||
+      (keys['ArrowRight'].pressed && this._lastKey === 'ArrowRight')
     ) {
       this._velocity.x = this._speed
     } else {
