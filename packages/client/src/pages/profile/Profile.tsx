@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 import { Anchor, Flex, Paper, SimpleGrid, Title } from '@mantine/core'
 
-import { RESOURCES_URL } from '@/app/api/axios'
+import { RESOURCES_URL } from '@/app/redux/api/endpoints'
 import { useLogout, useRoutes } from '@/hooks'
 import { useAppSelector } from '@/hooks/useAppSelector'
 import { ProfileData, ProfileHeader } from '@/pages'

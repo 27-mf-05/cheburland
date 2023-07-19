@@ -6,7 +6,7 @@ import { useProfile } from '@/hooks'
 import { ChangePasswordForm } from './components'
 
 export const ChangePassword = (): JSX.Element => {
-  const { handleSubmitPassword } = useProfile({})
+  const { handleSubmitPassword } = useProfile()
   return (
     <FormWrapper formId="change-password">
       <Title align="center" mb={16}>

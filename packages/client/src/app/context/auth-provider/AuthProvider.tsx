@@ -7,9 +7,10 @@ import React, {
   useState,
 } from 'react'
 
-import AuthService from '@/app/api/services/auth.service'
+import { useGetCurrentUserQuery } from '@/app/redux/api'
 import { userActions } from '@/app/redux/store/reducers'
 import { useAppDispatch } from '@/hooks/useAppDispatch'
+import { User } from '@/shared'
 
 interface AuthContextProps {
   initializing: boolean
@@ -64,14 +65,15 @@ const AuthProvider: FC<AuthContextProviderProps> = ({ children }) => {
 
   const dispatch = useAppDispatch()
   const { addUser, deleteUser } = userActions
+  const { refetch } = useGetCurrentUserQuery()
 
   const fetchUser = async () => {
-    try {
-      const user = await AuthService.getUser()
-      dispatch(addUser(user))
+    const { data, isError } = await refetch()
+
+    if (!isError) {
+      dispatch(addUser(data as User))
       login()
-    } catch (e) {
-      console.error(e)
+    } else {
       dispatch(deleteUser())
       logout()
     }
