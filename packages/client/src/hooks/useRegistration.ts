@@ -1,30 +1,19 @@
-import { useCallback, useContext } from 'react'
-
-import AuthService from '@/app/api/services/auth.service'
-import { AuthContext } from '@/app/context/auth-provider'
-import { useApiMutation } from '@/hooks/useApiMutation'
+import { useAuth } from '@/app/context'
+import { useSignupMutation } from '@/app/redux/api'
 import { SignupData } from '@/shared'
 
 export const useRegistration = (): {
   handleRegistration: (data: SignupData) => void
   isLoading: boolean
 } => {
-  const { fetchUser } = useContext(AuthContext)
+  const { fetchUser } = useAuth()
 
-  const { mutate: signup, isLoading } = useApiMutation(
-    ['signup'],
-    (data: SignupData) => AuthService.signup(data),
-    {
-      onSuccess: fetchUser,
-    }
-  )
+  const [signup, { isLoading }] = useSignupMutation()
 
-  const handleRegistration = useCallback(
-    (data: SignupData) => {
-      signup(data)
-    },
-    [signup]
-  )
+  const handleRegistration = async (data: SignupData) => {
+    await signup(data)
+    await fetchUser()
+  }
 
   return { isLoading, handleRegistration }
 }
