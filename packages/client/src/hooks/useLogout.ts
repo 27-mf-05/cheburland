@@ -1,25 +1,18 @@
-import { useCallback } from 'react'
-
-import AuthService from '@/app/api/services/auth.service'
 import { useAuth } from '@/app/context'
-
-import { useApiMutation } from './useApiMutation'
+import { useLogoutMutation } from '@/app/redux/api'
 
 export const useLogout = (): {
   handleLogout: () => void
+  isLoading: boolean
 } => {
-  const { logout: authLogout } = useAuth()
-  const { mutate: logout } = useApiMutation(
-    ['logout'],
-    () => AuthService.logout(),
-    {
-      onSuccess: authLogout,
-    }
-  )
+  const { fetchUser } = useAuth()
 
-  const handleLogout = useCallback(() => {
-    logout({})
-  }, [logout])
+  const [logout, { isLoading }] = useLogoutMutation()
 
-  return { handleLogout }
+  const handleLogout = async () => {
+    await logout()
+    await fetchUser()
+  }
+
+  return { isLoading, handleLogout }
 }

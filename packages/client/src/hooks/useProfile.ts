@@ -1,46 +1,24 @@
-import { useCallback } from 'react'
-
-import { UserService } from '@/app/api'
-import { useApiMutation } from '@/hooks'
+import {
+  useSearchUserMutation,
+  useUpdatePasswordMutation,
+  useUpdateProfileMutation,
+} from '@/app/redux/api'
 import { Password, Profile } from '@/shared'
 
-export const useProfile = ({
-  onSuccess,
-}: {
-  onSuccess?: () => void
-}): {
+export const useProfile = (): {
   isLoading: boolean
   profile: (data: Profile) => void
   search: (data: { login: string }) => void
   handleSubmitPassword: (data: Password) => void
 } => {
-  const { mutate: profile, isLoading: isLoadingProfile } = useApiMutation(
-    ['profile'],
-    (data: Profile) => UserService.profile(data),
-    {
-      onSuccess,
-    }
-  )
-  const { mutate: password, isLoading: isLoadingPassword } = useApiMutation(
-    ['password'],
-    (data: Password) => UserService.password(data),
-    {
-      onSuccess,
-    }
-  )
+  const [profile, { isLoading: isLoadingProfile }] = useUpdateProfileMutation()
 
-  const { mutate: search, isLoading: isLoadingSearch } = useApiMutation(
-    ['search'],
-    (data: { login: string }) => UserService.search(data),
-    {
-      onSuccess,
-    }
-  )
+  const [password, { isLoading: isLoadingPassword }] =
+    useUpdatePasswordMutation()
 
-  const handleSubmitPassword = useCallback(
-    (values: Password) => password(values),
-    [password]
-  )
+  const [search, { isLoading: isLoadingSearch }] = useSearchUserMutation()
+
+  const handleSubmitPassword = (values: Password) => password(values)
 
   return {
     isLoading: isLoadingProfile || isLoadingPassword || isLoadingSearch,

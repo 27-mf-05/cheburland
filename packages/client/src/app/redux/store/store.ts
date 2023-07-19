@@ -1,15 +1,24 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 
+import { authApi, userApi } from '@/app/redux/api'
+import { errorToastMiddleware } from '@/app/redux/store/middlewares'
 import { gameReducer, userReducer } from '@/app/redux/store/reducers'
 
 const rootReducer = combineReducers({
   user: userReducer,
   game: gameReducer,
+  [authApi.reducerPath]: authApi.reducer,
+  [userApi.reducerPath]: userApi.reducer,
 })
 
 export const setupStore = () => {
   return configureStore({
     reducer: rootReducer,
+    middleware: getDefaultMiddleware =>
+      getDefaultMiddleware()
+        .concat(authApi.middleware)
+        .concat(userApi.middleware)
+        .concat(errorToastMiddleware),
   })
 }
 
