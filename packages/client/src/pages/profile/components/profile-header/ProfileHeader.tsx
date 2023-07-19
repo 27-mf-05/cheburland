@@ -11,7 +11,7 @@ export const ProfileHeader = ({
   userName,
   avatar = '',
 }: ProfileHeaderProps): JSX.Element => {
-  const { handleChange } = useAvatar({})
+  const { handleChange } = useAvatar()
 
   return (
     <SimpleGrid cols={1} mb="xl">
