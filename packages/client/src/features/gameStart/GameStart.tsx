@@ -25,12 +25,13 @@ export const GameStart: FC<GameStartProps> = ({
 
       if (progress >= 1000) {
         setCount(prevCount => {
-          if (prevCount === 1) {
+          if (prevCount <= 1) {
             cancelAnimationFrame(animationFrameId as number)
+            return 0
           }
-          startTimestamp = timestamp
           return prevCount - 1
         })
+        startTimestamp = timestamp
       }
 
       animationFrameId = requestAnimationFrame(animate)
