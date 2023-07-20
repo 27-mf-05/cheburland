@@ -14,7 +14,7 @@ export const errorToastMiddleware: Middleware = () => next => action => {
   ) {
     const error = action.payload.data.reason
       ? action.payload.data.reason
-      : 'Что-то пошло не так'
+      : 'Something went wrong'
     toast.error(error)
   }
 
