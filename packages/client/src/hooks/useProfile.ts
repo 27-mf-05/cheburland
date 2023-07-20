@@ -32,7 +32,7 @@ export const useProfile = (): {
       .catch(e => {
         if (e.data === 'OK') {
           navigate(paths.Profile)
-          toast.success('Пароль успешно изменён')
+          toast.success('Password has been successfully changed')
         }
       })
   }
