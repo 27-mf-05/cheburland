@@ -1,4 +1,4 @@
-import { renderParticleAnimation } from '@/core/lib'
+// import { renderParticleAnimation } from '@/core/lib'
 
 import orange from './orangeTexture.jpg'
 
@@ -44,15 +44,15 @@ export class Oranges {
       (xPosition - orangeX) ** 2 + (yPosition - orangeY) ** 2
     )
 
-    if (distance <= collusionRadius) {
-      this.renderAnimation(orangeX, orangeY)
-    }
+    // if (distance <= collusionRadius) {
+    //   this.renderAnimation(orangeX, orangeY)
+    // }
     return distance <= collusionRadius
   }
 
-  private renderAnimation(x: number, y: number) {
-    renderParticleAnimation(x, y, this._context)
-  }
+  // private renderAnimation(x: number, y: number) {
+  //   renderParticleAnimation(x, y, this._context)
+  // }
 
   public static createImage(src: string) {
     const image = new Image()
