@@ -4,12 +4,10 @@ import { useEffect, useState } from 'react'
 import { Flex, Text } from '@mantine/core'
 
 type GameStartProps = {
-  onCountdownEnd: () => void
+  start: () => void
 }
 
-export const GameStart: FC<GameStartProps> = ({
-  onCountdownEnd,
-}): JSX.Element => {
+export const GameStart: FC<GameStartProps> = ({ start }): JSX.Element => {
   const [count, setCount] = useState(3)
 
   useEffect(() => {
@@ -48,9 +46,9 @@ export const GameStart: FC<GameStartProps> = ({
 
   useEffect(() => {
     if (count === 0) {
-      onCountdownEnd()
+      start()
     }
-  }, [count, onCountdownEnd])
+  }, [count, start])
 
   return (
     <Flex align="center" justify="center">

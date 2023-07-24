@@ -1,4 +1,4 @@
-export * from './game'
+export * from './scene'
 export * from './hero'
 export * from './lib'
 export * from './maze'
