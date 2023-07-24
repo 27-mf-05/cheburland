@@ -59,7 +59,7 @@ export class Maze {
     if (!this._context || !this._canvas || !this._matrix) {
       return
     }
-    const WALL_COLOR = 'yellow'
+    const WALL_COLOR = 'black'
     const FREE_COLOR = 'gray'
     const BACKGROUND_COLOR = 'blue'
 
