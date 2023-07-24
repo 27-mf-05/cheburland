@@ -7,17 +7,17 @@ import { useAppSelector, useRoutes } from '@/hooks'
 
 type GameOverProps = ContextModalProps<{
   id: string
-  onOpenGameStartModal: () => void
+  startGame: () => void
 }>
 
 export const GameOver = ({ context, id, innerProps }: GameOverProps) => {
   const { paths } = useRoutes()
   const { score: gameScore } = useAppSelector(({ game }) => game)
-  const { onOpenGameStartModal } = innerProps
+  const { startGame } = innerProps
 
   return (
     <>
-      <Button mt="md" ml="33%" onClick={onOpenGameStartModal}>
+      <Button mt="md" ml="33%" onClick={startGame}>
         Начать заново
       </Button>
       <Text fz="md" mt="md" ta="center">

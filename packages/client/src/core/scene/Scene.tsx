@@ -11,7 +11,7 @@ type GameProps = {
   delay?: number
 }
 
-export const Game: FC<GameProps> = ({
+export const Scene: FC<GameProps> = ({
   rowsAndColumns,
   cellSize,
   erasers,
