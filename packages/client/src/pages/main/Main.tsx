@@ -16,8 +16,8 @@ export const Main = (): JSX.Element => {
         pl="20%"
         pt="10%"
         h="100%"
-        sx={() => ({
-          background: 'rgba(0,0,0,0.4)',
+        sx={theme => ({
+          background: theme.colors.grey[4],
         })}>
         <Menu width={200}>
           <Menu.Item bg="brand.2" w={230} component={Link} to={paths.Game}>
