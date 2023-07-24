@@ -10,9 +10,9 @@ export const FullScreenSwitcher = (): JSX.Element => {
 
   useEffect(() => {
     return () => {
-      isFullScreen && close()
+      close()
     }
-  }, [close, isFullScreen])
+  }, [])
 
   return (
     <Box
