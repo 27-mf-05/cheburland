@@ -2,13 +2,13 @@ import React from 'react'
 
 import { render } from '@testing-library/react'
 
-import { Game } from '@/core'
+import { Scene } from '@/core'
 
 describe('Core tests', () => {
   it('should throw an error on incorrect value of props rowsAndColumns', () => {
     try {
       render(
-        <Game
+        <Scene
           onCollision={() => 0}
           rowsAndColumns={17}
           cellSize={56}
@@ -24,7 +24,7 @@ describe('Core tests', () => {
 
     try {
       render(
-        <Game
+        <Scene
           onCollision={() => 0}
           rowsAndColumns={3}
           cellSize={56}
@@ -40,7 +40,7 @@ describe('Core tests', () => {
 
     try {
       render(
-        <Game
+        <Scene
           onCollision={() => 0}
           rowsAndColumns={10}
           cellSize={56}
@@ -57,7 +57,7 @@ describe('Core tests', () => {
   it('should throw an error on incorrect value of props cellSize', () => {
     try {
       render(
-        <Game
+        <Scene
           onCollision={() => 0}
           rowsAndColumns={15}
           cellSize={9}
@@ -70,7 +70,7 @@ describe('Core tests', () => {
     }
     try {
       render(
-        <Game
+        <Scene
           onCollision={() => 0}
           rowsAndColumns={15}
           cellSize={126}
