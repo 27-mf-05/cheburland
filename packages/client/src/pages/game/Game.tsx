@@ -21,14 +21,14 @@ export const Game = (): JSX.Element => {
     modals.closeAll()
 
     dispatch(startGame())
-  }, [])
+  }, [dispatch, startGame])
 
   const handleModalStart = useCallback(() => {
     modals.open({
-      children: <GameStart start={handleStartGame} />,
+      children: <GameStart onStart={handleStartGame} />,
       centered: true,
     })
-  }, [])
+  }, [handleStartGame])
 
   const handleFinishGame = useCallback(() => {
     dispatch(finishGame())
@@ -38,11 +38,11 @@ export const Game = (): JSX.Element => {
       innerProps: { startGame: handleModalStart },
       centered: true,
     })
-  }, [])
+  }, [dispatch, finishGame, handleModalStart])
 
-  const handleCollision = useCallback(() => {
+  const handleIncreaseScore = useCallback(() => {
     dispatch(increaseScore())
-  }, [])
+  }, [dispatch, increaseScore])
 
   useEffect(() => {
     if (gameStatus === GameStatus.Started) {
@@ -54,21 +54,16 @@ export const Game = (): JSX.Element => {
         clearTimeout(timer)
       }
     }
-  }, [gameStatus])
+  }, [gameStatus, handleFinishGame])
 
   const content =
     gameStatus === GameStatus.Started ? (
       <>
         <FullScreenSwitcher />
-        <Scene
-          onCollision={handleCollision}
-          rowsAndColumns={9}
-          cellSize={65}
-          erasers={10}
-        />
+        <Scene onIncreaseScore={handleIncreaseScore} />
       </>
     ) : (
-      <GameInfo handleModalStart={handleModalStart} />
+      <GameInfo onModalStart={handleModalStart} />
     )
 
   return (

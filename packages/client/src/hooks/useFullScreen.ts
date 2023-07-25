@@ -1,40 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
 
-export const isFullScreenElement = (
-  element?: Element | null
-): boolean | undefined => {
-  if (typeof window === 'undefined') {
-    return
-  }
-  const d = document
-  if (element) {
-    return Boolean(
-      d.fullscreenElement == element ||
-        // @ts-ignore
-        d.mozFullScreenElement == element ||
-        // @ts-ignore
-        d.webkitFullscreenElement == element ||
-        // @ts-ignore
-        d.msFullscreenElement == element
-    )
-  }
-  return Boolean(
-    d.fullscreenElement ||
-      // @ts-ignore
-      d.mozFullScreenElement ||
-      // @ts-ignore
-      d.webkitFullscreenElement ||
-      // @ts-ignore
-      d.msFullscreenElement ||
-      // @ts-ignore
-      d.mozFullScreen ||
-      // @ts-ignore
-      d.webkitIsFullScreen ||
-      // @ts-ignore
-      d.fullScreenMode
-  )
-}
-
 type FullScreen = {
   isFullScreen: boolean | undefined
   open: () => void
@@ -43,45 +8,66 @@ type FullScreen = {
 }
 
 export const useFullScreen = (fsElement?: Element | null): FullScreen => {
-  const [isFullScreen, setFullScreen] = useState(() =>
+  const isFullScreenElement = (
+    element?: Element | null
+  ): boolean | undefined => {
+    if (typeof window === 'undefined') {
+      return
+    }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const d = document as any
+    if (element) {
+      return Boolean(
+        d.fullscreenElement == element ||
+          d.mozFullScreenElement == element ||
+          d.webkitFullscreenElement == element ||
+          d.msFullscreenElement == element
+      )
+    }
+    return Boolean(
+      d.fullscreenElement ||
+        d.mozFullScreenElement ||
+        d.webkitFullscreenElement ||
+        d.msFullscreenElement ||
+        d.mozFullScreen ||
+        d.mozFullScreenEnabled ||
+        d.webkitIsFullScreen ||
+        d.fullScreenMode
+    )
+  }
+
+  const [isFullScreen, setFullScreen] = useState<boolean | undefined>(() =>
     isFullScreenElement(fsElement)
   )
 
-  const openFullScreen = () => {
-    const element = fsElement || document.documentElement
+  const openFullScreen = useCallback(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const element = fsElement || (document.documentElement as any)
 
     const requestFullScreen =
       element.requestFullscreen ||
-      // @ts-ignore
       element.mozRequestFullScreen ||
-      // @ts-ignore
       element.webkitRequestFullscreen ||
-      // @ts-ignore
       element.msRequestFullscreen
 
     return requestFullScreen.call(element)
-  }
+  }, [fsElement])
 
-  const closeFullScreen = () => {
+  const closeFullScreen = useCallback(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const d = document as any
     const requestCloseFullScreen =
-      // @ts-ignore
-      document.webkitExitFullscreen ||
-      document.exitFullscreen ||
-      // @ts-ignore
-      document.mozCancelFullScreen ||
-      // @ts-ignore
-      document.msExitFullscreen
+      d.webkitExitFullscreen ||
+      d.exitFullscreen ||
+      d.msExitFullscreen ||
+      d.mozCancelFullScreen
 
-    requestCloseFullScreen.call(document)
-  }
+    requestCloseFullScreen.call(d)
+  }, [])
 
   const handleChange = useCallback(() => {
     setFullScreen(isFullScreenElement(fsElement))
   }, [fsElement])
-
-  useEffect(() => {
-    setFullScreen(isFullScreenElement(fsElement))
-  }, [])
 
   useEffect(() => {
     document.addEventListener('webkitfullscreenchange', handleChange, false)

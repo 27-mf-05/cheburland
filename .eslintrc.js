@@ -13,7 +13,7 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 11,
   },
-  plugins: ['@typescript-eslint', 'simple-import-sort'],
+  plugins: ['@typescript-eslint', 'simple-import-sort', 'react-hooks'],
   rules: {
     '@typescript-eslint/ban-ts-comment': 1,
     "simple-import-sort/imports": ["error", {
@@ -24,6 +24,8 @@ module.exports = {
         ["@/(.*)"],
         ["^[./]"]
       ]
-    }]
+    }],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
   },
 }
