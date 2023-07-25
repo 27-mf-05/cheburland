@@ -12,7 +12,7 @@ export const FullScreenSwitcher = (): JSX.Element => {
     return () => {
       close()
     }
-  }, [])
+  }, [close])
 
   return (
     <Box
