@@ -6,7 +6,6 @@ export class Maze {
   public readonly cellSize
   private _matrix: boolean[][] | undefined
   private _erasers: { x: number; y: number }[] = []
-  private readonly _delay
   private readonly _canvas: HTMLCanvasElement
   private readonly _context
   private _image: HTMLImageElement
@@ -15,13 +14,11 @@ export class Maze {
     element: HTMLCanvasElement,
     rowsAndColumns: number,
     cellSize: number,
-    erasers: number,
-    delay?: number
+    erasers: number
   ) {
     this.rows = rowsAndColumns
     this.columns = rowsAndColumns
     this.cellSize = cellSize
-    this._delay = delay
     this._canvas = element
     this._context = this._canvas.getContext('2d')
     this._image = Maze.createImage(mazeTexture)
@@ -194,10 +191,6 @@ export class Maze {
     return array[index]
   }
 
-  private _setDelay(timeout: number) {
-    return new Promise(resolve => setTimeout(resolve, timeout))
-  }
-
   private _isValidMaze() {
     if (!this._matrix) {
       return
@@ -213,23 +206,19 @@ export class Maze {
     return true
   }
 
-  public async generate() {
+  public generate() {
     while (!this._isValidMaze()) {
       // прописываем для каждого ластика движение
       for (const eraser of this._erasers) {
         this._eraserMovement(eraser)
       }
 
-      if (this._delay !== undefined && this._delay > -1) {
-        //рисуем лабиринт
-        this.drawMaze()
+      //рисуем лабиринт
+      this.drawMaze()
 
-        //рисуем ластики
-        for (const eraser of this._erasers) {
-          this._drawEraser(eraser)
-        }
-
-        await this._setDelay(this._delay)
+      //рисуем ластики
+      for (const eraser of this._erasers) {
+        this._drawEraser(eraser)
       }
     }
     this.drawMaze()

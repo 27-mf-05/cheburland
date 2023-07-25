@@ -4,7 +4,7 @@ import { Button, Flex, Image, Stack, Text } from '@mantine/core'
 
 import cheburashka from '@/assets/images/cheburashka.png'
 import maze from '@/assets/images/maze.png'
-import { gameDescription } from '@/pages/game/constants'
+import { GAME_DESCRIPTION } from '@/shared'
 
 type GameInfoProps = {
   onModalStart: () => void
@@ -17,7 +17,7 @@ export const GameInfo: FC<GameInfoProps> = memo(
         <Flex p={32}>
           <Stack w={'50%'}>
             <Flex p={32}>
-              <Text align="center">{gameDescription}</Text>
+              <Text align="center">{GAME_DESCRIPTION}</Text>
             </Flex>
 
             <Flex p={32}>

@@ -1,5 +1,5 @@
 import { Sprite } from '@/core'
-import { keys } from '@/shared/core'
+import { keys } from '@/shared'
 
 import heroSprite from './heroSprite.svg'
 
