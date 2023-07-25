@@ -1,18 +1,14 @@
 import type { FC } from 'react'
-import { memo, useEffect, useRef } from 'react'
+import { memo, useCallback, useEffect, useRef } from 'react'
 
 import { Hero, Maze, Oranges } from '@/core'
+import { CELL_SIZE, ERASERS, ROWS_AND_COLUMNS } from '@/shared'
 
 type GameProps = {
   onIncreaseScore: () => void
-  delay?: number
 }
 
-const ROWS_AND_COLUMNS = 9
-const CELL_SIZE = 65
-const ERASERS = 10
-
-export const Scene: FC<GameProps> = memo(({ delay, onIncreaseScore }) => {
+export const Scene: FC<GameProps> = memo(({ onIncreaseScore }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const mazeRef = useRef<Maze | null>(null)
   const heroRef = useRef<Hero | null>(null)
@@ -30,7 +26,7 @@ export const Scene: FC<GameProps> = memo(({ delay, onIncreaseScore }) => {
     throw new Error('CELL_SIZE should be <125, >10')
   }
 
-  useEffect(() => {
+  const init = useCallback(() => {
     const canvas = canvasRef.current
     const context = canvas?.getContext('2d')
 
@@ -38,44 +34,30 @@ export const Scene: FC<GameProps> = memo(({ delay, onIncreaseScore }) => {
       return
     }
 
-    const maze = new Maze(canvas, ROWS_AND_COLUMNS, CELL_SIZE, ERASERS, delay)
+    const maze = new Maze(canvas, ROWS_AND_COLUMNS, CELL_SIZE, ERASERS)
     mazeRef.current = maze
 
-    maze.generate().then(() => {
-      if (!mazeRef.current) {
-        return
-      }
-
-      const cellSize = mazeRef.current.cellSize
-      heroRef.current = new Hero(
-        canvas,
-        maze.getFalseCells(),
-        cellSize,
-        mazeRef.current.rows,
-        mazeRef.current.columns
-      )
-
-      document.addEventListener('keydown', heroRef.current?.handleKeyDown)
-      document.addEventListener('keyup', heroRef.current?.handleKeyUp)
-
-      orangesRef.current = new Oranges(canvas, maze.getTrueCells(), cellSize)
-
-      animate()
-    })
-    return () => {
-      cancelAnimationFrame(animationFrame)
-      if (!heroRef.current) {
-        return
-      }
-      document.removeEventListener('keydown', heroRef.current.handleKeyDown)
-      document.removeEventListener('keyup', heroRef.current.handleKeyUp)
+    maze.generate()
+    if (!mazeRef.current) {
+      return
     }
+
+    const cellSize = mazeRef.current.cellSize
+    heroRef.current = new Hero(
+      canvas,
+      maze.getFalseCells(),
+      cellSize,
+      mazeRef.current.rows,
+      mazeRef.current.columns
+    )
+
+    document.addEventListener('keydown', heroRef.current?.handleKeyDown)
+    document.addEventListener('keyup', heroRef.current?.handleKeyUp)
+
+    orangesRef.current = new Oranges(canvas, maze.getTrueCells(), cellSize)
   }, [])
 
-  let animationFrame: number
-
-  const animate = () => {
-    animationFrame = requestAnimationFrame(animate)
+  const animate = useCallback(() => {
     mazeRef.current?.drawMaze()
     heroRef.current?.update()
     orangesRef.current?.draw(false)
@@ -98,7 +80,22 @@ export const Scene: FC<GameProps> = memo(({ delay, onIncreaseScore }) => {
     }
 
     orangesRef.current.draw(false)
-  }
+    requestAnimationFrame(animate)
+  }, [onIncreaseScore])
+
+  useEffect(() => {
+    init()
+    const animationFrameId = requestAnimationFrame(animate)
+
+    return () => {
+      cancelAnimationFrame(animationFrameId)
+      if (!heroRef.current) {
+        return
+      }
+      document.removeEventListener('keydown', heroRef.current.handleKeyDown)
+      document.removeEventListener('keyup', heroRef.current.handleKeyUp)
+    }
+  }, [animate, init, onIncreaseScore])
 
   return <canvas ref={canvasRef} width={300} height={300} />
 })
