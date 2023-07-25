@@ -1,34 +1,33 @@
 import type { FC } from 'react'
-import { useEffect, useRef } from 'react'
+import { memo, useEffect, useRef } from 'react'
 
 import { Hero, Maze, Oranges } from '@/core'
 
 type GameProps = {
-  onCollision: () => void
-  rowsAndColumns: number
-  cellSize: number
-  erasers: number
+  onIncreaseScore: () => void
   delay?: number
 }
 
-export const Scene: FC<GameProps> = ({
-  rowsAndColumns,
-  cellSize,
-  erasers,
-  delay,
-  onCollision,
-}) => {
+const ROWS_AND_COLUMNS = 9
+const CELL_SIZE = 65
+const ERASERS = 10
+
+export const Scene: FC<GameProps> = memo(({ delay, onIncreaseScore }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const mazeRef = useRef<Maze | null>(null)
   const heroRef = useRef<Hero | null>(null)
   const orangesRef = useRef<Oranges | null>(null)
 
-  if (rowsAndColumns >= 17 || rowsAndColumns <= 5 || rowsAndColumns % 2 == 0) {
-    throw new Error('rowsAndColumns should be <17, >5 and odd')
+  if (
+    ROWS_AND_COLUMNS >= 17 ||
+    ROWS_AND_COLUMNS <= 5 ||
+    ROWS_AND_COLUMNS % 2 == 0
+  ) {
+    throw new Error('ROWS_AND_COLUMNS should be <17, >5 and odd')
   }
 
-  if (cellSize >= 125 || cellSize <= 10) {
-    throw new Error('cellSize should be <125, >10')
+  if (CELL_SIZE >= 125 || CELL_SIZE <= 10) {
+    throw new Error('CELL_SIZE should be <125, >10')
   }
 
   useEffect(() => {
@@ -39,7 +38,7 @@ export const Scene: FC<GameProps> = ({
       return
     }
 
-    const maze = new Maze(canvas, rowsAndColumns, cellSize, erasers, delay)
+    const maze = new Maze(canvas, ROWS_AND_COLUMNS, CELL_SIZE, ERASERS, delay)
     mazeRef.current = maze
 
     maze.generate().then(() => {
@@ -91,7 +90,7 @@ export const Scene: FC<GameProps> = ({
       )
     ) {
       orangesRef.current.draw(true)
-      onCollision()
+      onIncreaseScore()
     }
 
     if (!orangesRef.current) {
@@ -102,4 +101,4 @@ export const Scene: FC<GameProps> = ({
   }
 
   return <canvas ref={canvasRef} width={300} height={300} />
-}
+})
