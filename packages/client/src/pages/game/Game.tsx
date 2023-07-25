@@ -7,10 +7,9 @@ import { FullScreenSwitcher } from '@/components'
 import { Scene } from '@/core'
 import { GameOver, GameStart } from '@/features'
 import { useAppDispatch, useAppSelector } from '@/hooks'
-import { GameStatus } from '@/shared'
+import { GAME_DURATION, GameStatus } from '@/shared'
 
 import { GameBoard, GameInfo } from './components'
-import { gameDuration } from './constants'
 
 export const Game = (): JSX.Element => {
   const dispatch = useAppDispatch()
@@ -48,7 +47,7 @@ export const Game = (): JSX.Element => {
     if (gameStatus === GameStatus.Started) {
       const timer = setTimeout(() => {
         handleFinishGame()
-      }, gameDuration)
+      }, GAME_DURATION)
 
       return () => {
         clearTimeout(timer)
