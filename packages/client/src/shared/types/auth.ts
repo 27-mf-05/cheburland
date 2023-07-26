@@ -11,3 +11,8 @@ export interface SignupData {
   password: string
   phone: string
 }
+
+export interface OAuthSigninData {
+  code: string
+  redirect_uri: string
+}
