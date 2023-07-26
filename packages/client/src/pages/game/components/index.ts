@@ -1,2 +1,2 @@
-export * from './game-board'
+export * from './game-wrapper'
 export * from './game-info'
