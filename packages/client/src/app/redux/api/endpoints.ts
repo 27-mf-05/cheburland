@@ -1,4 +1,5 @@
 export const API_BASE_URL = 'https://ya-praktikum.tech/api/v2'
+
 export const RESOURCES_URL = `${API_BASE_URL}/resources`
 
 export const USER_PATH = 'user'
@@ -13,3 +14,7 @@ export const AUTH_SIGNIN_PATH = `${AUTH_PATH}/signin`
 export const AUTH_SIGNUP_PATH = `${AUTH_PATH}/signup`
 export const AUTH_USER_PATH = `${AUTH_PATH}/user`
 export const AUTH_LOGOUT_PATH = `${AUTH_PATH}/logout`
+
+export const OAUTH_PATH = 'oauth'
+export const OAUTH_SERVICE_ID_PATH = `${OAUTH_PATH}/yandex/service-id`
+export const OAUTH_SIGNIN_PATH = `${OAUTH_PATH}/yandex`
