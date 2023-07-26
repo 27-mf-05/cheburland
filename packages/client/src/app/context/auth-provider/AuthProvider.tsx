@@ -10,6 +10,7 @@ import React, {
 import { useGetCurrentUserQuery } from '@/app/redux/api'
 import { userActions } from '@/app/redux/store/reducers'
 import { useAppDispatch } from '@/hooks/useAppDispatch'
+import { useOAuth } from '@/hooks/useOAuth'
 import { User } from '@/shared'
 
 interface AuthContextProps {
@@ -46,6 +47,7 @@ enum AuthStatus {
 
 const AuthProvider: FC<AuthContextProviderProps> = ({ children }) => {
   const [status, setStatus] = useState<AuthStatus>(AuthStatus.Initializing)
+  const { handleOAuthSignin } = useOAuth()
 
   const login = () => {
     setStatus(AuthStatus.Authenticated)
@@ -78,9 +80,19 @@ const AuthProvider: FC<AuthContextProviderProps> = ({ children }) => {
     }
   }
 
+  const auth = async () => {
+    const code = new URLSearchParams(window.location.search).get('code')
+
+    if (code) {
+      await handleOAuthSignin(code)
+    }
+    await fetchUser()
+  }
+
   useEffect(() => {
     setInitializing()
-    fetchUser()
+    auth()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const value: AuthContextProps = {
