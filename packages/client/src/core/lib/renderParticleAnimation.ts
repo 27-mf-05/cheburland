@@ -20,7 +20,6 @@ export const renderParticleAnimation = (
   ctx: CanvasRenderingContext2D | null
 ) => {
   const particles: Particle[] = []
-  let animationFrame: number
 
   for (let i = 0; i < 25; i++) {
     particles.push(particle(x, y))
@@ -49,12 +48,5 @@ export const renderParticleAnimation = (
     })
   }
 
-  ;(function renderLoop() {
-    animationFrame = requestAnimationFrame(renderLoop)
-    if (ctx !== null) render(ctx)
-  })()
-
-  setTimeout(() => {
-    cancelAnimationFrame(animationFrame)
-  }, 1000)
+  if (ctx !== null) render(ctx)
 }
