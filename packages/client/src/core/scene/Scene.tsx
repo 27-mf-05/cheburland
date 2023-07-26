@@ -2,6 +2,7 @@ import type { FC } from 'react'
 import { memo, useCallback, useEffect, useRef } from 'react'
 
 import { Hero, Maze, Oranges } from '@/core'
+import { renderParticleAnimation } from '@/core/lib'
 import { CELL_SIZE, ERASERS, ROWS_AND_COLUMNS } from '@/shared'
 
 type GameProps = {
@@ -13,6 +14,7 @@ export const Scene: FC<GameProps> = memo(({ onIncreaseScore }) => {
   const mazeRef = useRef<Maze | null>(null)
   const heroRef = useRef<Hero | null>(null)
   const orangesRef = useRef<Oranges | null>(null)
+  let animationFrameId: number
 
   if (
     ROWS_AND_COLUMNS >= 17 ||
@@ -61,7 +63,9 @@ export const Scene: FC<GameProps> = memo(({ onIncreaseScore }) => {
     mazeRef.current?.drawMaze()
     heroRef.current?.update()
     orangesRef.current?.draw(false)
-    if (!heroRef.current) {
+    const canvas = canvasRef.current
+    const context = canvas?.getContext('2d')
+    if (!heroRef.current || !canvas || !context) {
       return
     }
 
@@ -73,6 +77,12 @@ export const Scene: FC<GameProps> = memo(({ onIncreaseScore }) => {
     ) {
       orangesRef.current.draw(true)
       onIncreaseScore()
+
+      renderParticleAnimation(
+        heroRef.current.position.x,
+        heroRef.current.position.y,
+        context
+      )
     }
 
     if (!orangesRef.current) {
@@ -85,7 +95,7 @@ export const Scene: FC<GameProps> = memo(({ onIncreaseScore }) => {
 
   useEffect(() => {
     init()
-    const animationFrameId = requestAnimationFrame(animate)
+    animationFrameId = requestAnimationFrame(animate)
 
     return () => {
       cancelAnimationFrame(animationFrameId)
