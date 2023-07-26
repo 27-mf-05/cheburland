@@ -9,7 +9,7 @@ import { GameOver, GameStart } from '@/features'
 import { useAppDispatch, useAppSelector } from '@/hooks'
 import { GAME_DURATION, GameStatus } from '@/shared'
 
-import { GameBoard, GameInfo } from './components'
+import { GameInfo, GameWrapper } from './components'
 
 export const Game = (): JSX.Element => {
   const dispatch = useAppDispatch()
@@ -67,7 +67,7 @@ export const Game = (): JSX.Element => {
 
   return (
     <ModalsProvider modals={{ gameOver: GameOver }}>
-      <GameBoard>{content}</GameBoard>
+      <GameWrapper>{content}</GameWrapper>
     </ModalsProvider>
   )
 }

@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { Box } from '@mantine/core'
+import { Flex } from '@mantine/core'
 import { IconArrowsMaximize, IconArrowsMinimize } from '@tabler/icons-react'
 
 import { useFullScreen } from '@/hooks'
@@ -15,7 +15,8 @@ export const FullScreenSwitcher = (): JSX.Element => {
   }, [close])
 
   return (
-    <Box
+    <Flex
+      justify="center"
       sx={theme => ({
         color: theme.colors.gray[4],
         '&:hover': {
@@ -28,6 +29,6 @@ export const FullScreenSwitcher = (): JSX.Element => {
       ) : (
         <IconArrowsMaximize onClick={open} />
       )}
-    </Box>
+    </Flex>
   )
 }
