@@ -6,10 +6,11 @@ import React, {
   useEffect,
   useState,
 } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import { useGetCurrentUserQuery } from '@/app/redux/api'
 import { userActions } from '@/app/redux/store/reducers'
-import { RouteName, routes } from '@/app/routes'
+import { useRoutes } from '@/hooks'
 import { useAppDispatch } from '@/hooks/useAppDispatch'
 import { useOAuth } from '@/hooks/useOAuth'
 import { User } from '@/shared'
@@ -82,11 +83,15 @@ const AuthProvider: FC<AuthContextProviderProps> = ({ children }) => {
     }
   }
 
+  const [searchParams] = useSearchParams()
+  const navigate = useNavigate()
+  const { paths } = useRoutes()
+
   const auth = async () => {
-    const code = new URLSearchParams(window.location.search).get('code')
+    const code = searchParams.get('code')
     if (code) {
       await handleOAuthSignin(code)
-      window.location.href = routes[RouteName.Main].path
+      navigate(paths.Main)
     }
     await fetchUser()
   }

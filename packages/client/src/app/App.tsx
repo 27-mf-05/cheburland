@@ -1,4 +1,5 @@
 import { Provider } from 'react-redux'
+import { BrowserRouter as Router } from 'react-router-dom'
 
 import { MantineProvider } from '@mantine/core'
 
@@ -12,9 +13,11 @@ const store = setupStore()
 const App = () => (
   <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
     <Provider store={store}>
-      <AuthProvider>
-        <AppRoutes />
-      </AuthProvider>
+      <Router>
+        <AuthProvider>
+          <AppRoutes />
+        </AuthProvider>
+      </Router>
     </Provider>
   </MantineProvider>
 )
