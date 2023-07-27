@@ -56,7 +56,6 @@ const AuthProvider: FC<AuthContextProviderProps> = ({ children }) => {
   }
   const logout = () => {
     setStatus(AuthStatus.Unauthenticated)
-    dispatch(deleteUser())
   }
 
   const setInitializing = (): void => {
