@@ -1,5 +1,4 @@
 import { angleTools } from './angleTools'
-import { particle } from './particle'
 
 type Particle = {
   x: number
@@ -17,18 +16,29 @@ type Particle = {
 export const renderParticleAnimation = (
   x: number,
   y: number,
-  ctx: CanvasRenderingContext2D | null
+  ctx: CanvasRenderingContext2D | null,
+  animationFrameId: number,
+  isCollapse: boolean | undefined,
+  isShowAnimation: any,
+  particles: Particle[]
 ) => {
-  const particles: Particle[] = []
-
-  for (let i = 0; i < 25; i++) {
-    particles.push(particle(x, y))
-  }
-
-  const render = (ctx: CanvasRenderingContext2D) => {
+  function draw() {
     particles.forEach(p => {
       angleTools.moveOnAngle(p, p.speed)
 
+      if (ctx !== null) {
+        ctx.beginPath()
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2)
+        ctx.fillStyle = p.color
+        ctx.fill()
+        ctx.closePath()
+      }
+    })
+  }
+
+  function update() {
+    draw()
+    particles.map(p => {
       p.opacity -= 0.01
       p.speed *= p.friction
       p.radius *= p.friction
@@ -40,13 +50,15 @@ export const renderParticleAnimation = (
         return
       }
 
-      ctx.beginPath()
-      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2)
-      ctx.fillStyle = p.color
-      ctx.fill()
-      ctx.closePath()
+      return p
     })
   }
 
-  if (ctx !== null) render(ctx)
+  if (isShowAnimation.current) {
+    update()
+
+    setTimeout(() => {
+      isShowAnimation.current = false
+    }, 500)
+  }
 }
