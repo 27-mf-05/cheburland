@@ -9,6 +9,7 @@ import React, {
 
 import { useGetCurrentUserQuery } from '@/app/redux/api'
 import { userActions } from '@/app/redux/store/reducers'
+import { RouteName, routes } from '@/app/routes'
 import { useAppDispatch } from '@/hooks/useAppDispatch'
 import { useOAuth } from '@/hooks/useOAuth'
 import { User } from '@/shared'
@@ -54,6 +55,7 @@ const AuthProvider: FC<AuthContextProviderProps> = ({ children }) => {
   }
   const logout = () => {
     setStatus(AuthStatus.Unauthenticated)
+    dispatch(deleteUser())
   }
 
   const setInitializing = (): void => {
@@ -82,9 +84,9 @@ const AuthProvider: FC<AuthContextProviderProps> = ({ children }) => {
 
   const auth = async () => {
     const code = new URLSearchParams(window.location.search).get('code')
-
     if (code) {
       await handleOAuthSignin(code)
+      window.location.href = routes[RouteName.Main].path
     }
     await fetchUser()
   }
