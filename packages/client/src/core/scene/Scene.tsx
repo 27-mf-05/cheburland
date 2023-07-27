@@ -2,11 +2,24 @@ import type { FC } from 'react'
 import { memo, useCallback, useEffect, useRef } from 'react'
 
 import { Hero, Maze, Oranges } from '@/core'
-import { renderParticleAnimation } from '@/core/lib'
+import { particle, renderParticleAnimation } from '@/core/lib'
 import { CELL_SIZE, ERASERS, ROWS_AND_COLUMNS } from '@/shared'
 
 type GameProps = {
   onIncreaseScore: () => void
+}
+
+type Particle = {
+  x: number
+  y: number
+  radius: number
+  color: string
+  rotation: number
+  speed: number
+  friction: number
+  opacity: number
+  yVel: number
+  gravity: number
 }
 
 export const Scene: FC<GameProps> = memo(({ onIncreaseScore }) => {
@@ -14,6 +27,8 @@ export const Scene: FC<GameProps> = memo(({ onIncreaseScore }) => {
   const mazeRef = useRef<Maze | null>(null)
   const heroRef = useRef<Hero | null>(null)
   const orangesRef = useRef<Oranges | null>(null)
+  const isShowAnimation = useRef(false)
+  const particles = useRef<Particle[]>([])
   let animationFrameId: number
 
   if (
@@ -69,6 +84,19 @@ export const Scene: FC<GameProps> = memo(({ onIncreaseScore }) => {
       return
     }
 
+    renderParticleAnimation(
+      heroRef.current.position.x,
+      heroRef.current.position.y,
+      context,
+      animationFrameId,
+      orangesRef.current?.collapseWithFruit(
+        heroRef.current.position.x,
+        heroRef.current.position.y
+      ),
+      isShowAnimation,
+      particles.current
+    )
+
     if (
       orangesRef.current?.collapseWithFruit(
         heroRef.current.position.x,
@@ -78,11 +106,15 @@ export const Scene: FC<GameProps> = memo(({ onIncreaseScore }) => {
       orangesRef.current.draw(true)
       onIncreaseScore()
 
-      renderParticleAnimation(
-        heroRef.current.position.x,
-        heroRef.current.position.y,
-        context
-      )
+      const particlesData: Particle[] = []
+      for (let i = 0; i < 25; i++) {
+        particlesData.push(
+          particle(heroRef.current.position.x, heroRef.current.position.y)
+        )
+      }
+      particles.current = particlesData
+
+      isShowAnimation.current = true
     }
 
     if (!orangesRef.current) {
