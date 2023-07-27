@@ -1,31 +1,23 @@
 import { useGetServiceIdQuery, useOAuthSigninMutation } from '@/app/redux/api'
-import { RouteName, routes } from '@/app/routes'
-
-const redirect_uri = 'http://localhost:3000'
-const base_oauth_url = 'https://oauth.yandex.ru/authorize'
+import { OAUTH_BASE_URL, OAUTH_REDIRECT_URL } from '@/app/redux/api/endpoints'
 
 export const useOAuth = (): {
   handleOAuthClick: () => void
   handleOAuthSignin: (code: string) => void
   isLoading: boolean
 } => {
-  const { refetch } = useGetServiceIdQuery(redirect_uri)
+  const { refetch } = useGetServiceIdQuery(OAUTH_REDIRECT_URL)
   const [oAuthSignin, { isLoading }] = useOAuthSigninMutation()
 
   const handleOAuthClick = async () => {
     const { data, isError } = await refetch()
     if (!isError) {
-      const url = `${base_oauth_url}?response_type=code&client_id=${data?.service_id}&redirect_uri=${redirect_uri}`
-      window.location.href = url
+      window.location.href = `${OAUTH_BASE_URL}?response_type=code&client_id=${data?.service_id}&redirect_uri=${OAUTH_REDIRECT_URL}`
     }
   }
 
   const handleOAuthSignin = async (code: string) => {
-    await oAuthSignin({ code: code, redirect_uri: redirect_uri })
-      .unwrap()
-      .then(() => {
-        window.location.href = routes[RouteName.Main].path
-      })
+    await oAuthSignin({ code: code, redirect_uri: OAUTH_REDIRECT_URL })
   }
 
   return { isLoading, handleOAuthClick, handleOAuthSignin }
