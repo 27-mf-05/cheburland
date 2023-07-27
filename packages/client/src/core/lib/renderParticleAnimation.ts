@@ -14,11 +14,7 @@ type Particle = {
 }
 
 export const renderParticleAnimation = (
-  x: number,
-  y: number,
   ctx: CanvasRenderingContext2D | null,
-  animationFrameId: number,
-  isCollapse: boolean | undefined,
   isShowAnimation: any,
   particles: Particle[]
 ) => {
