@@ -84,18 +84,7 @@ export const Scene: FC<GameProps> = memo(({ onIncreaseScore }) => {
       return
     }
 
-    renderParticleAnimation(
-      heroRef.current.position.x,
-      heroRef.current.position.y,
-      context,
-      animationFrameId,
-      orangesRef.current?.collapseWithFruit(
-        heroRef.current.position.x,
-        heroRef.current.position.y
-      ),
-      isShowAnimation,
-      particles.current
-    )
+    renderParticleAnimation(context, isShowAnimation, particles.current)
 
     if (
       orangesRef.current?.collapseWithFruit(
