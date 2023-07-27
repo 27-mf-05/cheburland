@@ -1,4 +1,6 @@
 export const API_BASE_URL = 'https://ya-praktikum.tech/api/v2'
+export const OAUTH_REDIRECT_URL = 'http://localhost:3000'
+export const OAUTH_BASE_URL = 'https://oauth.yandex.ru/authorize'
 
 export const RESOURCES_URL = `${API_BASE_URL}/resources`
 
