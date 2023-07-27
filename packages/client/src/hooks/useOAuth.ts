@@ -11,7 +11,7 @@ export const useOAuth = (): {
 
   const handleOAuthClick = async () => {
     const { data, isError } = await refetch()
-    if (!isError) {
+    if (!isError && window) {
       window.location.href = `${OAUTH_BASE_URL}?response_type=code&client_id=${data?.service_id}&redirect_uri=${OAUTH_REDIRECT_URL}`
     }
   }

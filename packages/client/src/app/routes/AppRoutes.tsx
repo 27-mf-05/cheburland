@@ -1,8 +1,7 @@
-import { BrowserRouter as Router } from 'react-router-dom'
-
 import { Center, Loader } from '@mantine/core'
 
-import { useAuth } from '../context/auth-provider'
+import { useAuth } from '@/app/context'
+
 import { AuthenticatedRoutes } from './routes-wrapper'
 import { NotAuthenticatedRoutes } from './routes-wrapper'
 
@@ -21,9 +20,5 @@ export const AppRoutes = (): JSX.Element => {
     ? AuthenticatedRoutes
     : NotAuthenticatedRoutes
 
-  return (
-    <Router>
-      <RouteComponent />
-    </Router>
-  )
+  return <RouteComponent />
 }
