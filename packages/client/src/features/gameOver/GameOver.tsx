@@ -4,6 +4,7 @@ import { Button, Text } from '@mantine/core'
 import { ContextModalProps } from '@mantine/modals'
 
 import { useAppSelector, useRoutes } from '@/hooks'
+import { useNotificationApi } from '@/hooks/useNotificationApi'
 
 type GameOverProps = ContextModalProps<{
   id: string
@@ -14,6 +15,7 @@ export const GameOver = ({ context, id, innerProps }: GameOverProps) => {
   const { paths } = useRoutes()
   const { score: gameScore } = useAppSelector(({ game }) => game)
   const { startGame } = innerProps
+  useNotificationApi(gameScore)
 
   return (
     <>
