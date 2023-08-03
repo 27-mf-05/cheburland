@@ -34,7 +34,6 @@ export const NotificationComponent = () => {
 
     toast.onChange(e => {
       e.status === 'removed' ? handleNotificationClose() : {}
-      console.log(e.status)
     })
 
     if (notificationStatus === NotificationStatus.GRANTED) {
