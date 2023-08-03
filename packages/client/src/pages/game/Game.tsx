@@ -2,11 +2,17 @@ import { useCallback, useEffect } from 'react'
 
 import { modals, ModalsProvider } from '@mantine/modals'
 
+import {
+  NotificationProvider,
+  useNotificationContext,
+} from '@/app/context/notification-provider'
 import { gameActions } from '@/app/redux/store/reducers'
 import { FullScreenSwitcher } from '@/components'
+import { NotificationComponent } from '@/components/notification'
 import { Scene } from '@/core'
 import { GameOver, GameStart } from '@/features'
 import { useAppDispatch, useAppSelector } from '@/hooks'
+import { useNotificationApi } from '@/hooks/useNotificationApi'
 import { GAME_DURATION, GameStatus } from '@/shared'
 
 import { GameInfo, GameWrapper } from './components'
@@ -15,6 +21,20 @@ export const Game = (): JSX.Element => {
   const dispatch = useAppDispatch()
   const { startGame, finishGame, increaseScore } = gameActions
   const { status: gameStatus } = useAppSelector(({ game }) => game)
+  const { score: gameScore } = useAppSelector(({ game }) => game)
+
+  const { notificationStatus } = useNotificationContext()
+  const { notifyUser } = useNotificationApi()
+
+  useEffect(() => {
+    console.log(notificationStatus, gameStatus === GameStatus.Finished)
+
+    if (notificationStatus && gameStatus === GameStatus.Finished) {
+      notifyUser(gameScore)
+    }
+  }, [gameScore, gameStatus, notificationStatus, notifyUser])
+
+  console.log(gameScore, gameStatus)
 
   const handleStartGame = useCallback(() => {
     modals.closeAll()
@@ -62,7 +82,10 @@ export const Game = (): JSX.Element => {
         <Scene onIncreaseScore={handleIncreaseScore} />
       </>
     ) : (
-      <GameInfo onModalStart={handleModalStart} />
+      <>
+        <NotificationComponent />
+        <GameInfo onModalStart={handleModalStart} />
+      </>
     )
 
   return (
