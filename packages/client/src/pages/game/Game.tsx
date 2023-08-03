@@ -27,14 +27,10 @@ export const Game = (): JSX.Element => {
   const { notifyUser } = useNotificationApi()
 
   useEffect(() => {
-    console.log(notificationStatus, gameStatus === GameStatus.Finished)
-
     if (notificationStatus && gameStatus === GameStatus.Finished) {
       notifyUser(gameScore)
     }
   }, [gameScore, gameStatus, notificationStatus, notifyUser])
-
-  console.log(gameScore, gameStatus)
 
   const handleStartGame = useCallback(() => {
     modals.closeAll()
