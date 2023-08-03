@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 
-import { useNotificationContext } from '@/app/context/notification-provider'
+import { useAppSelector } from '@/hooks'
 import { NotificationStatus } from '@/shared/types/notification'
 
 export const NotificationComponent = () => {
-  const { notificationStatus } = useNotificationContext()
+  const { notificationStatus } = useAppSelector(state => state.notification)
 
   const [notificationClosed, setNotificationClosed] = useState(
     localStorage.getItem('notificationClosed') === 'true'
@@ -35,10 +35,6 @@ export const NotificationComponent = () => {
     toast.onChange(e => {
       e.status === 'removed' ? handleNotificationClose() : {}
     })
-
-    if (notificationStatus === NotificationStatus.GRANTED) {
-      localStorage.setItem('notificationClosed', 'false')
-    }
   }, [notificationStatus, notificationClosed])
 
   return null
