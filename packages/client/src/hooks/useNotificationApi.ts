@@ -1,4 +1,9 @@
-export const useNotificationApi = (score: number) => {
+import { useState } from 'react'
+
+import { NotificationStatus } from '@/shared/types/notification'
+
+export const useNotificationApi = () => {
+  const [notificationStatus, setNotificationStatus] = useState('granted')
   const notifyUser = (score: number) => {
     const notification = new Notification('Поздравляем!', {
       body: `Ваш новый рекорд - ${score}`,
@@ -10,20 +15,28 @@ export const useNotificationApi = (score: number) => {
     }, 3000)
   }
 
-  if ('Notification' in window) {
-    Notification.requestPermission().then(
-      (res: NotificationPermission): void => {
-        // Обновить условие, после добавления функционала с рекордом
-        if (res === 'granted' && score >= 0) {
-          notifyUser(score)
-        } else if (res === 'denied') {
-          alert('Пожалуйста, разрешите уведомления')
-        } else if (res === 'default') {
-          alert('Пожалуйста, разрешите уведомления')
+  const getPermission = (): string => {
+    if ('Notification' in window) {
+      Notification.requestPermission().then(
+        (res: NotificationPermission): void => {
+          // Обновить условие, после добавления функционала с рекордом
+          if (res === 'granted') {
+            setNotificationStatus(NotificationStatus.GRANTED)
+          } else if (res === 'denied') {
+            setNotificationStatus(NotificationStatus.DENIED)
+          } else if (res === 'default') {
+            setNotificationStatus(NotificationStatus.DEFAULT)
+          }
         }
-      }
-    )
-  } else {
-    alert('Уведомления не поддерживаются')
+      )
+    } else {
+      setNotificationStatus(NotificationStatus.INVALID)
+    }
+    return notificationStatus
+  }
+
+  return {
+    getPermission: getPermission,
+    notifyUser: notifyUser,
   }
 }
