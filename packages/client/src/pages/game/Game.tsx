@@ -66,9 +66,7 @@ export const Game = (): JSX.Element => {
         <Scene onIncreaseScore={handleIncreaseScore} />
       </>
     ) : (
-      <>
-        <GameInfo onModalStart={handleModalStart} />
-      </>
+      <GameInfo onModalStart={handleModalStart} />
     )
 
   return (
