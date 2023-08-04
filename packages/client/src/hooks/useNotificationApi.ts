@@ -12,22 +12,24 @@ export const useNotificationApi = (gameScore: number) => {
   )
   const { status: gameStatus } = useAppSelector(({ game }) => game)
 
-  if ('Notification' in window) {
-    Notification.requestPermission().then(
-      (res: NotificationPermission): void => {
-        // Обновить условие, после добавления функционала с рекордом
-        if (res === 'granted' && gameStatus === GameStatus.Finished) {
-          setNotificationStatus(NotificationStatus.GRANTED)
-          notifyUser(gameScore)
-        } else if (res === 'denied') {
-          setNotificationStatus(NotificationStatus.DENIED)
-        } else if (res === 'default') {
-          localStorage.setItem('notificationClosed', 'false')
-          setNotificationStatus(NotificationStatus.DEFAULT)
+  useEffect(() => {
+    if ('Notification' in window) {
+      Notification.requestPermission().then(
+        (res: NotificationPermission): void => {
+          // Обновить условие, после добавления функционала с рекордом
+          if (res === 'granted' && gameStatus === GameStatus.Finished) {
+            setNotificationStatus(NotificationStatus.GRANTED)
+            notifyUser(gameScore)
+          } else if (res === 'denied') {
+            setNotificationStatus(NotificationStatus.DENIED)
+          } else if (res === 'default') {
+            localStorage.setItem('notificationClosed', 'false')
+            setNotificationStatus(NotificationStatus.DEFAULT)
+          }
         }
-      }
-    )
-  }
+      )
+    }
+  }, [gameScore, gameStatus])
 
   useEffect(() => {
     if (
