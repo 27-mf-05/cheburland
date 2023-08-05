@@ -17,12 +17,15 @@ export const useNotificationApi = (gameScore: number) => {
       Notification.requestPermission().then(
         (res: NotificationPermission): void => {
           // Обновить условие, после добавления функционала с рекордом
-          if (res === 'granted' && gameStatus === GameStatus.Finished) {
+          if (
+            res === NotificationStatus.GRANTED &&
+            gameStatus === GameStatus.Finished
+          ) {
             setNotificationStatus(NotificationStatus.GRANTED)
             notifyUser(gameScore)
-          } else if (res === 'denied') {
+          } else if (res === NotificationStatus.DENIED) {
             setNotificationStatus(NotificationStatus.DENIED)
-          } else if (res === 'default') {
+          } else if (res === NotificationStatus.DEFAULT) {
             localStorage.setItem('notificationClosed', 'false')
             setNotificationStatus(NotificationStatus.DEFAULT)
           }
