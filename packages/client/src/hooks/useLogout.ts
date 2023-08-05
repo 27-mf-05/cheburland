@@ -1,3 +1,5 @@
+import { useCallback } from 'react'
+
 import { useAuth } from '@/app/context'
 import { useLogoutMutation } from '@/app/redux/api'
 
@@ -9,10 +11,10 @@ export const useLogout = (): {
 
   const [logout, { isLoading }] = useLogoutMutation()
 
-  const handleLogout = async () => {
+  const handleLogout = useCallback(async () => {
     await logout()
     await fetchUser()
-  }
+  }, [fetchUser, logout])
 
   return { isLoading, handleLogout }
 }
