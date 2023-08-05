@@ -1,3 +1,5 @@
+import { useCallback } from 'react'
+
 import { useAuth } from '@/app/context'
 import { useSigninMutation } from '@/app/redux/api'
 import { SigninData } from '@/shared'
@@ -10,10 +12,13 @@ export const useLogin = (): {
 
   const [signin, { isLoading }] = useSigninMutation()
 
-  const handleLogin = async (data: SigninData) => {
-    await signin(data)
-    await fetchUser()
-  }
+  const handleLogin = useCallback(
+    async (data: SigninData) => {
+      await signin(data)
+      await fetchUser()
+    },
+    [fetchUser, signin]
+  )
 
   return { isLoading, handleLogin }
 }

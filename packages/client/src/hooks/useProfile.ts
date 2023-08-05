@@ -1,3 +1,4 @@
+import { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
@@ -25,17 +26,20 @@ export const useProfile = (): {
   const navigate = useNavigate()
   const { paths } = useRoutes()
 
-  const handleSubmitPassword = (values: Password) => {
-    password(values)
-      .unwrap()
-      //бекенд всегда возвращает ошибку из-за строки в ответе вместо json, поэтому обрабатываем успех в catch
-      .catch(e => {
-        if (e.data === 'OK') {
-          navigate(paths.Profile)
-          toast.success('Password has been successfully changed')
-        }
-      })
-  }
+  const handleSubmitPassword = useCallback(
+    (values: Password) => {
+      password(values)
+        .unwrap()
+        //бекенд всегда возвращает ошибку из-за строки в ответе вместо json, поэтому обрабатываем успех в catch
+        .catch(e => {
+          if (e.data === 'OK') {
+            navigate(paths.Profile)
+            toast.success('Password has been successfully changed')
+          }
+        })
+    },
+    [navigate, password, paths.Profile]
+  )
 
   return {
     isLoading: isLoadingProfile || isLoadingPassword || isLoadingSearch,
