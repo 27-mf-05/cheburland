@@ -1,4 +1,8 @@
+import { useCallback, useEffect, useMemo } from 'react'
+
 import { Flex, Paper, Title } from '@mantine/core'
+
+import { useLeaderboard } from '@/hooks'
 
 import { LeaderBoardTable } from './components/leader-board-table/LeaderBoardTable'
 import type { Leader } from './types'
@@ -11,6 +15,31 @@ const leaders: Leader[] = [
 ]
 
 export const LeaderBoard = (): JSX.Element => {
+  const { handleGetAllLeaderboard } = useLeaderboard()
+
+  // let res
+  let data
+
+  const handleStartGame = async () => {
+    // try {
+    data = await handleGetAllLeaderboard()
+    // if (res) data = res.data
+    // data = res.data
+    // console.log(data?.data, 'data000')
+    // } catch (e) {
+    //   console.error(e)
+    // }
+  }
+
+  useEffect(() => {
+    handleStartGame()
+    //   // data = handleGetAllLeaderboard()
+  }, [])
+  // const data = useMemo(() => {
+  //   return handleGetAllLeaderboard()
+  // }, [])
+  // handleStartGame()
+
   return (
     <Flex id="leader-board" py={16} mih={50} justify="center" align="center">
       <Paper shadow="xs" p="md">
