@@ -5,7 +5,7 @@ import {
   LEADERBOARD_ALL_PATH,
   LEADERBOARD_PATH,
 } from '@/app/redux/api/endpoints'
-import { AllLeaderboardData, LeaderData } from '@/shared'
+import { AllLeaderboardData, LeaderboardData, LeaderData } from '@/shared'
 
 export const leaderboardApi = createApi({
   reducerPath: 'leaderboardApi',
@@ -24,8 +24,11 @@ export const leaderboardApi = createApi({
         body,
       }),
     }),
-    allLeaderboard: build.mutation<void, AllLeaderboardData>({
-      query: body => ({
+    allLeaderboard: build.query<
+      { data: LeaderboardData }[],
+      AllLeaderboardData
+    >({
+      query: (body: AllLeaderboardData) => ({
         url: LEADERBOARD_ALL_PATH,
         method: 'POST',
         body,
@@ -34,5 +37,5 @@ export const leaderboardApi = createApi({
   }),
 })
 
-export const { useAddUserToLeaderboardMutation, useAllLeaderboardMutation } =
+export const { useAddUserToLeaderboardMutation, useAllLeaderboardQuery } =
   leaderboardApi

@@ -18,7 +18,6 @@ export const Game = (): JSX.Element => {
   const { status: gameStatus } = useAppSelector(({ game }) => game)
   const { score: gameScore } = useAppSelector(({ game }) => game)
   const user = useAppSelector(state => state.user.currentUser)
-  console.log(user, 'user000')
 
   const handleStartGame = useCallback(() => {
     modals.closeAll()
@@ -41,10 +40,7 @@ export const Game = (): JSX.Element => {
       innerProps: { startGame: handleModalStart },
       centered: true,
     })
-
-    const userName = `${user?.first_name} ${user?.second_name}`
-    handleAddUserToLeaderboard(new Date().valueOf(), gameScore, userName)
-  }, [dispatch, finishGame, handleModalStart, gameScore])
+  }, [dispatch, finishGame, handleModalStart])
 
   const handleIncreaseScore = useCallback(() => {
     dispatch(increaseScore())
@@ -54,13 +50,22 @@ export const Game = (): JSX.Element => {
     if (gameStatus === GameStatus.Started) {
       const timer = setTimeout(() => {
         handleFinishGame()
+
+        const userName = `${user?.first_name} ${user?.second_name}`
+        handleAddUserToLeaderboard({
+          id: user?.id,
+          gameEndDate: new Date().valueOf(),
+          scoreCheburland: gameScore,
+          userName,
+          avatar: user?.avatar,
+        })
       }, GAME_DURATION)
 
       return () => {
         clearTimeout(timer)
       }
     }
-  }, [gameStatus, handleFinishGame])
+  }, [gameStatus, handleFinishGame, gameScore])
 
   const content =
     gameStatus === GameStatus.Started ? (
