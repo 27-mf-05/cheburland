@@ -6,7 +6,7 @@ import { DataTable } from 'mantine-datatable'
 import type { Leader } from '../../types'
 
 type LeaderBoardTableProps = {
-  leaders: Leader[]
+  leaders: Leader[] | undefined
 }
 
 export const LeaderBoardTable: FC<LeaderBoardTableProps> = ({
