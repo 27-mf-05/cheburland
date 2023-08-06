@@ -42,6 +42,7 @@ export const userApi = createApi({
           url: USER_PASSWORD_PATH,
           method: 'PUT',
           body,
+          responseHandler: 'text',
         }
       },
     }),

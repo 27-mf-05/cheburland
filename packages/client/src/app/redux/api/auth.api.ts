@@ -24,6 +24,7 @@ export const authApi = createApi({
         url: AUTH_SIGNIN_PATH,
         method: 'POST',
         body,
+        responseHandler: 'text',
       }),
     }),
     signup: build.mutation<{ id: number }, SignupData>({
@@ -31,12 +32,14 @@ export const authApi = createApi({
         url: AUTH_SIGNUP_PATH,
         method: 'POST',
         body,
+        responseHandler: 'text',
       }),
     }),
     logout: build.mutation<void, void>({
       query: () => ({
         url: AUTH_LOGOUT_PATH,
         method: 'POST',
+        responseHandler: 'text',
       }),
     }),
     getCurrentUser: build.query<User, void>({
