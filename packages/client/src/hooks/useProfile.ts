@@ -28,12 +28,9 @@ export const useProfile = (): {
   const handleSubmitPassword = (values: Password) => {
     password(values)
       .unwrap()
-      //бекенд всегда возвращает ошибку из-за строки в ответе вместо json, поэтому обрабатываем успех в catch
-      .catch(e => {
-        if (e.data === 'OK') {
-          navigate(paths.Profile)
-          toast.success('Password has been successfully changed')
-        }
+      .then(() => {
+        navigate(paths.Profile)
+        toast.success('Password has been successfully changed')
       })
   }
 
