@@ -20,3 +20,6 @@ export const AUTH_LOGOUT_PATH = `${AUTH_PATH}/logout`
 export const OAUTH_PATH = 'oauth'
 export const OAUTH_SERVICE_ID_PATH = `${OAUTH_PATH}/yandex/service-id`
 export const OAUTH_SIGNIN_PATH = `${OAUTH_PATH}/yandex`
+
+export const LEADERBOARD_PATH = 'leaderboard'
+export const LEADERBOARD_ALL_PATH = `${LEADERBOARD_PATH}/all`
