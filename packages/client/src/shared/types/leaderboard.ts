@@ -17,3 +17,12 @@ export interface LeaderboardData {
   userName: string
   avatar: string | undefined
 }
+
+export type Leader = {
+  key: number | undefined
+  id: number | undefined
+  rank: number
+  avatar: string | undefined
+  name: string
+  score: number
+}
