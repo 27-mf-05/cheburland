@@ -4,7 +4,7 @@ import { Box, SimpleGrid, Text } from '@mantine/core'
 
 import { User } from '@/shared'
 
-type ProfileDataProps = {
+export type ProfileDataProps = {
   user: User
 }
 

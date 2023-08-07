@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
+import { useAuth } from '@/app/context'
 import {
   useSearchUserMutation,
   useUpdatePasswordMutation,
@@ -14,6 +15,7 @@ export const useProfile = (): {
   profile: (data: Profile) => void
   search: (data: { login: string }) => void
   handleSubmitPassword: (data: Password) => void
+  handleSubmitProfile: (data: Profile) => void
 } => {
   const [profile, { isLoading: isLoadingProfile }] = useUpdateProfileMutation()
 
@@ -24,6 +26,7 @@ export const useProfile = (): {
 
   const navigate = useNavigate()
   const { paths } = useRoutes()
+  const { fetchUser } = useAuth()
 
   const handleSubmitPassword = (values: Password) => {
     password(values)
@@ -34,10 +37,21 @@ export const useProfile = (): {
       })
   }
 
+  const handleSubmitProfile = (values: Profile) => {
+    profile(values)
+      .unwrap()
+      .then(() => {
+        fetchUser()
+        navigate(paths.Profile)
+        toast.success('Profile has been successfully changed')
+      })
+  }
+
   return {
     isLoading: isLoadingProfile || isLoadingPassword || isLoadingSearch,
     profile,
     search,
     handleSubmitPassword,
+    handleSubmitProfile,
   }
 }

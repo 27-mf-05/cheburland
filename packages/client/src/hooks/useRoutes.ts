@@ -44,6 +44,14 @@ export const useRoutes = (): RoutesReturnType => {
     []
   )
 
+  const ChangeProfile = useMemo(
+    () =>
+      generateRoutePath({
+        name: RouteName.ChangeProfile,
+      }),
+    []
+  )
+
   const Forum = useMemo(
     () =>
       generateRoutePath({
@@ -122,6 +130,7 @@ export const useRoutes = (): RoutesReturnType => {
       Main,
       AddForumTopic,
       ChangePassword,
+      ChangeProfile,
       Forum,
       ForumTopic,
       Game,
@@ -136,6 +145,7 @@ export const useRoutes = (): RoutesReturnType => {
     Main,
     AddForumTopic,
     ChangePassword,
+    ChangeProfile,
     Forum,
     ForumTopic,
     Game,

@@ -1,5 +1,8 @@
 import { FormEvent, FormEventHandler } from 'react'
 
+import { modals } from '@mantine/modals'
+
+import { useAuth } from '@/app/context'
 import { useUpdateAvatarMutation } from '@/app/redux/api'
 
 export const useAvatar = (): {
@@ -8,15 +11,18 @@ export const useAvatar = (): {
   handleChange: FormEventHandler<HTMLFormElement>
 } => {
   const [avatar, { isLoading, isError }] = useUpdateAvatarMutation()
+  const { fetchUser } = useAuth()
 
-  const handleChange = (event: FormEvent) => {
+  const handleChange = async (event: FormEvent) => {
     const input = event.target as HTMLInputElement
     const file = input.files?.[0]
     if (file) {
       const formData = new FormData()
       formData.append('avatar', file as Blob)
 
-      avatar(formData)
+      await avatar(formData)
+      await fetchUser()
+      modals.closeAll()
     }
   }
 

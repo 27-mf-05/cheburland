@@ -19,6 +19,7 @@ export enum RouteName {
   Main = 'main',
   Login = 'login',
   Profile = 'profile',
+  ChangeProfile = 'changeProfile',
   Registration = 'registration',
   Page500 = 'page500',
   Page404 = 'page404',

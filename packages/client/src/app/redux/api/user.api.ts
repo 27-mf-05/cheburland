@@ -10,10 +10,6 @@ import {
 } from '@/app/redux/api/endpoints'
 import { Password, Profile, User } from '@/shared'
 
-const uploadFileHeaders = {
-  'Content-Type': 'multipart/form-data',
-}
-
 export const userApi = createApi({
   reducerPath: 'userApi',
   baseQuery: fetchBaseQuery({
@@ -51,7 +47,6 @@ export const userApi = createApi({
         url: USER_AVATAR_PATH,
         method: 'PUT',
         body,
-        headers: uploadFileHeaders,
       }),
     }),
     searchUser: build.mutation<User, { login: string }>({
