@@ -53,22 +53,23 @@ export const Game = (): JSX.Element => {
     if (gameStatus === GameStatus.Started) {
       const timer = setTimeout(() => {
         handleFinishGame()
-
-        const userName = `${user?.first_name} ${user?.second_name}`
-        handleAddUserToLeaderboard({
-          id: user?.id,
-          gameEndDate: new Date().valueOf(),
-          scoreCheburland: gameScore,
-          userName,
-          avatar: user?.avatar,
-        })
       }, GAME_DURATION)
 
       return () => {
         clearTimeout(timer)
       }
+    } else if (gameStatus === GameStatus.Finished) {
+      const userName = `${user?.first_name} ${user?.second_name}`
+      handleAddUserToLeaderboard({
+        id: user?.id,
+        gameEndDate: new Date().valueOf(),
+        scoreCheburland: gameScore,
+        userName,
+        avatar: user?.avatar,
+      })
     }
-  }, [gameStatus, handleFinishGame, gameScore])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gameStatus, handleFinishGame])
 
   const content =
     gameStatus === GameStatus.Started ? (
