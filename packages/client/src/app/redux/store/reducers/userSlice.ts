@@ -4,9 +4,11 @@ import { User } from '@/shared'
 
 type UserState = {
   currentUser: User | null
+  fromOAuth: boolean
 }
 const initialState: UserState = {
   currentUser: null,
+  fromOAuth: false,
 }
 
 export const userSlice = createSlice({
@@ -18,6 +20,12 @@ export const userSlice = createSlice({
     },
     deleteUser(state) {
       state.currentUser = null
+    },
+    setFromOAuth(state) {
+      state.fromOAuth = true
+    },
+    clearFromOAuth(state) {
+      state.fromOAuth = false
     },
   },
 })
