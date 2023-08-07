@@ -1,5 +1,7 @@
 import { useGetServiceIdQuery, useOAuthSigninMutation } from '@/app/redux/api'
 import { OAUTH_BASE_URL, OAUTH_REDIRECT_URL } from '@/app/redux/api/endpoints'
+import { userSlice } from '@/app/redux/store/reducers'
+import { useAppDispatch } from '@/hooks/useAppDispatch'
 
 export const useOAuth = (): {
   handleOAuthClick: () => void
@@ -8,6 +10,9 @@ export const useOAuth = (): {
 } => {
   const { refetch } = useGetServiceIdQuery(OAUTH_REDIRECT_URL)
   const [oAuthSignin, { isLoading }] = useOAuthSigninMutation()
+
+  const dispatch = useAppDispatch()
+  const { setFromOAuth } = userSlice.actions
 
   const handleOAuthClick = async () => {
     const { data, isError } = await refetch()
@@ -18,6 +23,7 @@ export const useOAuth = (): {
 
   const handleOAuthSignin = async (code: string) => {
     await oAuthSignin({ code: code, redirect_uri: OAUTH_REDIRECT_URL })
+    dispatch(setFromOAuth())
   }
 
   return { isLoading, handleOAuthClick, handleOAuthSignin }
