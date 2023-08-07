@@ -38,6 +38,7 @@ export const useLeaderboard = (): {
     if (!isError && data?.length) {
       const result = data.map((item, i) => {
         const { id, userName, scoreCheburland, avatar } = item.data
+
         return {
           key: id,
           id,
