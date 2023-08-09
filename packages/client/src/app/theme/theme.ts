@@ -44,5 +44,12 @@ export const theme: MantineThemeOverride = {
         },
       },
     },
+    ColorSchemeProvider: {
+      styles: {
+        main: {
+          padding: 0,
+        },
+      },
+    },
   },
 }
