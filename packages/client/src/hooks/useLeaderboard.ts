@@ -4,11 +4,11 @@ import {
   useAddUserToLeaderboardMutation,
   useAllLeaderboardQuery,
 } from '@/app/redux/api'
-import { LeaderboardData } from '@/shared'
+import { Leader, LeaderboardData } from '@/shared'
 
 export const useLeaderboard = (): {
   handleAddUserToLeaderboard: (data: LeaderboardData) => void
-  handleGetAllLeaderboard: () => void
+  handleGetAllLeaderboard: () => Promise<Leader[] | undefined>
 } => {
   const [addUserToLeaderboard] = useAddUserToLeaderboardMutation()
   const { refetch } = useAllLeaderboardQuery({
@@ -32,17 +32,19 @@ export const useLeaderboard = (): {
     })
   }
 
-  const handleGetAllLeaderboard = useCallback(async () => {
+  const handleGetAllLeaderboard = useCallback(async (): Promise<
+    Leader[] | undefined
+  > => {
     const { data, isError } = await refetch()
 
     if (!isError && data?.length) {
-      const result = data.map((item, i) => {
+      const result = data.map((item, index) => {
         const { id, userName, scoreCheburland, avatar } = item.data
 
         return {
           key: id,
           id,
-          rank: i + 1,
+          rank: index + 1,
           avatar,
           name: userName,
           score: scoreCheburland,

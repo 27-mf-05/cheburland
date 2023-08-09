@@ -12,8 +12,7 @@ export const LeaderBoard = (): JSX.Element => {
   const [leaders, setLeaders] = useState<Leader[]>()
 
   const handleGetLeaderboard = useCallback(async () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const leaderboard: any = await handleGetAllLeaderboard()
+    const leaderboard: Leader[] | undefined = await handleGetAllLeaderboard()
     setLeaders(leaderboard)
   }, [handleGetAllLeaderboard])
 
