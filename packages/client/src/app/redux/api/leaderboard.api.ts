@@ -22,6 +22,7 @@ export const leaderboardApi = createApi({
         url: LEADERBOARD_PATH,
         method: 'POST',
         body,
+        responseHandler: 'text',
       }),
     }),
     allLeaderboard: build.query<
