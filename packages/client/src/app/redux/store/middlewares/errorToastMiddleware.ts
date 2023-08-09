@@ -9,7 +9,6 @@ export const errorToastMiddleware: Middleware = () => next => action => {
     //Проверка, чтобы ошибка постоянно не вылезала для неавторизованных пользоватлей.
     action.payload.data.reason !== 'Cookie is not valid'
   ) {
-    console.log(action.payload)
     const error = action.payload.data.reason
       ? action.payload.data.reason
       : 'Something went wrong'
