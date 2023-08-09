@@ -1,3 +1,4 @@
+import { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
@@ -28,24 +29,30 @@ export const useProfile = (): {
   const { paths } = useRoutes()
   const { fetchUser } = useAuth()
 
-  const handleSubmitPassword = (values: Password) => {
-    password(values)
-      .unwrap()
-      .then(() => {
-        navigate(paths.Profile)
-        toast.success('Password has been successfully changed')
-      })
-  }
+  const handleSubmitPassword = useCallback(
+    (values: Password) => {
+      password(values)
+        .unwrap()
+        .then(() => {
+          navigate(paths.Profile)
+          toast.success('Password has been successfully changed')
+        })
+    },
+    [password, navigate, paths]
+  )
 
-  const handleSubmitProfile = (values: Profile) => {
-    profile(values)
-      .unwrap()
-      .then(() => {
-        fetchUser()
-        navigate(paths.Profile)
-        toast.success('Profile has been successfully changed')
-      })
-  }
+  const handleSubmitProfile = useCallback(
+    (values: Profile) => {
+      profile(values)
+        .unwrap()
+        .then(() => {
+          fetchUser()
+          navigate(paths.Profile)
+          toast.success('Profile has been successfully changed')
+        })
+    },
+    [profile, fetchUser, navigate, paths]
+  )
 
   return {
     isLoading: isLoadingProfile || isLoadingPassword || isLoadingSearch,
