@@ -1,3 +1,5 @@
+import { useCallback } from 'react'
+
 import { useAuth } from '@/app/context'
 import { useLogoutMutation } from '@/app/redux/api'
 import { userSlice } from '@/app/redux/store/reducers'
@@ -14,11 +16,11 @@ export const useLogout = (): {
 
   const [logout, { isLoading }] = useLogoutMutation()
 
-  const handleLogout = async () => {
+  const handleLogout = useCallback(async () => {
     await logout()
     await fetchUser()
     dispatch(clearFromOAuth())
-  }
+  }, [logout, fetchUser, dispatch, clearFromOAuth])
 
   return { isLoading, handleLogout }
 }
