@@ -20,8 +20,8 @@ export const Main = (): JSX.Element => {
           background: 'rgba(0,0,0,0.4)',
         }}>
         <Menu width={200}>
-          <Menu.Item bg="brand.2" w={230} component={Link} to={paths.Game}>
-            <Text color="white" size="lg" weight="600" align="center">
+          <Menu.Item bg="brand.3" w={230} component={Link} to={paths.Game}>
+            <Text color="brand.2" size="lg" weight="600" align="center">
               Игра
             </Text>
           </Menu.Item>
