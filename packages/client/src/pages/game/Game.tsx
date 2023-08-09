@@ -58,7 +58,8 @@ export const Game = (): JSX.Element => {
       return () => {
         clearTimeout(timer)
       }
-    } else if (gameStatus === GameStatus.Finished) {
+    }
+    if (gameStatus === GameStatus.Finished) {
       const userName = `${user?.first_name} ${user?.second_name}`
       handleAddUserToLeaderboard({
         id: user?.id,
