@@ -20,8 +20,38 @@ export const Main = (): JSX.Element => {
           background: 'rgba(0,0,0,0.4)',
         }}>
         <Menu width={200}>
-          <Menu.Item bg="brand.3" w={230} component={Link} to={paths.Game}>
-            <Text color="brand.2" size="lg" weight="600" align="center">
+          <Menu.Item
+            sx={theme => ({
+              backgroundColor:
+                theme.colorScheme === 'dark'
+                  ? theme.colors.brand[3]
+                  : theme.colors.brand[3],
+              '&:hover': {
+                backgroundColor:
+                  theme.colorScheme === 'dark'
+                    ? theme.primaryColor
+                    : theme.colors.brand[2],
+              },
+            })}
+            w={230}
+            component={Link}
+            to={paths.Game}>
+            <Text
+              sx={theme => ({
+                color:
+                  theme.colorScheme === 'dark'
+                    ? theme.colors.brand[2]
+                    : theme.colors.brand[2],
+                '&:hover': {
+                  color:
+                    theme.colorScheme === 'dark'
+                      ? theme.colors.brand[2]
+                      : theme.colors.brand[3],
+                },
+              })}
+              size="lg"
+              weight="600"
+              align="center">
               Игра
             </Text>
           </Menu.Item>

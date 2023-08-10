@@ -19,6 +19,7 @@ export const ThemeSwitch = () => {
           checked={colorScheme === 'dark'}
           onChange={() => toggleColorScheme()}
           size="lg"
+          p="10px"
           color="yellow"
           onLabel={<IconSun color={theme.white} size="1.25rem" stroke={1.5} />}
           offLabel={
