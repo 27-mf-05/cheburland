@@ -1,15 +1,15 @@
 import React from 'react'
-import ReactDOM from 'react-dom/client'
+import { hydrateRoot } from 'react-dom/client'
 
 import App from '@/app/App'
 
 import AppServiceWorker from './AppServiceWorker'
-
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
-
 AppServiceWorker.unregister()
 
-root.render(
+const root = document.getElementById('root') as HTMLElement
+
+hydrateRoot(
+  root,
   <React.StrictMode>
     <App />
   </React.StrictMode>

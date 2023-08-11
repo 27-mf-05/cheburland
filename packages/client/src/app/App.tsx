@@ -1,25 +1,43 @@
 import { Provider } from 'react-redux'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
-import { MantineProvider } from '@mantine/core'
+import { Center, Loader, MantineProvider } from '@mantine/core'
 
-import { AuthProvider } from '@/app/context'
-import { setupStore } from '@/app/redux/store'
-import { AppRoutes } from '@/app/routes'
+import { AuthProvider, useAuth } from '@/app/context'
+import { store } from '@/app/redux/store'
 import { theme } from '@/app/theme'
 
-const store = setupStore()
+import {
+  AuthenticatedRoutes,
+  NotAuthenticatedRoutes,
+} from './routes/routes-wrapper'
 
-const App = () => (
-  <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
-    <Provider store={store}>
-      <Router>
+const App = () => {
+  // const { authenticated, initializing } = useAuth()
+  const initializing = false
+  const authenticated = true
+
+  if (initializing) {
+    return (
+      <Center sx={{ width: '100vw', height: '100vh' }}>
+        <Loader size="lg" variant="bars" />
+      </Center>
+    )
+  }
+  const routes = authenticated ? AuthenticatedRoutes : NotAuthenticatedRoutes
+  // const routes = NotAuthenticatedRoutes
+
+  const router = createBrowserRouter(routes)
+
+  return (
+    <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
+      <Provider store={store}>
         <AuthProvider>
-          <AppRoutes />
+          <RouterProvider router={router} />
         </AuthProvider>
-      </Router>
-    </Provider>
-  </MantineProvider>
-)
+      </Provider>
+    </MantineProvider>
+  )
+}
 
 export default App

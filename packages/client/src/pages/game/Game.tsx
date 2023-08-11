@@ -2,12 +2,16 @@ import { useCallback, useEffect } from 'react'
 
 import { modals, ModalsProvider } from '@mantine/modals'
 
-import { gameActions } from '@/app/redux/store/reducers'
+import { finishGame, increaseScore, startGame } from '@/app/redux'
 import { FullScreenSwitcher } from '@/components'
 import { Scene } from '@/core'
 import { GameOver, GameStart } from '@/features'
-import { useAppDispatch, useAppSelector, useLeaderboard } from '@/hooks'
-import { useNotificationApi } from '@/hooks/useNotificationApi'
+import {
+  useAppDispatch,
+  useAppSelector,
+  useLeaderboard,
+  useNotificationApi,
+} from '@/hooks'
 import { GAME_DURATION, GameStatus } from '@/shared'
 
 import { GameInfo, GameWrapper } from './components'
@@ -15,7 +19,6 @@ import { GameInfo, GameWrapper } from './components'
 export const Game = (): JSX.Element => {
   const dispatch = useAppDispatch()
   const { handleAddUserToLeaderboard } = useLeaderboard()
-  const { startGame, finishGame, increaseScore } = gameActions
   const { status: gameStatus } = useAppSelector(({ game }) => game)
   const { score: gameScore } = useAppSelector(({ game }) => game)
   const user = useAppSelector(state => state.user.currentUser)
@@ -26,7 +29,7 @@ export const Game = (): JSX.Element => {
     modals.closeAll()
 
     dispatch(startGame())
-  }, [dispatch, startGame])
+  }, [dispatch])
 
   const handleModalStart = useCallback(() => {
     modals.open({
@@ -43,11 +46,11 @@ export const Game = (): JSX.Element => {
       innerProps: { startGame: handleModalStart },
       centered: true,
     })
-  }, [dispatch, finishGame, handleModalStart])
+  }, [dispatch, handleModalStart])
 
   const handleIncreaseScore = useCallback(() => {
     dispatch(increaseScore())
-  }, [dispatch, increaseScore])
+  }, [dispatch])
 
   useEffect(() => {
     if (gameStatus === GameStatus.Started) {
