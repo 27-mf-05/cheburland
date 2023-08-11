@@ -9,33 +9,25 @@ import { MantineProvider } from '@mantine/core'
 import { createStaticHandler } from '@remix-run/router'
 import type * as express from 'express'
 
-import { AuthProvider } from '@/app/context'
 import { store } from '@/app/redux'
-import {
-  AuthenticatedRoutes,
-  NotAuthenticatedRoutes,
-} from '@/app/routes/routes-wrapper'
+import { appRoutes } from '@/app/routes'
 import { theme } from '@/app/theme'
 
 export const render = async (request: express.Request) => {
   console.log(request)
-  const { query } = createStaticHandler(NotAuthenticatedRoutes)
+  const { query } = createStaticHandler(appRoutes)
   const remixRequest = createFetchRequest(request)
   const context = await query(remixRequest)
 
   if (context instanceof Response) {
     throw context
   }
-  const router = createStaticRouter(AuthenticatedRoutes, context)
-
-  // const router = createStaticRouter(NotAuthenticatedRoutes, context)
+  const router = createStaticRouter(appRoutes, context)
 
   return renderToString(
     <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
       <Provider store={store}>
-        <AuthProvider>
-          <Router router={router} context={context} nonce="the-nonce" />
-        </AuthProvider>
+        <Router router={router} context={context} nonce="the-nonce" />
       </Provider>
     </MantineProvider>
   )

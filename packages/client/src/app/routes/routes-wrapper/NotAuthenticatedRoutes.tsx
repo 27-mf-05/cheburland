@@ -1,12 +1,5 @@
-import { ReactNode } from 'react'
-import {
-  createRoutesFromElements,
-  Navigate,
-  Route,
-  Routes,
-} from 'react-router-dom'
+import { createRoutesFromElements, Navigate, Route } from 'react-router-dom'
 
-import { useRoutes } from '@/hooks'
 import { AppLayout } from '@/layout'
 
 import { notAuthenticatedRoutes } from '../helper'

@@ -16,7 +16,7 @@ export enum PageType {
 export type RoutesType = Record<RouteName, RouteConfig>
 
 export enum RouteName {
-  Main = 'main',
+  Main = '/',
   Login = 'login',
   Profile = 'profile',
   ChangeProfile = 'changeProfile',

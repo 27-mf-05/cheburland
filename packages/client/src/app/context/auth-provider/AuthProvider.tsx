@@ -8,11 +8,9 @@ import React, {
 } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
-import { useGetCurrentUserQuery } from '@/app/redux/api'
-import { userActions } from '@/app/redux/store/reducers'
-import { useRoutes } from '@/hooks'
-import { useAppDispatch } from '@/hooks/useAppDispatch'
-import { useOAuth } from '@/hooks/useOAuth'
+import { addUser, deleteUser, useGetCurrentUserQuery } from '@/app/redux'
+import { RouteName } from '@/app/routes'
+import { useAppDispatch, useOAuth, useRoutes } from '@/hooks'
 import { User } from '@/shared'
 
 interface AuthContextProps {
@@ -50,6 +48,11 @@ enum AuthStatus {
 const AuthProvider: FC<AuthContextProviderProps> = ({ children }) => {
   const [status, setStatus] = useState<AuthStatus>(AuthStatus.Initializing)
   const { handleOAuthSignin } = useOAuth()
+  // const navigate = useNavigate()
+  // const { paths } = useRoutes()
+
+  // const [searchParams] = useSearchParams()
+  // const code = searchParams.get('code')
 
   const login = () => {
     setStatus(AuthStatus.Authenticated)
@@ -67,7 +70,6 @@ const AuthProvider: FC<AuthContextProviderProps> = ({ children }) => {
   }
 
   const dispatch = useAppDispatch()
-  const { addUser, deleteUser } = userActions
   const { refetch } = useGetCurrentUserQuery()
 
   const fetchUser = async () => {
@@ -82,15 +84,18 @@ const AuthProvider: FC<AuthContextProviderProps> = ({ children }) => {
     }
   }
 
-  const [searchParams] = useSearchParams()
-  const navigate = useNavigate()
-  const { paths } = useRoutes()
+  // const auth = async () => {
+  //   if (code) {
+  //     await handleOAuthSignin(code)
+  //     navigate(paths.Main)
+  //   }
+  //   await fetchUser()
+  // }
 
   const auth = async () => {
-    const code = searchParams.get('code')
+    const code = new URLSearchParams(window.location.search).get('code')
     if (code) {
-      await handleOAuthSignin(code)
-      navigate(paths.Main)
+      handleOAuthSignin(code)
     }
     await fetchUser()
   }
