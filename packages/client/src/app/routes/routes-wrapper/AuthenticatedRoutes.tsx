@@ -6,7 +6,6 @@ import {
   Routes,
 } from 'react-router-dom'
 
-import { useRoutes } from '@/hooks'
 import { AppLayout } from '@/layout'
 
 import { authenticatedRoutes } from '../helper'

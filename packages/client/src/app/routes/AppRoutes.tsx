@@ -1,25 +1,31 @@
-import { Center, Loader } from '@mantine/core'
+import { createRoutesFromElements, Navigate, Route } from 'react-router-dom'
 
-// import { useAuth } from '@/app/context'
-import { AuthenticatedRoutes } from './routes-wrapper'
-import { NotAuthenticatedRoutes } from './routes-wrapper'
+import {
+  AppLayout,
+  AuthenticatedLayout,
+  NotAuthenticatedLayout,
+} from '@/layout'
 
-export const AppRoutes = () => {
-  // const { authenticated, initializing } = useAuth()
-  const initializing = false
-  const authenticated = false
+import { authenticatedRoutes, notAuthenticatedRoutes } from './helper'
+import { RouteConfig, RouteName } from './types'
 
-  if (initializing) {
-    return (
-      <Center sx={{ width: '100vw', height: '100vh' }}>
-        <Loader size="lg" variant="bars" />
-      </Center>
-    )
-  }
-
-  const RouteComponent = authenticated
-    ? AuthenticatedRoutes
-    : NotAuthenticatedRoutes
-
-  //return <RouteComponent />
-}
+export const appRoutes = createRoutesFromElements(
+  <Route element={<AppLayout />}>
+    <Route element={<AuthenticatedLayout />}>
+      {authenticatedRoutes()?.map(
+        ({ title, component: Element, path }: RouteConfig) => (
+          <Route key={title} element={<Element />} path={path} />
+        )
+      )}
+      <Route key={-1} path="*" element={<Navigate to={RouteName.Main} />} />
+    </Route>
+    <Route element={<NotAuthenticatedLayout />}>
+      {notAuthenticatedRoutes()?.map(
+        ({ title, component: Element, path }: RouteConfig) => {
+          return <Route key={title} element={<Element />} path={path} />
+        }
+      )}
+      <Route key={-1} path="*" element={<Navigate to={RouteName.Login} />} />
+    </Route>
+  </Route>
+)
