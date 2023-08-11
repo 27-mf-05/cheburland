@@ -29,5 +29,6 @@ export const gameSlice = createSlice({
   },
 })
 
-export const gameReducer = gameSlice.reducer
-export const gameActions = gameSlice.actions
+const { actions, reducer: gameReducer } = gameSlice
+export const { startGame, finishGame, increaseScore } = actions
+export default gameReducer

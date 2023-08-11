@@ -1,8 +1,15 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 
-import { authApi, leaderboardApi, oAuthApi, userApi } from '@/app/redux/api'
-import { errorToastMiddleware } from '@/app/redux/store/middlewares'
-import { gameReducer, userReducer } from '@/app/redux/store/reducers'
+import {
+  authApi,
+  errorToastMiddleware,
+  leaderboardApi,
+  oAuthApi,
+  userApi,
+} from '@/app/redux'
+
+import gameReducer from './reducers/gameSlice'
+import userReducer from './reducers/userSlice'
 
 const rootReducer = combineReducers({
   user: userReducer,
@@ -13,7 +20,7 @@ const rootReducer = combineReducers({
   [leaderboardApi.reducerPath]: leaderboardApi.reducer,
 })
 
-export const setupStore = () => {
+const setupStore = () => {
   return configureStore({
     reducer: rootReducer,
     middleware: getDefaultMiddleware =>
@@ -21,10 +28,12 @@ export const setupStore = () => {
         .concat(authApi.middleware)
         .concat(oAuthApi.middleware)
         .concat(userApi.middleware)
-        .concat(leaderboardApi.middleware)
-        .concat(errorToastMiddleware),
+        .concat(leaderboardApi.middleware),
+    // .concat(errorToastMiddleware),
   })
 }
+
+export const store = setupStore()
 
 export type RootState = ReturnType<typeof rootReducer>
 export type AppStore = ReturnType<typeof setupStore>
