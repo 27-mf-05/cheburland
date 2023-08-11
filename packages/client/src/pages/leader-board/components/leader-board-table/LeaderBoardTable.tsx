@@ -16,6 +16,7 @@ export const LeaderBoardTable: FC<LeaderBoardTableProps> = ({
     <DataTable
       w="100vh"
       records={leaders}
+      idAccessor="rank"
       columns={[
         { accessor: 'rank', title: '№', width: '1%' },
         {
