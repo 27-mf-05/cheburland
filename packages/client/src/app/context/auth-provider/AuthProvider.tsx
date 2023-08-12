@@ -6,11 +6,9 @@ import React, {
   useEffect,
   useState,
 } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import { addUser, deleteUser, useGetCurrentUserQuery } from '@/app/redux'
-import { RouteName } from '@/app/routes'
-import { useAppDispatch, useOAuth, useRoutes } from '@/hooks'
+import { useAppDispatch, useOAuth } from '@/hooks'
 import { User } from '@/shared'
 
 interface AuthContextProps {
@@ -48,11 +46,6 @@ enum AuthStatus {
 const AuthProvider: FC<AuthContextProviderProps> = ({ children }) => {
   const [status, setStatus] = useState<AuthStatus>(AuthStatus.Initializing)
   const { handleOAuthSignin } = useOAuth()
-  // const navigate = useNavigate()
-  // const { paths } = useRoutes()
-
-  // const [searchParams] = useSearchParams()
-  // const code = searchParams.get('code')
 
   const login = () => {
     setStatus(AuthStatus.Authenticated)
@@ -84,18 +77,10 @@ const AuthProvider: FC<AuthContextProviderProps> = ({ children }) => {
     }
   }
 
-  // const auth = async () => {
-  //   if (code) {
-  //     await handleOAuthSignin(code)
-  //     navigate(paths.Main)
-  //   }
-  //   await fetchUser()
-  // }
-
   const auth = async () => {
     const code = new URLSearchParams(window.location.search).get('code')
     if (code) {
-      handleOAuthSignin(code)
+      await handleOAuthSignin(code)
     }
     await fetchUser()
   }
