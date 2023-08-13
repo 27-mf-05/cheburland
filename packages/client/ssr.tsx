@@ -14,7 +14,7 @@ import { appRoutes } from '@/app/routes'
 import { theme } from '@/app/theme'
 
 export const render = async (request: express.Request) => {
-  console.log(request)
+  // console.log(request)
   const { query } = createStaticHandler(appRoutes)
   const remixRequest = createFetchRequest(request)
   const context = await query(remixRequest)
@@ -30,6 +30,7 @@ export const render = async (request: express.Request) => {
         <Router router={router} context={context} nonce="the-nonce" />
       </Provider>
     </MantineProvider>
+    // <App />
   )
 }
 
