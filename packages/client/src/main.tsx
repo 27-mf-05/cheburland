@@ -3,6 +3,7 @@ import { hydrateRoot } from 'react-dom/client'
 
 import App from '@/app/App'
 
+// import App from './App'
 import AppServiceWorker from './AppServiceWorker'
 AppServiceWorker.unregister()
 

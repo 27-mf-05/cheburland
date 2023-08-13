@@ -41,10 +41,13 @@ async function startServer() {
 
   app.use('*', async (req, res, next) => {
     const url = req.originalUrl
+    interface SSRModule {
+      render: (uri: express.Request) => Promise<string>
+    }
 
+    let module: SSRModule
+    let template: string
     try {
-      let template: string
-
       if (!isDev()) {
         template = fs.readFileSync(
           path.resolve(distPath, 'index.html'),
@@ -57,20 +60,19 @@ async function startServer() {
         template = await vite!.transformIndexHtml(url, template)
       }
 
-      let render: (req: express.Request) => Promise<string>
-
-      if (!isDev()) {
-        render = (await import(ssrClientPath)).render
-      } else {
+      if (isDev()) {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        render = (await vite!.ssrLoadModule(path.resolve(srcPath, 'ssr.tsx')))
-          .render
+        module = (await vite!.ssrLoadModule(
+          path.resolve(srcPath, 'ssr.tsx')
+        )) as SSRModule
+      } else {
+        module = await import(ssrClientPath)
       }
 
+      const { render } = module
       const appHtml = await render(req)
 
       const html = template.replace(`<!--ssr-outlet-->`, appHtml)
-
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
     } catch (e) {
       if (isDev()) {
