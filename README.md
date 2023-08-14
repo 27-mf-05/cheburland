@@ -16,3 +16,5 @@
  [Игровой движок](./docs/gameEngine.md)
 
  [Сценарий игры](./docs/gameScenario.md)
+
+[Оптимизация игры](./docs/gameOptimisation.md)
