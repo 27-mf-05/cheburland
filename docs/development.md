@@ -63,14 +63,25 @@
 
 Все ваши PR будут автоматически деплоиться на vercel. URL вам предоставит деплоящий бот
 
-#### Production окружение в докере
+#### Development окружение в докере
 Перед первым запуском выполните `node init.js`
+Затем `docker compose build`
+Эту команду выполнять при изменении зависимостей.
+При изменении кода пересобирать контейнер не нужно,
+так как файлы прокидываются в контейнер из хоста.
 
-
-`docker compose up` - запустит три сервиса
-1. nginx, раздающий клиентскую статику (client)
-2. node, ваш сервер (server)
-3. postgres, вашу базу данных (postgres)
+`docker compose up` - запустит 2 сервиса
+1. node, ваш сервер (server)
+2. postgres, вашу базу данных (postgres)
 
 Если вам понадобится только один сервис, просто уточните какой в команде
 `docker compose up {sevice_name}`, например `docker compose up server`
+
+Панель управления базой данных доступна после запуска docker compose up по адресу `localhost:8080`
+
+#### Production окружение в докере
+В docker-compose.yml заменить Dockerfile.server.dev на Dockerfile.server.prod и запустить
+
+`docker compose build`
+
+`docker compose up`
