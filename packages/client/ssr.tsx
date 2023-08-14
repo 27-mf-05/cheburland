@@ -1,4 +1,4 @@
-import { renderToString } from 'react-dom/server'
+import { renderToStaticMarkup, renderToString } from 'react-dom/server'
 import { Provider } from 'react-redux'
 import {
   createStaticRouter,
@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom/server'
 
 import { MantineProvider } from '@mantine/core'
+import { createStylesServer, ServerStyles } from '@mantine/ssr'
 import { createStaticHandler } from '@remix-run/router'
 import type * as express from 'express'
 
@@ -13,8 +14,11 @@ import { store } from '@/app/redux'
 import { appRoutes } from '@/app/routes'
 import { theme } from '@/app/theme'
 
+import { Html } from './Html'
+
 export const render = async (request: express.Request) => {
   // console.log(request)
+  const stylesServer = createStylesServer()
   const { query } = createStaticHandler(appRoutes)
   const remixRequest = createFetchRequest(request)
   const context = await query(remixRequest)
@@ -24,14 +28,29 @@ export const render = async (request: express.Request) => {
   }
   const router = createStaticRouter(appRoutes, context)
 
-  return renderToString(
+  const content = renderToString(
     <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
       <Provider store={store}>
         <Router router={router} context={context} nonce="the-nonce" />
       </Provider>
     </MantineProvider>
-    // <App />
   )
+
+  return renderToStaticMarkup(
+    // ServerStyles will return <style> tag with extracted styles
+    <Html styles={<ServerStyles html={content} server={stylesServer} />}>
+      {content}
+    </Html>
+  )
+
+  // return renderToString(
+  //   <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
+  //     <Provider store={store}>
+  //       <Router router={router} context={context} nonce="the-nonce" />
+  //     </Provider>
+  //   </MantineProvider>
+  //   // <App />
+  // )
 }
 
 export const createFetchRequest = (req: express.Request): Request => {

@@ -6,7 +6,7 @@ import { createServer as createViteServer } from 'vite'
 dotenv.config()
 
 import express from 'express'
-import * as fs from 'fs'
+// import * as fs from 'fs'
 import * as path from 'path'
 
 const isDev = () => process.env.NODE_ENV === 'development'
@@ -40,25 +40,25 @@ async function startServer() {
   }
 
   app.use('*', async (req, res, next) => {
-    const url = req.originalUrl
+    // const url = req.originalUrl
     interface SSRModule {
       render: (uri: express.Request) => Promise<string>
     }
 
     let module: SSRModule
-    let template: string
+    // let template: string
     try {
-      if (!isDev()) {
-        template = fs.readFileSync(
-          path.resolve(distPath, 'index.html'),
-          'utf-8'
-        )
-      } else {
-        template = fs.readFileSync(path.resolve(srcPath, 'index.html'), 'utf-8')
+      // if (!isDev()) {
+      //   template = fs.readFileSync(
+      //     path.resolve(distPath, 'index.html'),
+      //     'utf-8'
+      //   )
+      // } else {
+      //   template = fs.readFileSync(path.resolve(srcPath, 'index.html'), 'utf-8')
 
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        template = await vite!.transformIndexHtml(url, template)
-      }
+      //   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      //   template = await vite!.transformIndexHtml(url, template)
+      // }
 
       if (isDev()) {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -72,8 +72,8 @@ async function startServer() {
       const { render } = module
       const appHtml = await render(req)
 
-      const html = template.replace(`<!--ssr-outlet-->`, appHtml)
-      res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
+      // const html = template.replace(`<!--ssr-outlet-->`, appHtml)
+      res.send(`<!DOCTYPE html>\n${appHtml}`)
     } catch (e) {
       if (isDev()) {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

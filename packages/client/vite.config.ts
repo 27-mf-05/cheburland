@@ -12,7 +12,7 @@ export default defineConfig({
   define: {
     __SERVER_PORT__: process.env.SERVER_PORT,
   },
-  plugins: [react()],
+  plugins: [react({ fastRefresh: false })],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
