@@ -20,7 +20,7 @@ export const ThemeSwitch = () => {
           onChange={() => toggleColorScheme()}
           size="lg"
           p="10px"
-          color="yellow"
+          color="orange"
           onLabel={<IconSun color={theme.white} size="1.25rem" stroke={1.5} />}
           offLabel={
             <IconMoonStars

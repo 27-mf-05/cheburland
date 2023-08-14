@@ -61,7 +61,7 @@ export const themeDark: MantineThemeOverride = {
       '#d5d7e0',
       '#acaebf',
       '#fff',
-      '#2b2c3d',
+      'rgba(92, 95, 102, 0.35)',
       '#4d4f66',
       '#34354a',
       '#2b2c3d',

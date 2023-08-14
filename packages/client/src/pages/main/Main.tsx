@@ -24,7 +24,7 @@ export const Main = (): JSX.Element => {
             sx={theme => ({
               backgroundColor:
                 theme.colorScheme === 'dark'
-                  ? theme.colors.brand[3]
+                  ? 'rgba(92, 95, 102, 0.35)'
                   : theme.colors.brand[3],
               '&:hover': {
                 backgroundColor:
