@@ -1,0 +1,8 @@
+node_modules/
+.github/
+.DS_Store
+packages/client/dist/
+packages/client/dist-ssr/
+packages/client/node_modules/
+packages/server/dist/
+packages/server/node_modules/

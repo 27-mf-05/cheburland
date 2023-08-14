@@ -10,9 +10,13 @@ FROM base as builder
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 
-COPY . .
+COPY lerna.json .
+COPY packages/server/package.json ./packages/server/package.json
 
 RUN yarn lerna bootstrap
+
+COPY . .
+
 RUN rm -rf /app/packages/server/dist/ && yarn build --scope=server
 
 
