@@ -18,7 +18,13 @@
     "noUnusedLocals": true,
     "forceConsistentCasingInFileNames": true,
     "importsNotUsedAsValues": "error",
+<<<<<<< HEAD
     "lib": ["DOM", "es2019", "esnext.asynciterable"],
+=======
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "lib": ["es2019", "esnext.asynciterable"],
+>>>>>>> 06ac854 (feat: started work with models)
     "types": ["node", "jest"],
     "baseUrl": ".",
     "paths": {
