@@ -9,14 +9,14 @@ services:
       dockerfile: Dockerfile.client
       args:
         CLIENT_PORT: ${CLIENT_PORT}
+    depends_on:
+      - postgres
     restart: always
     ports:
       - '${CLIENT_PORT}:80'
     environment:
       - CLIENT_PORT=${CLIENT_PORT}
       - SERVER_PORT=${SERVER_PORT}
-    depends_on:
-      - postgres
   server:
     container_name: prakticum-server
     image: prackicum-server
@@ -25,13 +25,14 @@ services:
       dockerfile: Dockerfile.server
       args:
         SERVER_PORT: ${SERVER_PORT}
+    depends_on:
+      - postgres
     restart: always
     ports:
       - '${SERVER_PORT}:${SERVER_PORT}'
     environment:
       SERVER_PORT: ${SERVER_PORT}
-    depends_on:
-      - postgres
+
 
   postgres:
     image: postgres:14

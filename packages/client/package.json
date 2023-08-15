@@ -23,6 +23,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "mantine-datatable": "2.7.1",
     "pg": "^8.11.2",
+    "pg-hstore": "^2.3.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-redux": "8.1.1",
