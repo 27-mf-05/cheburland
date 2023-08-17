@@ -1,13 +1,12 @@
 import { Link } from 'react-router-dom'
 
-import { BackgroundImage, Menu, Stack, Text } from '@mantine/core'
+import { BackgroundImage, Button, Menu, Stack } from '@mantine/core'
 
 import bgImage from '@/assets/images/cheburashka_background.jpg'
-
-import { MenuItems } from './components/MenuItems'
+import { useRoutes } from '@/hooks'
 
 export const Main = (): JSX.Element => {
-  const { menuItems } = MenuItems()
+  const { paths } = useRoutes()
 
   return (
     <BackgroundImage id="main" src={bgImage} h="100%">
@@ -21,19 +20,18 @@ export const Main = (): JSX.Element => {
           background: 'rgba(0,0,0,0.4)',
         }}>
         <Menu width={200}>
-          {menuItems.map(el => (
-            <Menu.Item
-              key={el.title}
-              className={el.style}
-              bg={el.bg}
-              w={230}
-              component={Link}
-              to={el.to}>
-              <Text color={el.color} size="lg" weight="600" align="center">
-                {el.title}
-              </Text>
-            </Menu.Item>
-          ))}
+          <Button w={230} component={Link} to={paths.Game}>
+            Игра
+          </Button>
+          <Button mt="md" w={230} component={Link} to={paths.Profile}>
+            Профиль
+          </Button>
+          <Button mt="md" w={230} component={Link} to={paths.LeaderBoard}>
+            Лидерборд
+          </Button>
+          <Button mt="md" w={230} component={Link} to={paths.Forum}>
+            Форум
+          </Button>
         </Menu>
       </Stack>
     </BackgroundImage>

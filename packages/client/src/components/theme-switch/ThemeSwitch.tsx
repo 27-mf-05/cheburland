@@ -16,7 +16,6 @@ export const ThemeSwitch = () => {
     <Affix position={{ top: rem(1), right: rem(1) }}>
       <Group position="right">
         <Switch
-          checked={colorScheme === 'dark'}
           onChange={() => toggleColorScheme()}
           size="lg"
           p="10px"
