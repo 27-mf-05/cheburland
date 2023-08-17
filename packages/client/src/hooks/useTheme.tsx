@@ -1,11 +1,16 @@
 import { useMemo } from 'react'
 
-import { ColorScheme } from '@mantine/core'
+import { ColorScheme, MantineThemeOverride } from '@mantine/core'
 import { useLocalStorage } from '@mantine/hooks'
 
 import { themeDark, themeLight } from '@/app/theme'
+interface UseThemeReturnType {
+  colorScheme: ColorScheme
+  toggleColorScheme: (value?: ColorScheme) => void
+  theme: MantineThemeOverride
+}
 
-export const useTheme = () => {
+export const useTheme = (): UseThemeReturnType => {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
     key: 'mantine-color-scheme',
     defaultValue: 'light',
