@@ -23,6 +23,7 @@ export const Main = (): JSX.Element => {
         <Menu width={200}>
           {menuItems.map(el => (
             <Menu.Item
+              key={el.title}
               className={el.style}
               bg={el.bg}
               w={230}
