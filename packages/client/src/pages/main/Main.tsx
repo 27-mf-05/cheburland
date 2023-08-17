@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom'
 import { BackgroundImage, Menu, Stack, Text } from '@mantine/core'
 
 import bgImage from '@/assets/images/cheburashka_background.jpg'
-import { useRoutes } from '@/hooks'
+
+import { MenuItems } from './components/MenuItems'
 
 export const Main = (): JSX.Element => {
-  const { paths } = useRoutes()
+  const { menuItems } = MenuItems()
 
   return (
     <BackgroundImage id="main" src={bgImage} h="100%">
@@ -20,92 +21,18 @@ export const Main = (): JSX.Element => {
           background: 'rgba(0,0,0,0.4)',
         }}>
         <Menu width={200}>
-          <Menu.Item
-            sx={theme => ({
-              backgroundColor: 'brand.2',
-              '&[data-hovered]': {
-                backgroundColor:
-                  theme.colors[theme.primaryColor][theme.fn.primaryShade()],
-                color: theme.white,
-                '&:hover': {
-                  backgroundColor: theme.colors.brand[9],
-                },
-              },
-            })}
-            bg="brand.2"
-            w={230}
-            component={Link}
-            to={paths.Game}>
-            <Text color="white" size="lg" weight="600" align="center">
-              Игра
-            </Text>
-          </Menu.Item>
-          <Menu.Item
-            sx={theme => ({
-              '&[data-hovered]': {
-                backgroundColor: theme.colors.brand[3],
-                color: theme.primaryColor,
-                '&:hover': {
-                  backgroundColor:
-                    theme.colorScheme === 'dark'
-                      ? theme.colors.brand[7]
-                      : theme.colors.brand[7],
-                },
-              },
-            })}
-            mt="md"
-            bg="brand.3"
-            w={230}
-            component={Link}
-            to={paths.Profile}>
-            <Text color="brand.2" size="lg" weight="600" align="center">
-              Профиль
-            </Text>
-          </Menu.Item>
-          <Menu.Item
-            sx={theme => ({
-              '&[data-hovered]': {
-                backgroundColor: theme.colors.brand[3],
-                color: theme.primaryColor,
-                '&:hover': {
-                  backgroundColor:
-                    theme.colorScheme === 'dark'
-                      ? theme.colors.brand[7]
-                      : theme.colors.brand[7],
-                },
-              },
-            })}
-            mt="md"
-            bg="brand.3"
-            w={230}
-            component={Link}
-            to={paths.LeaderBoard}>
-            <Text color="brand.2" size="lg" weight="600" align="center">
-              Лидерборд
-            </Text>
-          </Menu.Item>
-          <Menu.Item
-            sx={theme => ({
-              '&[data-hovered]': {
-                backgroundColor: theme.colors.brand[3],
-                color: theme.primaryColor,
-                '&:hover': {
-                  backgroundColor:
-                    theme.colorScheme === 'dark'
-                      ? theme.colors.brand[7]
-                      : theme.colors.brand[7],
-                },
-              },
-            })}
-            mt="md"
-            bg="brand.3"
-            w={230}
-            component={Link}
-            to={paths.Forum}>
-            <Text color="brand.2" size="lg" weight="600" align="center">
-              Форум
-            </Text>
-          </Menu.Item>
+          {menuItems.map(el => (
+            <Menu.Item
+              className={el.style}
+              bg={el.bg}
+              w={230}
+              component={Link}
+              to={el.to}>
+              <Text color={el.color} size="lg" weight="600" align="center">
+                {el.title}
+              </Text>
+            </Menu.Item>
+          ))}
         </Menu>
       </Stack>
     </BackgroundImage>
