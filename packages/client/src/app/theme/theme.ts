@@ -1,22 +1,6 @@
 import { MantineThemeOverride } from '@mantine/core'
 
-export const themeLight: MantineThemeOverride = {
-  colorScheme: 'light',
-  colors: {
-    brand: [
-      '#4C4B16',
-      '#898121',
-      '#E7B10A',
-      '#F7F1E5',
-      '#A4907C',
-      '#B5C99A',
-      '#862B0D',
-      '#FFF9C9',
-      '#FFC95F',
-      '#F1C93B',
-    ],
-  },
-  primaryColor: 'yellow',
+const commonStyles: MantineThemeOverride = {
   white: '#fff',
   black: '#000',
   fontFamily: 'Verdana, sans-serif',
@@ -54,56 +38,42 @@ export const themeLight: MantineThemeOverride = {
   },
 }
 
+export const themeLight: MantineThemeOverride = {
+  colorScheme: 'light',
+  colors: {
+    brand: [
+      '#4C4B16',
+      '#898121',
+      '#E7B10A',
+      '#F7F1E5',
+      '#A4907C',
+      '#B5C99A',
+      '#862B0D',
+      '#FFF9C9',
+      '#FFC95F',
+      '#F1C93B',
+    ],
+  },
+  primaryColor: 'yellow',
+  ...commonStyles,
+}
+
 export const themeDark: MantineThemeOverride = {
   colorScheme: 'dark',
   colors: {
     brand: [
       '#d5d7e0',
       '#acaebf',
-      '#fff',
-      'rgba(92, 95, 102, 0.35)',
+      '#e8590c',
+      '#34354a',
       '#4d4f66',
       '#34354a',
       '#2b2c3d',
       '#1d1e30',
       '#0c0d21',
-      '#01010a',
+      '#fb8343',
     ],
   },
   primaryColor: 'orange',
-  white: '#fff',
-  black: '#000',
-  fontFamily: 'Verdana, sans-serif',
-  fontFamilyMonospace: 'Monaco, Courier, monospace',
-  headings: { fontFamily: 'Verdana, sans-serif', fontWeight: 500 },
-  fontSizes: {
-    xs: '0.6rem',
-    sm: '0.75rem',
-    md: '0.9rem',
-    lg: '1rem',
-    xl: '1.2rem',
-  },
-  components: {
-    Button: {
-      styles: {
-        label: {
-          fontSize: '0.9rem',
-        },
-      },
-    },
-    AppShell: {
-      styles: {
-        main: {
-          padding: 0,
-        },
-      },
-    },
-    ColorSchemeProvider: {
-      styles: {
-        main: {
-          padding: 0,
-        },
-      },
-    },
-  },
+  ...commonStyles,
 }

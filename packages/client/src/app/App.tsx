@@ -14,31 +14,33 @@ import { setupStore } from '@/app/redux/store'
 import { AppRoutes } from '@/app/routes'
 import { themeDark, themeLight } from '@/app/theme'
 import { ThemeSwitch } from '@/components/theme-switch'
+import { useTheme } from '@/hooks'
 
 const store = setupStore()
 
 const App = () => {
-  const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
-    key: 'mantine-color-scheme',
-    defaultValue: 'light',
-    getInitialValueInEffect: true,
-  })
+  // const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
+  //   key: 'mantine-color-scheme',
+  //   defaultValue: 'light',
+  //   getInitialValueInEffect: true,
+  // })
 
-  const toggleColorScheme = (value?: ColorScheme) =>
-    setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'))
+  // const toggleColorScheme = (value?: ColorScheme) =>
+  //   setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'))
 
-  const theme = useMemo(() => {
-    if (colorScheme === 'light') {
-      return themeLight
-    }
+  // const theme = useMemo(() => {
+  //   if (colorScheme === 'light') {
+  //     return themeLight
+  //   }
 
-    if (colorScheme === 'dark') {
-      return themeDark
-    }
+  //   if (colorScheme === 'dark') {
+  //     return themeDark
+  //   }
 
-    return themeLight
-  }, [colorScheme])
+  //   return themeLight
+  // }, [colorScheme])
 
+  const { colorScheme, toggleColorScheme, theme } = useTheme()
   return (
     <ColorSchemeProvider
       colorScheme={colorScheme}

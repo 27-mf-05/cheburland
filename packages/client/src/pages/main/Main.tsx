@@ -22,40 +22,37 @@ export const Main = (): JSX.Element => {
         <Menu width={200}>
           <Menu.Item
             sx={theme => ({
-              backgroundColor:
-                theme.colorScheme === 'dark'
-                  ? 'rgba(92, 95, 102, 0.35)'
-                  : theme.colors.brand[3],
-              '&:hover': {
+              backgroundColor: 'brand.2',
+              '&[data-hovered]': {
                 backgroundColor:
-                  theme.colorScheme === 'dark'
-                    ? theme.primaryColor
-                    : theme.colors.brand[2],
+                  theme.colors[theme.primaryColor][theme.fn.primaryShade()],
+                color: theme.white,
+                '&:hover': {
+                  backgroundColor: theme.colors.brand[9],
+                },
               },
             })}
+            bg="brand.2"
             w={230}
             component={Link}
             to={paths.Game}>
-            <Text
-              sx={theme => ({
-                color:
-                  theme.colorScheme === 'dark'
-                    ? theme.colors.brand[2]
-                    : theme.colors.brand[2],
-                '&:hover': {
-                  color:
-                    theme.colorScheme === 'dark'
-                      ? theme.colors.brand[2]
-                      : theme.colors.brand[3],
-                },
-              })}
-              size="lg"
-              weight="600"
-              align="center">
+            <Text color="white" size="lg" weight="600" align="center">
               Игра
             </Text>
           </Menu.Item>
           <Menu.Item
+            sx={theme => ({
+              '&[data-hovered]': {
+                backgroundColor: theme.colors.brand[3],
+                color: theme.primaryColor,
+                '&:hover': {
+                  backgroundColor:
+                    theme.colorScheme === 'dark'
+                      ? theme.colors.brand[7]
+                      : theme.colors.brand[7],
+                },
+              },
+            })}
             mt="md"
             bg="brand.3"
             w={230}
@@ -66,6 +63,18 @@ export const Main = (): JSX.Element => {
             </Text>
           </Menu.Item>
           <Menu.Item
+            sx={theme => ({
+              '&[data-hovered]': {
+                backgroundColor: theme.colors.brand[3],
+                color: theme.primaryColor,
+                '&:hover': {
+                  backgroundColor:
+                    theme.colorScheme === 'dark'
+                      ? theme.colors.brand[7]
+                      : theme.colors.brand[7],
+                },
+              },
+            })}
             mt="md"
             bg="brand.3"
             w={230}
@@ -76,6 +85,18 @@ export const Main = (): JSX.Element => {
             </Text>
           </Menu.Item>
           <Menu.Item
+            sx={theme => ({
+              '&[data-hovered]': {
+                backgroundColor: theme.colors.brand[3],
+                color: theme.primaryColor,
+                '&:hover': {
+                  backgroundColor:
+                    theme.colorScheme === 'dark'
+                      ? theme.colors.brand[7]
+                      : theme.colors.brand[7],
+                },
+              },
+            })}
             mt="md"
             bg="brand.3"
             w={230}
