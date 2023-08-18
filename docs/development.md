@@ -44,17 +44,12 @@
 
 И чтобы посмотреть что получилось
 
-
 `yarn preview --scope client`
 `yarn preview --scope server`
 
 #### Хуки
 В проекте используется [lefthook](https://github.com/evilmartians/lefthook)
 Если очень-очень нужно пропустить проверки, используйте `--no-verify` (но не злоупотребляйте :)
-
-#### Ой, ничего не работает :(
-
-Откройте issue, я приду :)
 
 #### Автодеплой статики на vercel
 Зарегистрируйте аккаунт на [vercel](https://vercel.com/)
@@ -63,25 +58,12 @@
 
 Все ваши PR будут автоматически деплоиться на vercel. URL вам предоставит деплоящий бот
 
-#### Development окружение в докере
-Перед первым запуском выполните `node init.js`
-Затем `docker compose build`
-Эту команду выполнять при изменении зависимостей.
-При изменении кода пересобирать контейнер не нужно,
-так как файлы прокидываются в контейнер из хоста.
+#### Docker
+`yarn docker` - запуск приложения в production режиме
+`yarn docker:preview` - запуск приложения с пересборкой
 
-`docker compose up` - запустит 2 сервиса
-1. node, ваш сервер (server)
-2. postgres, вашу базу данных (postgres)
+`yarn docker:db` - запуск контейнера c pgAdmin интерфейсом (8080 порт). БД Postgres поднимается как зависимость.
 
-Если вам понадобится только один сервис, просто уточните какой в команде
-`docker compose up {sevice_name}`, например `docker compose up server`
+`yarn docker:dev` - запуск контейнера pgAdmin, БД и сборки в development режиме.
 
-Панель управления базой данных доступна после запуска docker compose up по адресу `localhost:8080`
-
-#### Production окружение в докере
-В docker-compose.yml заменить Dockerfile.server.dev на Dockerfile.server.prod и запустить
-
-`docker compose build`
-
-`docker compose up`
+`yarn docker:stop` - остановка всех контейнеров после завершения работы

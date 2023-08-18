@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "build": "rm -rf dist && tsc --p ./tsconfig.prod.json",
-    "preview": "node ./dist/index.js",
+    "preview": "cross-env SERVER_PORT=3000 NODE_ENV=production nodemon ./dist/index.js",
     "dev": "cross-env SERVER_PORT=3000 NODE_ENV=development nodemon dist/index.js",
     "lint": "eslint .",
     "format": "prettier --write .",
@@ -15,7 +15,8 @@
     "cross-env": "7.0.3",
     "dotenv": "16.0.2",
     "express": "4.18.1",
-    "pg": "8.8.0"
+    "pg": "8.8.0",
+    "vite": "4.4.9"
   },
   "devDependencies": {
     "@types/cors": "2.8.12",

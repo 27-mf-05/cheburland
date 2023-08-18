@@ -10,21 +10,24 @@ import * as fs from 'fs'
 import * as path from 'path'
 
 const isDev = () => process.env.NODE_ENV === 'development'
+const serverPort = Number(process.env.SERVER_PORT) || 3000
 
 async function startServer() {
   const app = express()
-  app.use(cors())
-  const port = Number(process.env.SERVER_PORT) || 3000
-
   let vite: ViteDevServer | undefined
-  const distPath = path.dirname(require.resolve('client/dist/index.html'))
-  const srcPath = path.dirname(require.resolve('client'))
-  const ssrClientPath = require.resolve('client/dist-ssr/ssr.cjs')
+
+  const clientPath = path.dirname(require.resolve('/client'))
+  const distPath = path.dirname(
+    require.resolve(`${clientPath}/dist/index.html`)
+  )
+  const ssrPath = require.resolve(`${clientPath}/dist-ssr/ssr.cjs`)
+
+  app.use(cors())
 
   if (isDev()) {
     vite = await createViteServer({
       server: { middlewareMode: true },
-      root: srcPath,
+      root: clientPath,
       appType: 'custom',
     })
 
@@ -47,6 +50,7 @@ async function startServer() {
 
     let module: SSRModule
     let template: string
+
     try {
       if (!isDev()) {
         template = fs.readFileSync(
@@ -54,7 +58,10 @@ async function startServer() {
           'utf-8'
         )
       } else {
-        template = fs.readFileSync(path.resolve(srcPath, 'index.html'), 'utf-8')
+        template = fs.readFileSync(
+          path.resolve(clientPath, 'index.html'),
+          'utf-8'
+        )
 
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         template = await vite!.transformIndexHtml(url, template)
@@ -63,10 +70,10 @@ async function startServer() {
       if (isDev()) {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         module = (await vite!.ssrLoadModule(
-          path.resolve(srcPath, 'ssr.tsx')
+          path.resolve(clientPath, 'ssr.tsx')
         )) as SSRModule
       } else {
-        module = await import(ssrClientPath)
+        module = await import(ssrPath)
       }
 
       const { render } = module
@@ -83,8 +90,8 @@ async function startServer() {
     }
   })
 
-  app.listen(port, () => {
-    console.log(`  ➜ 🎸 Server is listening on port: ${port}`)
+  app.listen(serverPort, () => {
+    console.log(`  ➜ 🎸 Server is listening on port: ${serverPort}`)
   })
 }
 
