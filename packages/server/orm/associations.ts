@@ -1,17 +1,10 @@
-import { CommentModel, TopicModel } from './models'
+import { CommentModel, ReplyModel, TopicModel } from './models'
 
 TopicModel.hasMany(CommentModel)
-TopicModel.belongsTo(CommentModel, {
-  as: 'Current',
-  foreignKey: 'commentID',
-  constraints: false,
-})
+CommentModel.belongsTo(TopicModel)
 
-// CommentModel.hasOne(TopicModel)
-// CommentModel.hasMany(ReplyModel)
-// CommentModel.belongsTo(TopicModel, {
-//   as: 'TopicID',
-//   foreignKey: 'id'
-// })
-//
-// ReplyModel.hasOne(CommentModel)
+TopicModel.hasMany(ReplyModel)
+ReplyModel.belongsTo(TopicModel)
+
+CommentModel.hasMany(ReplyModel)
+ReplyModel.belongsTo(CommentModel)
