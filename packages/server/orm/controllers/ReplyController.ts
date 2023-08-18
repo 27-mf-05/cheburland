@@ -1,21 +1,39 @@
+import type { Request, Response } from 'express'
+
 import { ReplyModel } from '../models'
 
-export async function createReply(author_name: string, message: string) {
-  return ReplyModel.create({ author_name, message })
-}
+export class ReplyController {
+  static async createReply(req: Request, res: Response) {
+    const { author_name, message } = req.body
+    const topicId = req.params.commentId
+    const commentId = req.params.commentId
+    const data = await ReplyModel.create({
+      author_name,
+      message,
+      topicId,
+      commentId,
+    })
+    res.json(data)
+  }
 
-export async function updateReplyById(id: number, data: { message: string }) {
-  return ReplyModel.update(data, { where: { id } })
-}
+  static async getReplies(_req: Request, res: Response) {
+    const data = await ReplyModel.findAll()
+    res.json(data)
+  }
+  static async getReplyById(req: Request, res: Response) {
+    const id = req.params.commentId
+    const data = await ReplyModel.findOne({ where: { id } })
+    res.json(data)
+  }
+  static async updateReplyById(req: Request, res: Response) {
+    const { id, data } = req.body
+    await ReplyModel.update(data, { where: { id } })
+    res.json('success')
+  }
 
-export async function deleteReplyById(id: number) {
-  return ReplyModel.destroy({ where: { id } })
-}
-
-export async function getReplyById(id: number) {
-  return ReplyModel.findOne({ where: { id } })
-}
-
-export async function getReplyByMessage(message: string) {
-  return ReplyModel.findAll({ where: { message } })
+  static async deleteReplyById(req: Request, res: Response) {
+    const id = req.params.commentId
+    await ReplyModel.destroy({ where: { id } })
+    res.json('success')
+  }
 }

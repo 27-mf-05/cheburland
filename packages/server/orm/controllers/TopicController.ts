@@ -1,25 +1,37 @@
+import type { Request, Response } from 'express'
+
 import { TopicModel } from '../models'
 
-export async function createTopic(
-  title: string,
-  replies_count: number,
-  message: string
-) {
-  return TopicModel.create({ title, replies_count, message })
-}
+export class TopicController {
+  static async createTopic(req: Request, res: Response) {
+    const { title, replies_count, message } = req.body
+    const data = await TopicModel.create({
+      title,
+      replies_count,
+      message,
+    })
+    res.json(data)
+  }
 
-export async function updateTopicById(id: number, data: { title: string }) {
-  return TopicModel.update(data, { where: { id } })
-}
+  static async getTopics(_req: Request, res: Response) {
+    const data = await TopicModel.findAll()
+    res.json(data)
+  }
+  static async getTopicById(req: Request, res: Response) {
+    const id = req.params.topicId
+    console.log(id)
+    const data = await TopicModel.findOne({ where: { id } })
+    res.json(data)
+  }
+  static async updateTopicById(req: Request, res: Response) {
+    const { id, data } = req.body
+    await TopicModel.update(data, { where: { id } })
+    res.json('success')
+  }
 
-export async function deleteTopicById(id: number) {
-  return TopicModel.destroy({ where: { id } })
-}
-
-export async function getTopicById(id: number) {
-  return TopicModel.findOne({ where: { id } })
-}
-
-export async function getTopicsByTitle(title: string) {
-  return TopicModel.findAll({ where: { title } })
+  static async deleteTopicById(req: Request, res: Response) {
+    const id = req.params.topicId
+    await TopicModel.destroy({ where: { id } })
+    res.json('success')
+  }
 }

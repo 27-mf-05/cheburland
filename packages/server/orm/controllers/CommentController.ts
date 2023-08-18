@@ -1,21 +1,38 @@
+import type { Request, Response } from 'express'
+
 import { CommentModel } from '../models'
 
-export async function createComment(author_name: string, message: string) {
-  return CommentModel.create({ author_name, message })
-}
+export class CommentController {
+  static async createComment(req: Request, res: Response) {
+    const { author_name, message } = req.body
+    const topicId = req.params.topicId
+    console.log(req.params.id)
+    const data = await CommentModel.create({
+      author_name,
+      message,
+      topicId,
+    })
+    res.json(data)
+  }
 
-export async function updateCommentById(id: number, data: { message: string }) {
-  return CommentModel.update(data, { where: { id } })
-}
+  static async getComments(_req: Request, res: Response) {
+    const data = await CommentModel.findAll()
+    res.json(data)
+  }
+  static async getCommentById(req: Request, res: Response) {
+    const id = req.params.commentId
+    const data = await CommentModel.findOne({ where: { id } })
+    res.json(data)
+  }
+  static async updateCommentById(req: Request, res: Response) {
+    const { id, data } = req.body
+    await CommentModel.update(data, { where: { id } })
+    res.json('success')
+  }
 
-export async function deleteCommentById(id: number) {
-  return CommentModel.destroy({ where: { id } })
-}
-
-export async function getCommentById(id: number) {
-  return CommentModel.findOne({ where: { id } })
-}
-
-export async function getCommentByMessage(message: string) {
-  return CommentModel.findAll({ where: { message } })
+  static async deleteCommentById(req: Request, res: Response) {
+    const id = req.params.commentId
+    await CommentModel.destroy({ where: { id } })
+    res.json('success')
+  }
 }
