@@ -1,11 +1,11 @@
 import type { Request, Response } from 'express'
 
-import { ReplyModel } from '../models'
+import { ReplyModel } from '../../models'
 
 export class ReplyController {
   static async createReply(req: Request, res: Response) {
     const { author_name, message } = req.body
-    const topicId = req.params.commentId
+    const topicId = req.params.topicId
     const commentId = req.params.commentId
     const data = await ReplyModel.create({
       author_name,

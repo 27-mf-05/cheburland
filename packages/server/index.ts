@@ -5,8 +5,7 @@ dotenv.config()
 import express from 'express'
 
 import { startApp } from './orm'
-import topicRouter from './orm/routes/topicRoutes'
-// import replyRouter from './orm/routes/topicRoutes'
+import topicRouter from './orm/routes/topicRoutes/topicRoutes'
 const app = express()
 app.use(cors())
 const port = Number(process.env.SERVER_PORT) || 3001

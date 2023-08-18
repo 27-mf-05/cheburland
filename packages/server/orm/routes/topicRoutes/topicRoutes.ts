@@ -1,7 +1,7 @@
 import express from 'express'
 
-import { TopicController } from '../controllers'
-import commentsRouter from './commentRoutes'
+import { TopicController } from '../../controllers'
+import commentsRouter from '../commentRoutes/commentRoutes'
 
 const topicsRouter: express.Router = express.Router()
 

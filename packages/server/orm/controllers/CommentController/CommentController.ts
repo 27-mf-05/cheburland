@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express'
 
-import { CommentModel } from '../models'
+import { CommentModel } from '../../models'
 
 export class CommentController {
   static async createComment(req: Request, res: Response) {

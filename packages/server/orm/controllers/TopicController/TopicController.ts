@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express'
 
-import { TopicModel } from '../models'
+import { TopicModel } from '../../models'
 
 export class TopicController {
   static async createTopic(req: Request, res: Response) {

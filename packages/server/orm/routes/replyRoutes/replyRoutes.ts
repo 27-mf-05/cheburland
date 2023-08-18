@@ -1,6 +1,6 @@
 import express from 'express'
 
-import { ReplyController } from '../controllers'
+import { ReplyController } from '../../controllers'
 
 const repliesRouter: express.Router = express.Router({ mergeParams: true })
 repliesRouter.post('/', ReplyController.createReply)
