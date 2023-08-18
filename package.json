@@ -8,11 +8,14 @@
     "build": "yarn build:client && yarn build:server",
     "dev:client": "lerna run dev  --scope=client",
     "dev:server": "lerna run dev --scope=server",
-    "dev": "yarn dev:server",
     "test": "lerna run test",
     "lint": "lerna run lint",
     "format": "lerna run format",
-    "preview": "lerna run preview"
+    "preview": "yarn build && lerna run preview --parallel",
+    "docker": "docker-compose up",
+    "docker:db": "docker-compose up pgadmin -d",
+    "docker:dev": "yarn docker:pgadmin && yarn dev:server",
+    "docker:stop": "docker-compose stop"
   },
   "license": "MIT",
   "workspaces": [
