@@ -4,7 +4,7 @@ import { ColorScheme, MantineThemeOverride } from '@mantine/core'
 import { useLocalStorage } from '@mantine/hooks'
 
 import { themeDark, themeLight } from '@/app/theme'
-interface UseThemeReturnType {
+type UseThemeReturnType = {
   colorScheme: ColorScheme
   toggleColorScheme: (value?: ColorScheme) => void
   theme: MantineThemeOverride
