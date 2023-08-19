@@ -1,13 +1,18 @@
+import React from 'react'
+
+// import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import express from 'express'
 import * as fs from 'fs'
+import { createProxyMiddleware } from 'http-proxy-middleware'
 import * as path from 'path'
 import type { ViteDevServer } from 'vite'
 import { createServer as createViteServer } from 'vite'
 
 import topicRoutes from './orm/routes/topicRoutes/topicRoutes'
 import { dbConnect } from './orm/sequelizeInit'
+React.useLayoutEffect = React.useEffect
 
 dotenv.config()
 const isDev = () => process.env.NODE_ENV === 'development'
@@ -35,9 +40,20 @@ async function startServer() {
     app.use(vite.middlewares)
   }
 
-  app.get('/api', (_, res) => {
-    res.json('👋 Howdy from the server :)')
-  })
+  // app.get('/api', (_, res) => {
+  //   res.json('👋 Howdy from the server :)')
+  // })
+
+  app.use(
+    '/api/v2',
+    createProxyMiddleware({
+      changeOrigin: true,
+      cookieDomainRewrite: {
+        '*': '',
+      },
+      target: 'https://ya-praktikum.tech',
+    })
+  )
 
   if (!isDev()) {
     app.use('/assets', express.static(path.resolve(distPath, 'assets')))
@@ -50,7 +66,7 @@ async function startServer() {
   app.use('*', async (req, res, next) => {
     const url = req.originalUrl
     interface SSRModule {
-      render: (uri: express.Request) => Promise<string>
+      render: (req: express.Request) => Promise<string>
     }
 
     let module: SSRModule
@@ -82,9 +98,17 @@ async function startServer() {
       }
 
       const { render } = module
-      const appHtml = await render(req)
+      const [initialState, appHtml] = await render(req)
 
-      const html = template.replace(`<!--ssr-outlet-->`, appHtml)
+      const storeData = JSON.stringify(initialState).replace(/</g, '\\u003c')
+
+      const html = template
+        .replace(`<!--ssr-outlet-->`, appHtml)
+        .replace(
+          '<!--store-data-->',
+          `<script>window.__PRELOADED_STATE__ = ${storeData}</script>`
+        )
+
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
     } catch (e) {
       if (isDev()) {

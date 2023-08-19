@@ -20,7 +20,14 @@ const rootReducer = combineReducers({
   [leaderboardApi.reducerPath]: leaderboardApi.reducer,
 })
 
-const setupStore = () => {
+export const createStore = () => {
+  let state
+
+  if (typeof window !== 'undefined') {
+    state = window.__PRELOADED_STATE__
+    delete window.__PRELOADED_STATE__
+  }
+
   return configureStore({
     reducer: rootReducer,
     middleware: getDefaultMiddleware =>
@@ -30,11 +37,10 @@ const setupStore = () => {
         .concat(userApi.middleware)
         .concat(leaderboardApi.middleware),
     // .concat(errorToastMiddleware),
+    preloadedState: state,
   })
 }
 
-export const store = setupStore()
-
-export type RootState = ReturnType<typeof rootReducer>
-export type AppStore = ReturnType<typeof setupStore>
+export type RootState = ReturnType<typeof createStore>['getState']
+export type AppStore = ReturnType<typeof createStore>
 export type AppDispatch = AppStore['dispatch']

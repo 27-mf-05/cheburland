@@ -9,7 +9,7 @@ import { MantineProvider } from '@mantine/core'
 import { createStaticHandler } from '@remix-run/router'
 import type * as express from 'express'
 
-import { store } from '@/app/redux'
+import { createStore } from '@/app/redux'
 import { appRoutes } from '@/app/routes'
 import { theme } from '@/app/theme'
 
@@ -22,9 +22,11 @@ export const render = async (request: express.Request) => {
   if (context instanceof Response) {
     throw context
   }
+  const store = createStore()
   const router = createStaticRouter(appRoutes, context)
+  const initialState = store.getState()
 
-  return renderToString(
+  const appHtml = renderToString(
     <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
       <Provider store={store}>
         <Router router={router} context={context} nonce="the-nonce" />
@@ -32,6 +34,8 @@ export const render = async (request: express.Request) => {
     </MantineProvider>
     // <App />
   )
+
+  return [initialState, appHtml]
 }
 
 export const createFetchRequest = (req: express.Request): Request => {
