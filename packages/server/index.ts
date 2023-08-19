@@ -1,6 +1,5 @@
 import React from 'react'
 
-// import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import express from 'express'
@@ -100,13 +99,16 @@ async function startServer() {
       const { render } = module
       const [initialState, appHtml] = await render(req)
 
-      const storeData = JSON.stringify(initialState).replace(/</g, '\\u003c')
+      const initialStateData = JSON.stringify(initialState).replace(
+        /</g,
+        '\\u003c'
+      )
 
       const html = template
         .replace(`<!--ssr-outlet-->`, appHtml)
         .replace(
           '<!--store-data-->',
-          `<script>window.__PRELOADED_STATE__ = ${storeData}</script>`
+          `<script>window.__PRELOADED_STATE__ = ${initialStateData}</script>`
         )
 
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
