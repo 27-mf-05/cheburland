@@ -20,24 +20,34 @@ const rootReducer = combineReducers({
   [leaderboardApi.reducerPath]: leaderboardApi.reducer,
 })
 
-export const createStore = () => {
-  let state
+export const createStore = (cookie?: string) => {
+  // let state
+
+  // if (typeof window !== 'undefined') {
+  //   state = window.initialState
+  //   delete window.initialState
+  // }
+
+  const state = typeof window !== 'undefined' ? window.initialState : undefined
 
   if (typeof window !== 'undefined') {
-    state = window.__PRELOADED_STATE__
-    delete window.__PRELOADED_STATE__
+    delete window.initialState
   }
 
   return configureStore({
     reducer: rootReducer,
+    preloadedState: state,
     middleware: getDefaultMiddleware =>
-      getDefaultMiddleware()
+      getDefaultMiddleware({
+        thunk: {
+          extraArgument: cookie,
+        },
+      })
         .concat(authApi.middleware)
         .concat(oAuthApi.middleware)
         .concat(userApi.middleware)
         .concat(leaderboardApi.middleware),
     // .concat(errorToastMiddleware),
-    preloadedState: state,
   })
 }
 

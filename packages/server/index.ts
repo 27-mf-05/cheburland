@@ -1,5 +1,6 @@
 import React from 'react'
 
+import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import express from 'express'
@@ -18,13 +19,12 @@ const isDev = () => process.env.NODE_ENV === 'development'
 const serverPort = Number(process.env.SERVER_PORT) || 3000
 
 async function startServer() {
+  console.log('44444')
   const app = express()
   let vite: ViteDevServer | undefined
 
   const clientPath = path.dirname(require.resolve('/client'))
-  const distPath = path.dirname(
-    require.resolve(`${clientPath}/dist/index.html`)
-  )
+  const distPath = path.dirname(require.resolve('client/dist/index.html'))
   const ssrPath = require.resolve(`${clientPath}/dist-ssr/ssr.cjs`)
 
   app.use(cors())
@@ -39,12 +39,12 @@ async function startServer() {
     app.use(vite.middlewares)
   }
 
-  // app.get('/api', (_, res) => {
-  //   res.json('👋 Howdy from the server :)')
-  // })
+  app.get('/api', (_, res) => {
+    res.json('👋 Howdy from the server :)')
+  })
 
   app.use(
-    '/api/v2',
+    '/api/v2/*',
     createProxyMiddleware({
       changeOrigin: true,
       cookieDomainRewrite: {
@@ -62,7 +62,7 @@ async function startServer() {
   app.use(express.json())
   app.use('/topic', topicRoutes)
 
-  app.use('*', async (req, res, next) => {
+  app.use('*', cookieParser(), async (req, res, next) => {
     const url = req.originalUrl
     interface SSRModule {
       render: (req: express.Request) => Promise<string>
@@ -108,7 +108,7 @@ async function startServer() {
         .replace(`<!--ssr-outlet-->`, appHtml)
         .replace(
           '<!--store-data-->',
-          `<script>window.__PRELOADED_STATE__ = ${initialStateData}</script>`
+          `<script>window.initialState = ${initialStateData}</script>`
         )
 
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html)

@@ -1,20 +1,23 @@
 import { renderToString } from 'react-dom/server'
 import { Provider } from 'react-redux'
+import { matchPath } from 'react-router-dom'
 import {
   createStaticRouter,
   StaticRouterProvider as Router,
 } from 'react-router-dom/server'
 
-import { MantineProvider } from '@mantine/core'
+import { Loader, MantineProvider } from '@mantine/core'
 import { createStaticHandler } from '@remix-run/router'
 import type * as express from 'express'
 
-import { createStore } from '@/app/redux'
+import { AppDispatch, createStore } from '@/app/redux'
+import { loadUser } from '@/app/redux/store/reducers'
 import { appRoutes } from '@/app/routes'
 import { theme } from '@/app/theme'
 
 export const render = async (request: express.Request) => {
   // console.log(request)
+  console.log('333333333')
   const { query } = createStaticHandler(appRoutes)
   const remixRequest = createFetchRequest(request)
   const context = await query(remixRequest)
@@ -22,9 +25,15 @@ export const render = async (request: express.Request) => {
   if (context instanceof Response) {
     throw context
   }
-  const store = createStore()
+  const store = createStore(request?.headers?.cookie)
   const router = createStaticRouter(appRoutes, context)
   const initialState = store.getState()
+
+  console.log(initialState, 'initialState')
+
+  const loader = (dispatch: AppDispatch) => dispatch(loadUser())
+
+  await loader(store.dispatch)
 
   const appHtml = renderToString(
     <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
