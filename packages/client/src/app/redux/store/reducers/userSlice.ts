@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { User } from '@/shared'
 
@@ -9,10 +9,6 @@ type UserState = {
 const initialState: UserState = {
   currentUser: null,
   fromOAuth: false,
-}
-
-interface UserService {
-  getUserData(): Promise<User>
 }
 
 export const userSlice = createSlice({
@@ -33,14 +29,6 @@ export const userSlice = createSlice({
     },
   },
 })
-
-export const loadUser = createAsyncThunk<User>(
-  'root/AuthUser',
-  async (_, thunkApi) => {
-    const service: UserService = thunkApi.extra as UserService
-    return service.getUserData()
-  }
-)
 
 const { actions, reducer: userReducer } = userSlice
 export const { addUser, deleteUser } = actions
