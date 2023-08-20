@@ -19,7 +19,6 @@ const isDev = () => process.env.NODE_ENV === 'development'
 const serverPort = Number(process.env.SERVER_PORT) || 3000
 
 async function startServer() {
-  console.log('44444')
   const app = express()
   let vite: ViteDevServer | undefined
 

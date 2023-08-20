@@ -45,10 +45,11 @@ export const Scene: FC<GameProps> = memo(({ onIncreaseScore }) => {
 
   const init = useCallback(() => {
     const canvas = canvasRef.current
-    if (!canvas) return
-    const context = canvas.getContext('2d')
+    const context = canvas?.getContext('2d')
 
-    if (!context) return
+    if (!canvas || !context) {
+      return
+    }
 
     const maze = new Maze(canvas, ROWS_AND_COLUMNS, CELL_SIZE, ERASERS)
     mazeRef.current = maze
@@ -78,9 +79,8 @@ export const Scene: FC<GameProps> = memo(({ onIncreaseScore }) => {
     heroRef.current?.update()
     orangesRef.current?.draw(false)
     const canvas = canvasRef.current
-    if (!canvas) return
-    const context = canvas.getContext('2d')
-    if (!heroRef.current || !context) {
+    const context = canvas?.getContext('2d')
+    if (!heroRef.current || !canvas || !context) {
       return
     }
 

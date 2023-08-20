@@ -33,9 +33,7 @@ export class Maze {
   }
 
   public static createImage(src: string) {
-    // const image = new Image()
-    const image =
-      typeof window !== 'undefined' ? new Image() : ({} as HTMLImageElement)
+    const image = new Image()
     image.src = src
     return image
   }

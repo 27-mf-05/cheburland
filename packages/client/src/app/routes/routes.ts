@@ -1,7 +1,3 @@
-import type { RouteObject } from 'react-router-dom'
-
-import { useAuth } from '@/app/context'
-import { AppDispatch } from '@/app/redux/store/store'
 import {
   AddForumTopic as AddForumTopicPage,
   ChangePassword as ChangePasswordPage,
@@ -19,13 +15,6 @@ import {
 } from '@/pages'
 
 import { PageType, RouteName, RoutesType } from './types'
-
-// const { fetchUser } = useAuth()
-// const dispatch = useAppDispatch()
-
-// const fetchUserLoader = (dispatch: AppDispatch) => {
-//   return dispatch
-// };
 
 export const routes: RoutesType = {
   [RouteName.Main]: {

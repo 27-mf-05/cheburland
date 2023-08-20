@@ -21,13 +21,6 @@ const rootReducer = combineReducers({
 })
 
 export const createStore = (cookie?: string) => {
-  // let state
-
-  // if (typeof window !== 'undefined') {
-  //   state = window.initialState
-  //   delete window.initialState
-  // }
-
   const state = typeof window !== 'undefined' ? window.initialState : undefined
 
   if (typeof window !== 'undefined') {
@@ -51,6 +44,6 @@ export const createStore = (cookie?: string) => {
   })
 }
 
-export type RootState = ReturnType<typeof createStore>['getState']
+export type RootState = ReturnType<typeof rootReducer>
 export type AppStore = ReturnType<typeof createStore>
 export type AppDispatch = AppStore['dispatch']

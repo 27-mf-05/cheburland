@@ -17,9 +17,7 @@ export class Sprite {
     columns: number,
     frameDuration: number
   ) {
-    // this._image = new Image()
-    this._image =
-      typeof window !== 'undefined' ? new Image() : ({} as HTMLImageElement)
+    this._image = new Image()
     this._image.src = imageSrc
     this._frameWidth = frameWidth
     this._frameHeight = frameHeight

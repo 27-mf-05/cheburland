@@ -17,7 +17,6 @@ import { theme } from '@/app/theme'
 
 export const render = async (request: express.Request) => {
   // console.log(request)
-  console.log('333333333')
   const { query } = createStaticHandler(appRoutes)
   const remixRequest = createFetchRequest(request)
   const context = await query(remixRequest)
@@ -28,8 +27,6 @@ export const render = async (request: express.Request) => {
   const store = createStore(request?.headers?.cookie)
   const router = createStaticRouter(appRoutes, context)
   const initialState = store.getState()
-
-  console.log(initialState, 'initialState')
 
   const loader = (dispatch: AppDispatch) => dispatch(loadUser())
 

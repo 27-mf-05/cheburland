@@ -11,9 +11,6 @@ import { appRoutes } from './routes'
 const App = () => {
   const router = createBrowserRouter(appRoutes)
 
-  // const initialState = window.initialState
-  // delete window.initialState
-
   const store = createStore()
 
   return (
