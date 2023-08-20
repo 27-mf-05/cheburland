@@ -11,11 +11,7 @@ export const oAuthApi = createApi({
   reducerPath: 'oAuthApi',
   baseQuery: fetchBaseQuery({
     baseUrl: API_BASE_URL,
-    prepareHeaders: (headers, { extra }) => {
-      if (extra) {
-        headers.set('cookie', extra as string)
-      }
-
+    prepareHeaders(headers) {
       return headers
     },
     credentials: 'include',

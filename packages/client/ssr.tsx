@@ -22,7 +22,7 @@ export const render = async (request: express.Request) => {
   if (context instanceof Response) {
     throw context
   }
-  const store = createStore(request?.headers?.cookie)
+  const store = createStore(request.headers.cookie)
   const router = createStaticRouter(appRoutes, context)
   const initialState = store.getState()
 

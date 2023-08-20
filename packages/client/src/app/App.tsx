@@ -10,7 +10,6 @@ import { appRoutes } from './routes'
 
 const App = () => {
   const router = createBrowserRouter(appRoutes)
-
   const store = createStore()
 
   return (

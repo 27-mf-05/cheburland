@@ -64,7 +64,7 @@ async function startServer() {
   app.use('*', cookieParser(), async (req, res, next) => {
     const url = req.originalUrl
     interface SSRModule {
-      render: (req: express.Request) => Promise<string>
+      render: (request: express.Request) => Promise<string>
     }
 
     let module: SSRModule
