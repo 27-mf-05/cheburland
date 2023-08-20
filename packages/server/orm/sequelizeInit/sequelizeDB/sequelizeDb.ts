@@ -1,3 +1,4 @@
+import * as process from 'process'
 import { Sequelize } from 'sequelize'
 import type { SequelizeOptions } from 'sequelize-typescript'
 
@@ -9,8 +10,11 @@ const {
   POSTGRES_HOST,
 } = process.env
 
+const port =
+  process.env.NODE_ENV === 'development' ? 'localhost' : POSTGRES_HOST
+
 const sequelizeOptions: SequelizeOptions = {
-  host: POSTGRES_HOST,
+  host: port,
   port: Number(POSTGRES_PORT),
   username: POSTGRES_USER,
   password: POSTGRES_PASSWORD,
