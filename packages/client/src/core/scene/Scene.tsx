@@ -23,7 +23,7 @@ type Particle = {
 }
 
 export const Scene: FC<GameProps> = memo(({ onIncreaseScore }) => {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const mazeRef = useRef<Maze | null>(null)
   const heroRef = useRef<Hero | null>(null)
   const orangesRef = useRef<Oranges | null>(null)
@@ -45,12 +45,10 @@ export const Scene: FC<GameProps> = memo(({ onIncreaseScore }) => {
 
   const init = useCallback(() => {
     const canvas = canvasRef.current
-    let context
-    if (canvas) canvas.getContext('2d')
+    if (!canvas) return
+    const context = canvas.getContext('2d')
 
-    if (!canvas || !context) {
-      return
-    }
+    if (!context) return
 
     const maze = new Maze(canvas, ROWS_AND_COLUMNS, CELL_SIZE, ERASERS)
     mazeRef.current = maze
@@ -80,9 +78,9 @@ export const Scene: FC<GameProps> = memo(({ onIncreaseScore }) => {
     heroRef.current?.update()
     orangesRef.current?.draw(false)
     const canvas = canvasRef.current
-    let context
-    if (canvas) context = canvas.getContext('2d')
-    if (!heroRef.current || !canvas || !context) {
+    if (!canvas) return
+    const context = canvas.getContext('2d')
+    if (!heroRef.current || !context) {
       return
     }
 
