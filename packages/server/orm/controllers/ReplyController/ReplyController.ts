@@ -16,8 +16,9 @@ export class ReplyController {
     res.json(data)
   }
 
-  static async getReplies(_req: Request, res: Response) {
-    const data = await ReplyModel.findAll()
+  static async getRepliesByCommentId(req: Request, res: Response) {
+    const commentId = req.params.commentId
+    const data = await ReplyModel.findAll({ where: { commentId } })
     res.json(data)
   }
   static async getReplyById(req: Request, res: Response) {
