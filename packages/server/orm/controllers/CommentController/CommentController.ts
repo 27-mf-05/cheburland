@@ -15,8 +15,9 @@ export class CommentController {
     res.json(data)
   }
 
-  static async getComments(_req: Request, res: Response) {
-    const data = await CommentModel.findAll()
+  static async getCommentsByTopicId(req: Request, res: Response) {
+    const topicId = req.params.topicId
+    const data = await CommentModel.findAll({ where: { topicId } })
     res.json(data)
   }
   static async getCommentById(req: Request, res: Response) {

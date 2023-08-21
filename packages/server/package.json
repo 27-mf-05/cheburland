@@ -18,7 +18,6 @@
     "express": "4.18.1",
     "vite": "4.4.9",
     "pg": "^8.11.2",
-    "pg-hstore": "^2.3.4",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^6.32.1",
     "sequelize-typescript": "^2.1.5"

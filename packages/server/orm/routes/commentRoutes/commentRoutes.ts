@@ -6,7 +6,7 @@ import repliesRouter from '../replyRoutes/replyRoutes'
 const commentsRouter: express.Router = express.Router({ mergeParams: true })
 
 commentsRouter.post('/', CommentController.createComment)
-commentsRouter.get('/', CommentController.getComments)
+commentsRouter.get('/', CommentController.getCommentsByTopicId)
 commentsRouter.get('/:commentId', CommentController.getCommentById)
 commentsRouter.put('/:commentId', CommentController.updateCommentById)
 commentsRouter.delete('/:commentId', CommentController.deleteCommentById)
