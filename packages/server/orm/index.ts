@@ -1,7 +1,7 @@
-import * as associations from './associations'
+import { assotiations } from './associations'
 import { dbConnect } from './sequelizeInit'
 
 export const startApp = () => {
-  associations
+  assotiations()
   dbConnect()
 }

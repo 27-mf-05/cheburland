@@ -29,12 +29,12 @@ export class ReplyController {
   static async updateReplyById(req: Request, res: Response) {
     const { id, data } = req.body
     await ReplyModel.update(data, { where: { id } })
-    res.json('success')
+    res.json(`updated reply ${id}`)
   }
 
   static async deleteReplyById(req: Request, res: Response) {
     const id = req.params.commentId
     await ReplyModel.destroy({ where: { id } })
-    res.json('success')
+    res.json(`deleted reply ${id}`)
   }
 }

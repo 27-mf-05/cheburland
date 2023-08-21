@@ -26,12 +26,12 @@ export class TopicController {
   static async updateTopicById(req: Request, res: Response) {
     const { id, data } = req.body
     await TopicModel.update(data, { where: { id } })
-    res.json('success')
+    res.json(`updated topic ${id}`)
   }
 
   static async deleteTopicById(req: Request, res: Response) {
     const id = req.params.topicId
     await TopicModel.destroy({ where: { id } })
-    res.json('success')
+    res.json(`deleted topic ${id}`)
   }
 }
