@@ -8,15 +8,17 @@
     "build": "yarn build:client && yarn build:server",
     "dev:client": "lerna run dev  --scope=client",
     "dev:server": "lerna run dev --scope=server",
+    "dev": "lerna run dev --parallel",
     "test": "lerna run test",
     "lint": "lerna run lint",
     "format": "lerna run format",
     "preview": "yarn build && lerna run preview --parallel",
-    "docker": "docker-compose up",
-    "docker:preview": "docker-compose up --build",
-    "docker:db": "docker-compose up pgadmin -d",
-    "docker:dev": "yarn docker:db && yarn dev:server",
-    "docker:stop": "docker-compose stop"
+
+    "docker": "docker-compose -f docker-compose.db.yml -f docker-compose.prod.yml up --build -d",
+    "docker:up": "docker-compose -f docker-compose.db.yml -f docker-compose.prod.yml up",
+    "docker:build": "docker-compose -f docker-compose.db.yml -f docker-compose.prod.yml build",
+    "docker:dev": "docker-compose -f docker-compose.db.yml -f docker-compose.dev.yml up -d && yarn dev",
+    "docker:stop": "docker-compose -f docker-compose.db.yml -f docker-compose.dev.yml -f docker-compose.prod.yml stop"
   },
   "license": "MIT",
   "workspaces": [
