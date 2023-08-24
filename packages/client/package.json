@@ -3,14 +3,15 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host 0.0.0.0",
     "build:client": "rm -rf dist && tsc && vite build --config vite.config.ts",
     "build:ssr": "rm -rf dist-ssr && tsc && vite build --config ssr.config.ts",
     "build": "yarn build:ssr && yarn build:client",
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "test": "jest ./"
+    "test": "jest ./",
+    "linked": "yarn link"
   },
   "dependencies": {
     "@emotion/react": "11.11.1",

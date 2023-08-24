@@ -59,11 +59,12 @@
 Все ваши PR будут автоматически деплоиться на vercel. URL вам предоставит деплоящий бот
 
 #### Docker
-`yarn docker` - запуск приложения в production режиме
-`yarn docker:preview` - запуск приложения с пересборкой
+`yarn docker` - билд и запуск приложения в production режиме
 
-`yarn docker:db` - запуск контейнера c pgAdmin интерфейсом (8080 порт). БД Postgres поднимается как зависимость.
+`yarn docker:up` - запуск приложения в production режиме без билда
 
-`yarn docker:dev` - запуск контейнера pgAdmin, БД и сборки в development режиме.
+`yarn docker:build` - билд приложения в production режиме (без запуска)
 
-`yarn docker:stop` - остановка всех контейнеров после завершения работы
+`yarn docker:dev` - запуск приложения в development режиме с HRM.
+
+`yarn docker:stop` - остановка всех docker контейнеров
