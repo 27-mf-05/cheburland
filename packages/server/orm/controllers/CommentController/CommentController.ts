@@ -27,13 +27,13 @@ export class CommentController {
   }
   static async updateCommentById(req: Request, res: Response) {
     const { id, data } = req.body
-    await CommentModel.update(data, { where: { id } })
-    res.json(`updated comment ${id}`)
+    const responseData = await CommentModel.update(data, { where: { id } })
+    res.json(responseData)
   }
 
   static async deleteCommentById(req: Request, res: Response) {
     const id = req.params.commentId
-    await CommentModel.destroy({ where: { id } })
-    res.json(`deleted comment ${id}`)
+    const data = await CommentModel.destroy({ where: { id } })
+    res.json(data)
   }
 }

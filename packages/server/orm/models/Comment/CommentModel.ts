@@ -19,5 +19,9 @@ CommentModel.init(
       allowNull: false,
     },
   },
-  { sequelize, modelName: 'comment' }
+  {
+    indexes: [{ unique: false, fields: ['topicId'] }],
+    sequelize,
+    modelName: 'comment',
+  }
 )

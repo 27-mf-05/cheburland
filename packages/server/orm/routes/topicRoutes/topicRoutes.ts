@@ -6,7 +6,7 @@ import commentsRouter from '../commentRoutes/commentRoutes'
 const topicsRouter: express.Router = express.Router()
 
 topicsRouter.post('/', TopicController.createTopic)
-topicsRouter.get('/', TopicController.getTopics)
+topicsRouter.get('/', TopicController.getPaginatedTopics)
 topicsRouter.get('/:topicId', TopicController.getTopicById)
 topicsRouter.put('/', TopicController.updateTopicById)
 topicsRouter.delete('/:topicId', TopicController.deleteTopicById)
