@@ -20,5 +20,9 @@ ReplyModel.init(
       allowNull: false,
     },
   },
-  { sequelize, modelName: 'reply' }
+  {
+    indexes: [{ unique: false, fields: ['commentId'] }],
+    sequelize,
+    modelName: 'reply',
+  }
 )

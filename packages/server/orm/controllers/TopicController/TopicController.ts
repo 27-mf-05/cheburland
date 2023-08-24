@@ -13,8 +13,11 @@ export class TopicController {
     res.json(data)
   }
 
-  static async getTopics(_req: Request, res: Response) {
-    const data = await TopicModel.findAll()
+  static async getPaginatedTopics(req: Request, res: Response) {
+    const limit = Number(req.query.limit) || 0
+    const offset = Number(req.query.offset) || 0
+
+    const data = await TopicModel.findAll({ offset: offset, limit: limit })
     res.json(data)
   }
   static async getTopicById(req: Request, res: Response) {
@@ -25,13 +28,13 @@ export class TopicController {
   }
   static async updateTopicById(req: Request, res: Response) {
     const { id, data } = req.body
-    await TopicModel.update(data, { where: { id } })
-    res.json(`updated topic ${id}`)
+    const responseData = await TopicModel.update(data, { where: { id } })
+    res.json(responseData)
   }
 
   static async deleteTopicById(req: Request, res: Response) {
     const id = req.params.topicId
-    await TopicModel.destroy({ where: { id } })
-    res.json(`deleted topic ${id}`)
+    const data = await TopicModel.destroy({ where: { id } })
+    res.json(data)
   }
 }
