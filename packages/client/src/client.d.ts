@@ -4,6 +4,6 @@ declare const __SERVER_PORT__: number
 
 declare global {
   interface Window {
-    initialState?: any
+    __PRELOADED_STATE__?: any
   }
 }

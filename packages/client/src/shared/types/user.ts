@@ -12,3 +12,9 @@ export type User = {
 export type Profile = Omit<User, 'id' | 'avatar'>
 
 export type Password = { oldPassword: string; newPassword: string }
+
+export type State = {
+  user: User | null
+  isLoaded: boolean
+  isLoading: boolean
+}

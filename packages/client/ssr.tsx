@@ -1,4 +1,4 @@
-import { renderToString } from 'react-dom/server'
+import { renderToPipeableStream } from 'react-dom/server'
 import { Provider } from 'react-redux'
 import {
   createStaticRouter,
@@ -9,11 +9,13 @@ import { MantineProvider } from '@mantine/core'
 import { createStaticHandler } from '@remix-run/router'
 import type * as express from 'express'
 
-import { createStore } from '@/app/redux'
+import { AppDispatch, createStore } from '@/app/redux'
+import { loadUser } from '@/app/redux'
+import { UserService } from '@/app/redux/api/userService'
 import { appRoutes } from '@/app/routes'
 import { theme } from '@/app/theme'
 
-export const render = async (request: express.Request) => {
+export const render = async (request: express.Request, repository: any) => {
   // console.log(request)
   const { query } = createStaticHandler(appRoutes)
   const remixRequest = createFetchRequest(request)
@@ -22,11 +24,15 @@ export const render = async (request: express.Request) => {
   if (context instanceof Response) {
     throw context
   }
-  const store = createStore(request.headers.cookie)
+  const store = createStore(new UserService(repository))
   const router = createStaticRouter(appRoutes, context)
+
+  const loader = (dispatch: AppDispatch) => dispatch(loadUser())
+  await loader(store.dispatch)
+
   const initialState = store.getState()
 
-  const appHtml = renderToString(
+  const appHtml = renderToPipeableStream(
     <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
       <Provider store={store}>
         <Router router={router} context={context} nonce="the-nonce" />

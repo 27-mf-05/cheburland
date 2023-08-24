@@ -1,8 +1,7 @@
-import React from 'react'
-
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import dotenv from 'dotenv'
+import type { Express, Request, Response } from 'express'
 import express from 'express'
 import * as fs from 'fs'
 import { createProxyMiddleware } from 'http-proxy-middleware'
@@ -13,17 +12,22 @@ import { createServer as createViteServer } from 'vite'
 import topicRoutes from './orm/routes/topicRoutes/topicRoutes'
 import { dbConnect } from './orm/sequelizeInit'
 React.useLayoutEffect = React.useEffect
+import React from 'react'
+
+import { YandexAPIRepository } from './repository/YandexAPIRepository'
 
 dotenv.config()
 const isDev = () => process.env.NODE_ENV === 'development'
 const serverPort = Number(process.env.SERVER_PORT) || 3000
 
 async function startServer() {
-  const app = express()
+  const app: Express = express()
   let vite: ViteDevServer | undefined
 
   const clientPath = path.dirname(require.resolve('/client'))
-  const distPath = path.dirname(require.resolve('client/dist/index.html'))
+  const distPath = path.dirname(
+    require.resolve(`${clientPath}/dist/index.html`)
+  )
   const ssrPath = require.resolve(`${clientPath}/dist-ssr/ssr.cjs`)
 
   app.use(cors())
@@ -38,12 +42,12 @@ async function startServer() {
     app.use(vite.middlewares)
   }
 
-  app.get('/api', (_, res) => {
+  app.get('/api', (_, res: Response) => {
     res.json('👋 Howdy from the server :)')
   })
 
   app.use(
-    '/api/v2/*',
+    '/api/v2',
     createProxyMiddleware({
       changeOrigin: true,
       cookieDomainRewrite: {
@@ -61,10 +65,13 @@ async function startServer() {
   app.use(express.json())
   app.use('/topic', topicRoutes)
 
-  app.use('*', cookieParser(), async (req, res, next) => {
+  app.use('*', cookieParser(), async (req: Request, res: Response, next) => {
     const url = req.originalUrl
     interface SSRModule {
-      render: (request: express.Request) => Promise<string>
+      render: (
+        request: express.Request,
+        repository: any
+      ) => Promise<[Record<string, any>, string]>
     }
 
     let module: SSRModule
@@ -96,7 +103,10 @@ async function startServer() {
       }
 
       const { render } = module
-      const [initialState, appHtml] = await render(req)
+      const [initialState, appHtml] = await render(
+        req,
+        new YandexAPIRepository(req.headers.cookie)
+      )
 
       const initialStateData = JSON.stringify(initialState).replace(
         /</g,
@@ -107,7 +117,7 @@ async function startServer() {
         .replace(`<!--ssr-outlet-->`, appHtml)
         .replace(
           '<!--store-data-->',
-          `<script>window.initialState = ${initialStateData}</script>`
+          `<script>window.__PRELOADED_STATE__ = ${initialStateData}</script>`
         )
 
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
