@@ -59,9 +59,9 @@
 Все ваши PR будут автоматически деплоиться на vercel. URL вам предоставит деплоящий бот
 
 #### Docker
-`yarn docker` - билд и запуск приложения в production режиме
+`yarn docker` - билд приложения в production режиме
 
-`yarn docker:up` - запуск приложения в production режиме без билда
+`yarn docker:up` - билд и запуск приложения в production режиме
 
 `yarn docker:build` - билд приложения в production режиме (без запуска)
 
