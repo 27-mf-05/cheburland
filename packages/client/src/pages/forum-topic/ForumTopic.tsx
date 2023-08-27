@@ -1,14 +1,6 @@
 import { Box, Container, Flex, ScrollArea, Text, Title } from '@mantine/core'
 
 import { AddCommentForm, CommentList } from './components'
-import type { Comment } from './types'
-
-const comments: Comment[] = [
-  { id: '1', user: 'User 1', text: 'Comment 1', time: '13:30' },
-  { id: '2', user: 'User 2', text: 'Comment 2', time: '12:20' },
-  { id: '3', user: 'User 3', text: 'Comment 3', time: '11:00' },
-  { id: '4', user: 'User 4', text: 'Comment 4', time: '10:10' },
-]
 
 export const ForumTopic = (): JSX.Element => {
   return (
@@ -28,7 +20,7 @@ export const ForumTopic = (): JSX.Element => {
         <Box pos="absolute" w="100%" h="100%">
           <Container size="xl" h="100%">
             <ScrollArea h="100%">
-              <CommentList comments={comments} />
+              <CommentList />
             </ScrollArea>
           </Container>
         </Box>

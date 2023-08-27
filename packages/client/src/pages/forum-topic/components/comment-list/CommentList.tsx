@@ -2,13 +2,11 @@ import type { FC } from 'react'
 
 import { Badge, Box, Flex, Paper, Text } from '@mantine/core'
 
-import type { Comment } from '../../types'
+import { Reactions } from '@/components'
 
-type CommentListProps = {
-  comments: Comment[]
-}
+import comments from '../../data.json'
 
-export const CommentList: FC<CommentListProps> = ({ comments }) => {
+export const CommentList: FC = () => {
   return (
     <Flex direction="column" gap="md">
       {comments.map(({ id, user, text, time }) => (
@@ -24,6 +22,7 @@ export const CommentList: FC<CommentListProps> = ({ comments }) => {
               <Badge>{time}</Badge>
             </Box>
           </Flex>
+          <Reactions commentId={id} />
         </Paper>
       ))}
     </Flex>
