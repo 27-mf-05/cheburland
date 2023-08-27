@@ -1,0 +1,34 @@
+[
+  {
+    "name": "like",
+    "icon": "👍"
+  },
+  {
+    "name": "dislike",
+    "icon": "👎"
+  },
+  {
+    "name": "smile",
+    "icon": "😃"
+  },
+  {
+    "name": "sad",
+    "icon": "😕"
+  },
+  {
+    "name": "holiday",
+    "icon": "🎉"
+  },
+  {
+    "name": "heart",
+    "icon": "❤️"
+  },
+  {
+    "name": "rocket",
+    "icon": "🚀"
+  },
+  {
+    "name": "eyes",
+    "icon": "👀"
+  }
+]
