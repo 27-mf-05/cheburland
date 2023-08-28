@@ -19,8 +19,11 @@
     "forceConsistentCasingInFileNames": true,
     "importsNotUsedAsValues": "error",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "lib": ["DOM", "es2019", "esnext.asynciterable"],
 =======
+=======
+>>>>>>> 8991cd9c51bba380a8ef04474a37451ea9f9121a
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "lib": ["es2019", "esnext.asynciterable"],
