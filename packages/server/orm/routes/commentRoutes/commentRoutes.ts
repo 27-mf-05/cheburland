@@ -1,7 +1,7 @@
 import express from 'express'
 
-import { CommentController } from '../controllers'
-import repliesRouter from './replyRoutes'
+import { CommentController } from '../../controllers'
+import repliesRouter from '../replyRoutes/replyRoutes'
 
 const commentsRouter: express.Router = express.Router({ mergeParams: true })
 

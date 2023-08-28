@@ -1,7 +1,7 @@
 import { Model } from 'sequelize'
 import { DataType } from 'sequelize-typescript'
 
-import { sequelize } from '../../init'
+import { sequelize } from '../../sequelizeInit'
 
 export class CommentModel extends Model {
   public author_name!: string
