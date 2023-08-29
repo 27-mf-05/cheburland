@@ -16,13 +16,13 @@ export const Reactions: FC<{ commentId: number }> = ({ commentId }) => {
   const { handleAddReactionToComment, handleGetReactionToComment } =
     useReaction()
 
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const user = useAppSelector(state => state.user.currentUser)!
-  const userId = user.id
-
   const reactions = handleGetReactionToComment({ commentId })
   const reactionsKeys = reactions ? Object.keys(reactions) : []
   const [emojisKeys, setEmojisKeys] = useState(reactionsKeys)
+
+  const user = useAppSelector(state => state.user.currentUser)
+  if (!user) return null
+  const userId = user.id
 
   const addReaction = (emojiName: string) => {
     const currentReactions = handleAddReactionToComment({
