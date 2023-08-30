@@ -6,6 +6,9 @@ import * as path from 'path'
 import type { ViteDevServer } from 'vite'
 import { createServer as createViteServer } from 'vite'
 
+import { startApp } from './orm'
+import topicRoutes from './orm/routes/topicRoutes/topicRoutes'
+
 dotenv.config()
 const isDev = () => process.env.NODE_ENV === 'development'
 const serverPort = Number(process.env.SERVER_PORT) || 3000
@@ -14,7 +17,7 @@ async function startServer() {
   const app = express()
   let vite: ViteDevServer | undefined
 
-  const clientPath = path.dirname(require.resolve('/client'))
+  const clientPath = path.dirname(require.resolve('client'))
   const distPath = path.dirname(
     require.resolve(`${clientPath}/dist/index.html`)
   )
@@ -39,6 +42,9 @@ async function startServer() {
   if (!isDev()) {
     app.use('/assets', express.static(path.resolve(distPath, 'assets')))
   }
+
+  app.use(express.json())
+  app.use('/topic', topicRoutes)
 
   app.use('*', async (req, res, next) => {
     const url = req.originalUrl
@@ -94,3 +100,4 @@ async function startServer() {
 }
 
 startServer()
+startApp()
