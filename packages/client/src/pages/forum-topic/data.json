@@ -1,8 +1,8 @@
 [
-  { 
+  {
     "id": 1,
     "user": "User 1",
-    "text": "Comment 1", 
+    "text": "Comment 1",
     "time": "13:30",
     "reactions": {}
   },
