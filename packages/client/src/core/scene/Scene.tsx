@@ -3,6 +3,7 @@ import { memo, useCallback, useEffect, useRef } from 'react'
 
 import { Hero, Maze, Oranges } from '@/core'
 import { particle, renderParticleAnimation } from '@/core/lib'
+import { usePerformanceApi } from '@/hooks/usePerformanceApi'
 import { CELL_SIZE, ERASERS, ROWS_AND_COLUMNS } from '@/shared'
 
 type GameProps = {
