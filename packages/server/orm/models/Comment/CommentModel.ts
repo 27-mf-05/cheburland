@@ -2,6 +2,7 @@ import { Model } from 'sequelize'
 import { DataType } from 'sequelize-typescript'
 
 import { sequelize } from '../../sequelizeInit'
+import { ReplyModel } from '../Reply'
 
 export class CommentModel extends Model {
   public author_name!: string
@@ -25,3 +26,6 @@ CommentModel.init(
     modelName: 'comment',
   }
 )
+
+CommentModel.hasMany(ReplyModel)
+ReplyModel.belongsTo(CommentModel)

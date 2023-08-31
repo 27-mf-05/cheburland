@@ -6,8 +6,8 @@ import * as path from 'path'
 import type { ViteDevServer } from 'vite'
 import { createServer as createViteServer } from 'vite'
 
-import { startApp } from './orm'
 import topicRoutes from './orm/routes/topicRoutes/topicRoutes'
+import { dbConnect } from './orm/sequelizeInit'
 
 dotenv.config()
 const isDev = () => process.env.NODE_ENV === 'development'
@@ -42,6 +42,7 @@ async function startServer() {
   if (!isDev()) {
     app.use('/assets', express.static(path.resolve(distPath, 'assets')))
   }
+  await dbConnect()
 
   app.use(express.json())
   app.use('/topic', topicRoutes)
@@ -100,4 +101,3 @@ async function startServer() {
 }
 
 startServer()
-startApp()
