@@ -1,6 +1,10 @@
 import type { FC } from 'react'
 import { memo, useCallback, useEffect, useRef } from 'react'
 
+import { Flex } from '@mantine/core'
+
+import { FullScreenSwitcher } from '@/components'
+import { FpsCounter } from '@/components/fps-counter'
 import { Hero, Maze, Oranges } from '@/core'
 import { particle, renderParticleAnimation } from '@/core/lib'
 import { usePerformanceApi } from '@/hooks/usePerformanceApi'
@@ -30,6 +34,7 @@ export const Scene: FC<GameProps> = memo(({ onIncreaseScore }) => {
   const orangesRef = useRef<Oranges | null>(null)
   const isShowAnimation = useRef(false)
   const particles = useRef<Particle[]>([])
+  const { fps, getFps } = usePerformanceApi()
   let animationFrameId: number
 
   if (
@@ -106,10 +111,10 @@ export const Scene: FC<GameProps> = memo(({ onIncreaseScore }) => {
 
       isShowAnimation.current = true
     }
-
     if (!orangesRef.current) {
       return
     }
+    getFps(performance.now())
 
     orangesRef.current.draw(false)
     requestAnimationFrame(animate)
@@ -128,6 +133,13 @@ export const Scene: FC<GameProps> = memo(({ onIncreaseScore }) => {
       document.removeEventListener('keyup', heroRef.current.handleKeyUp)
     }
   }, [animate, init, onIncreaseScore])
-
-  return <canvas ref={canvasRef} width={300} height={300} />
+  return (
+    <>
+      <Flex align="center" gap="xl">
+        <FullScreenSwitcher />
+        <FpsCounter fps={fps} />
+      </Flex>
+      <canvas ref={canvasRef} width={300} height={300} />
+    </>
+  )
 })

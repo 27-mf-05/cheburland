@@ -3,7 +3,6 @@ import { useCallback, useEffect } from 'react'
 import { modals, ModalsProvider } from '@mantine/modals'
 
 import { finishGame, increaseScore, startGame } from '@/app/redux'
-import { FullScreenSwitcher } from '@/components'
 import { Scene } from '@/core'
 import { GameOver, GameStart } from '@/features'
 import {
@@ -77,10 +76,7 @@ export const Game = (): JSX.Element => {
 
   const content =
     gameStatus === GameStatus.Started ? (
-      <>
-        <FullScreenSwitcher />
-        <Scene onIncreaseScore={handleIncreaseScore} />
-      </>
+      <Scene onIncreaseScore={handleIncreaseScore} />
     ) : (
       <GameInfo onModalStart={handleModalStart} />
     )
