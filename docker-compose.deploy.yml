@@ -18,16 +18,9 @@ services:
   server:
     container_name: cheburland-server
     image: dksr/cheburland:latest
-    build:
-      context: .
-      dockerfile: Dockerfile.server
-      args:
-        SERVER_PORT: 3000
     restart: always
-    env_file:
-      - .env
     ports:
-      - "3000:3000"
+      - "80:3000"
     environment:
       POSTGRES_HOST: postgres
       POSTGRES_PASSWORD: postgres
