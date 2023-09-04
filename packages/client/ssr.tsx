@@ -1,4 +1,4 @@
-import { renderToPipeableStream } from 'react-dom/server'
+import { renderToString } from 'react-dom/server'
 import { Provider } from 'react-redux'
 import {
   createStaticRouter,
@@ -32,7 +32,7 @@ export const render = async (request: express.Request, repository: any) => {
 
   const initialState = store.getState()
 
-  const appHtml = renderToPipeableStream(
+  const appHtml = renderToString(
     <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
       <Provider store={store}>
         <Router router={router} context={context} nonce="the-nonce" />

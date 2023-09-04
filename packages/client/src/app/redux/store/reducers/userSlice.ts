@@ -15,14 +15,14 @@ const initialState: UserState = {
   isLoading: false,
 }
 
-interface IUserService {
+interface UserService {
   getCurrentUser(): Promise<User>
 }
 
 export const loadUser = createAsyncThunk<User>(
   'root/AuthUser',
   async (_, thunkApi) => {
-    const service: IUserService = thunkApi.extra as IUserService
+    const service: UserService = thunkApi.extra as UserService
     return service.getCurrentUser()
   }
 )

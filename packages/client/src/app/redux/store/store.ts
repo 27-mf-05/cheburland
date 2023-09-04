@@ -15,7 +15,7 @@ import gameReducer from './reducers/gameSlice'
 import userReducer from './reducers/userSlice'
 import { UserState } from './reducers/userSlice'
 
-interface IUserService {
+interface UserService {
   getCurrentUser(): Promise<User>
 }
 
@@ -33,7 +33,7 @@ const rootReducer = combineReducers({
 })
 
 export const createStore = (
-  service: IUserService,
+  service: UserService,
   initialState?: StoreState
 ) => {
   return configureStore({

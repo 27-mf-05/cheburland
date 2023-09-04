@@ -1,7 +1,8 @@
+import React from 'react'
+
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import dotenv from 'dotenv'
-import type { Express, Request, Response } from 'express'
 import express from 'express'
 import * as fs from 'fs'
 import { createProxyMiddleware } from 'http-proxy-middleware'
@@ -11,17 +12,16 @@ import { createServer as createViteServer } from 'vite'
 
 import topicRoutes from './orm/routes/topicRoutes/topicRoutes'
 import { dbConnect } from './orm/sequelizeInit'
-React.useLayoutEffect = React.useEffect
-import React from 'react'
-
 import { YandexAPIRepository } from './repository/YandexAPIRepository'
+
+React.useLayoutEffect = React.useEffect
 
 dotenv.config()
 const isDev = () => process.env.NODE_ENV === 'development'
 const serverPort = Number(process.env.SERVER_PORT) || 3000
 
 async function startServer() {
-  const app: Express = express()
+  const app = express()
   let vite: ViteDevServer | undefined
 
   const clientPath = path.dirname(require.resolve('/client'))
@@ -42,7 +42,7 @@ async function startServer() {
     app.use(vite.middlewares)
   }
 
-  app.get('/api', (_, res: Response) => {
+  app.get('/api', (_, res) => {
     res.json('👋 Howdy from the server :)')
   })
 
@@ -65,7 +65,7 @@ async function startServer() {
   app.use(express.json())
   app.use('/topic', topicRoutes)
 
-  app.use('*', cookieParser(), async (req: Request, res: Response, next) => {
+  app.use('*', cookieParser(), async (req, res, next) => {
     const url = req.originalUrl
     interface SSRModule {
       render: (
