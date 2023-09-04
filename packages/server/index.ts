@@ -1,5 +1,3 @@
-import React from 'react'
-
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import dotenv from 'dotenv'
@@ -13,8 +11,6 @@ import { createServer as createViteServer } from 'vite'
 import topicRoutes from './orm/routes/topicRoutes/topicRoutes'
 import { dbConnect } from './orm/sequelizeInit'
 import { YandexAPIRepository } from './repository/YandexAPIRepository'
-
-React.useLayoutEffect = React.useEffect
 
 dotenv.config()
 const isDev = () => process.env.NODE_ENV === 'development'
