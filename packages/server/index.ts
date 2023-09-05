@@ -26,7 +26,7 @@ async function startServer() {
   )
   const ssrPath = require.resolve(`${clientPath}/dist-ssr/ssr.cjs`)
 
-  app.use(cors())
+  app.use(cors({ credentials: true, origin: true }))
 
   if (isDev()) {
     vite = await createViteServer({
