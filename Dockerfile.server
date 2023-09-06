@@ -22,6 +22,6 @@ COPY --from=builder /app/packages/server/dist/ /app/
 COPY --from=builder /app/packages/server/package.json /app/package.json
 
 RUN sed -i 's/"client": "0.0.0"/"client": "file:..\/client"/g' /app/package.json && yarn install --production=true
-
+RUN ln -s /client /app/node_modules
 EXPOSE $SERVER_PORT
 CMD [ "node", "/app/index.js" ]

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "rm -rf dist && tsc --p ./tsconfig.prod.json",
+    "build": "rimraf dist && tsc --p ./tsconfig.prod.json",
     "preview": "cross-env SERVER_PORT=3000 NODE_ENV=production nodemon ./dist/index.js",
     "dev": "cross-env SERVER_PORT=3000 NODE_ENV=development nodemon --files index.ts",
     "lint": "eslint .",
@@ -20,6 +20,7 @@
     "reflect-metadata": "0.1.13",
     "sequelize": "6.32.1",
     "sequelize-typescript": "2.1.5",
+    "rimraf": "5.0.1",
     "vite": "4.4.9"
   },
   "devDependencies": {
