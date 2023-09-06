@@ -1,17 +1,14 @@
 import type { FC } from 'react'
 import { memo, useCallback, useEffect, useRef } from 'react'
 
-import { Flex } from '@mantine/core'
-
-import { FullScreenSwitcher } from '@/components'
 import { FpsCounter } from '@/components/fps-counter'
 import { Hero, Maze, Oranges } from '@/core'
 import { particle, renderParticleAnimation } from '@/core/lib'
-import { usePerformanceApi } from '@/hooks/usePerformanceApi'
 import { CELL_SIZE, ERASERS, ROWS_AND_COLUMNS } from '@/shared'
 
 type GameProps = {
   onIncreaseScore: () => void
+  getFps: (currentTime: number) => void
 }
 
 type Particle = {
@@ -27,14 +24,13 @@ type Particle = {
   gravity: number
 }
 
-export const Scene: FC<GameProps> = memo(({ onIncreaseScore }) => {
+export const Scene: FC<GameProps> = memo(({ onIncreaseScore, getFps }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const mazeRef = useRef<Maze | null>(null)
   const heroRef = useRef<Hero | null>(null)
   const orangesRef = useRef<Oranges | null>(null)
   const isShowAnimation = useRef(false)
   const particles = useRef<Particle[]>([])
-  const { fps, getFps } = usePerformanceApi()
   let animationFrameId: number
 
   if (
@@ -135,10 +131,6 @@ export const Scene: FC<GameProps> = memo(({ onIncreaseScore }) => {
   }, [animate, init, onIncreaseScore])
   return (
     <>
-      <Flex align="center" gap="xl">
-        <FullScreenSwitcher />
-        <FpsCounter fps={fps} />
-      </Flex>
       <canvas ref={canvasRef} width={300} height={300} />
     </>
   )

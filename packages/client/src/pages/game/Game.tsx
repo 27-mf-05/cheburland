@@ -1,8 +1,11 @@
 import { useCallback, useEffect } from 'react'
 
+import { Flex } from '@mantine/core'
 import { modals, ModalsProvider } from '@mantine/modals'
 
 import { finishGame, increaseScore, startGame } from '@/app/redux'
+import { FullScreenSwitcher } from '@/components'
+import { FpsCounter } from '@/components/fps-counter'
 import { Scene } from '@/core'
 import { GameOver, GameStart } from '@/features'
 import {
@@ -11,6 +14,7 @@ import {
   useLeaderboard,
   useNotificationApi,
 } from '@/hooks'
+import { usePerformanceApi } from '@/hooks/usePerformanceApi'
 import { GAME_DURATION, GameStatus } from '@/shared'
 
 import { GameInfo, GameWrapper } from './components'
@@ -74,9 +78,17 @@ export const Game = (): JSX.Element => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameStatus, handleFinishGame])
 
+  const { fps, getFps } = usePerformanceApi()
+
   const content =
     gameStatus === GameStatus.Started ? (
-      <Scene onIncreaseScore={handleIncreaseScore} />
+      <>
+        <Flex justify="center" gap="xl">
+          <FullScreenSwitcher />
+          <FpsCounter fps={fps} />
+        </Flex>
+        <Scene getFps={getFps} onIncreaseScore={handleIncreaseScore} />
+      </>
     ) : (
       <GameInfo onModalStart={handleModalStart} />
     )
