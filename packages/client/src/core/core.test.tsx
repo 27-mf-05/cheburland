@@ -7,7 +7,7 @@ import { Scene } from '@/core'
 describe('Core tests', () => {
   it('should throw an error on incorrect value of props rowsAndColumns', () => {
     try {
-      render(<Scene onIncreaseScore={() => 0} />)
+      render(<Scene getFps={() => 0} onIncreaseScore={() => 0} />)
     } catch (error: unknown) {
       expect(error).toBeDefined()
       expect((error as Error).message).toBe(
@@ -16,7 +16,7 @@ describe('Core tests', () => {
     }
 
     try {
-      render(<Scene onIncreaseScore={() => 0} />)
+      render(<Scene getFps={() => 0} onIncreaseScore={() => 0} />)
     } catch (error: unknown) {
       expect(error).toBeDefined()
       expect((error as Error).message).toBe(

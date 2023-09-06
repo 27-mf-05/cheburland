@@ -1,7 +1,6 @@
 import type { FC } from 'react'
 import { memo, useCallback, useEffect, useRef } from 'react'
 
-import { FpsCounter } from '@/components/fps-counter'
 import { Hero, Maze, Oranges } from '@/core'
 import { particle, renderParticleAnimation } from '@/core/lib'
 import { CELL_SIZE, ERASERS, ROWS_AND_COLUMNS } from '@/shared'
