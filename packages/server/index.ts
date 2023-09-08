@@ -17,7 +17,7 @@ async function startServer() {
   const app = express()
   let vite: ViteDevServer | undefined
 
-  const clientPath = path.dirname(require.resolve('/client'))
+  const clientPath = path.dirname(require.resolve('client'))
   const distPath = path.dirname(
     require.resolve(`${clientPath}/dist/index.html`)
   )

@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  postgres:
+    container_name: cheburland-postgres
+    image: postgres:14
+    ports:
+      - "5432:5432"
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    networks:
+      - cheburland
+  server:
+    container_name: cheburland-server
+    image: dksr/cheburland:latest
+    restart: always
+    ports:
+      - "80:3000"
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    depends_on:
+      - postgres
+    volumes:
+      - ./packages/server:/app/packages/server
+    networks:
+      - cheburland
+
+networks:
+  cheburland:
+    driver: bridge
+
+volumes:
+  pg-data:
+  pg-admin-data:
