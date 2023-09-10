@@ -15,8 +15,11 @@ export const LeaderBoardTable: FC<LeaderBoardTableProps> = ({
   return (
     <DataTable
       w="100vh"
+      mih="100px"
       records={leaders}
       idAccessor="rank"
+      fetching={!leaders}
+      loaderVariant="oval"
       columns={[
         { accessor: 'rank', title: '№', width: '1%' },
         {
