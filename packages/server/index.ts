@@ -2,6 +2,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import express from 'express'
 import * as fs from 'fs'
+import helmet from 'helmet'
 import * as path from 'path'
 import type { ViteDevServer } from 'vite'
 import { createServer as createViteServer } from 'vite'
@@ -34,6 +35,24 @@ async function startServer() {
 
     app.use(vite.middlewares)
   }
+
+  app.use(
+    helmet({
+      contentSecurityPolicy: {
+        useDefaults: true,
+        directives: {
+          'script-src': ["'self'", "'unsafe-inline'"],
+          'connect-src': [
+            "'self'",
+            'https://ya-praktikum.tech/',
+            'ws://localhost:*',
+            'http://localhost:*',
+            'http://cheburland.ya-praktikum.tech',
+          ],
+        },
+      },
+    })
+  )
 
   app.get('/api', (_, res) => {
     res.json('👋 Howdy from the server :)')
