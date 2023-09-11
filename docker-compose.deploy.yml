@@ -17,7 +17,7 @@ services:
       - cheburland
   server:
     container_name: cheburland-server
-    image: dksr/cheburland:latest
+    image: dksr/cheburland-server:latest
     restart: always
     environment:
       POSTGRES_HOST: postgres
