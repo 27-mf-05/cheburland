@@ -2,6 +2,7 @@ import { Button, Flex, TextInput } from '@mantine/core'
 import { useForm } from '@mantine/form'
 
 export const AddCommentForm = (): JSX.Element => {
+  // const { checkInput } = useProtectXss()
   const form = useForm({
     initialValues: {
       comment: '',
@@ -9,7 +10,7 @@ export const AddCommentForm = (): JSX.Element => {
   })
 
   return (
-    <form onSubmit={form.onSubmit(values => console.log(values))}>
+    <form onSubmit={form.onSubmit(values => console.log(values.comment))}>
       <Flex gap="xs">
         <TextInput
           w="100%"
