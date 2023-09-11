@@ -47,7 +47,7 @@ async function startServer() {
             'https://ya-praktikum.tech/',
             'ws://localhost:*',
             'http://localhost:*',
-            'http://cheburland.ya-praktikum.tech',
+            'https://cheburland.ya-praktikum.tech',
           ],
         },
       },
