@@ -1,5 +1,5 @@
 export const API_BASE_URL = 'https://ya-praktikum.tech/api/v2'
-export const OAUTH_REDIRECT_URL = 'http://cheburland.ya-praktikum.tech'
+export const OAUTH_REDIRECT_URL = 'https://cheburland.ya-praktikum.tech'
 export const OAUTH_BASE_URL = 'https://oauth.yandex.ru/authorize'
 
 export const RESOURCES_URL = `${API_BASE_URL}/resources`
