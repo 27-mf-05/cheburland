@@ -26,10 +26,10 @@ export const oAuthApi = createApi({
       }),
     }),
     getServiceId: build.query<{ service_id: string }, string>({
-      query: redirect_url => ({
+      query: redirect_uri => ({
         url: OAUTH_SERVICE_ID_PATH,
         params: {
-          redirect_url,
+          redirect_uri,
         },
       }),
     }),
