@@ -19,8 +19,6 @@ services:
     container_name: cheburland-server
     image: dksr/cheburland:latest
     restart: always
-    ports:
-      - "80:3000"
     environment:
       POSTGRES_HOST: postgres
       POSTGRES_PASSWORD: postgres
@@ -32,7 +30,19 @@ services:
       - ./packages/server:/app/packages/server
     networks:
       - cheburland
-
+  nginx:
+    image: nginx:latest
+    container_name: cheburland-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - /etc/letsencrypt:/etc/letsencrypt
+    networks:
+      - cheburland
+    depends_on:
+      - server
 networks:
   cheburland:
     driver: bridge
