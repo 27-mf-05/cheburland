@@ -49,6 +49,7 @@ async function startServer() {
             'http://localhost:*',
             'https://cheburland.ya-praktikum.tech',
           ],
+          'img-src': ["'self'", 'data:', 'https://ya-praktikum.tech/'],
         },
       },
     })
