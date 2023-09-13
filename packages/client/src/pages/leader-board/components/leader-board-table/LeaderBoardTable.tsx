@@ -3,6 +3,7 @@ import type { FC } from 'react'
 import { Avatar } from '@mantine/core'
 import { DataTable } from 'mantine-datatable'
 
+import { RESOURCES_URL } from '@/app/redux/api/endpoints'
 import { Leader } from '@/shared'
 
 type LeaderBoardTableProps = {
@@ -27,7 +28,12 @@ export const LeaderBoardTable: FC<LeaderBoardTableProps> = ({
           title: '',
           width: '1%',
           render: ({ avatar, name }) => (
-            <Avatar src={avatar} alt={name} radius="xl" size="lg" />
+            <Avatar
+              src={avatar ? RESOURCES_URL + avatar : ''}
+              alt={name}
+              radius="xl"
+              size="lg"
+            />
           ),
         },
         { accessor: 'name', title: 'Имя' },
