@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { Anchor, Box, Button, TextInput } from '@mantine/core'
 import { useForm } from '@mantine/form'
 
-import { useAppSelector, useRoutes } from '@/hooks'
+import { useAppSelector, useProtectXss, useRoutes } from '@/hooks'
 import {
   emailRule,
   firstNameRule,
@@ -49,9 +49,19 @@ export const ChangeProfileForm: FC<ChangeProfileFormProps> = ({
   })
 
   const { paths } = useRoutes()
+  const { checkObject } = useProtectXss()
+
+  const checked = (values: Profile) => {
+    const checkUser = checkObject(values)
+    if (checkUser !== null) {
+      handleSubmit(checkUser as Profile)
+    } else {
+      console.log(checkUser)
+    }
+  }
 
   return (
-    <form onSubmit={form.onSubmit(values => handleSubmit(values))}>
+    <form onSubmit={form.onSubmit(values => checked(values))}>
       <TextInput
         withAsterisk
         mb={32}

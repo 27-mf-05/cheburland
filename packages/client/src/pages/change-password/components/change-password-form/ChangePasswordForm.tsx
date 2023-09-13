@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { Anchor, Box, Button, PasswordInput } from '@mantine/core'
 import { useForm } from '@mantine/form'
 
-import { useRoutes } from '@/hooks'
+import { useProtectXss, useRoutes } from '@/hooks'
 import { Password, passwordRule } from '@/shared'
 
 const initialValues = {
@@ -29,8 +29,20 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
 
   const { paths } = useRoutes()
 
+  const { checkObject } = useProtectXss()
+
+  const checked = (values: Password) => {
+    const checkPass = checkObject(values)
+
+    if (checkPass !== null) {
+      handleSubmit(checkPass as Password)
+    } else {
+      console.log(checkPass)
+    }
+  }
+
   return (
-    <form onSubmit={form.onSubmit(values => handleSubmit(values))}>
+    <form onSubmit={form.onSubmit(values => checked(values))}>
       <PasswordInput
         withAsterisk
         label="Текущий пароль"
