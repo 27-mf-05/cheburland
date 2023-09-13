@@ -1,3 +1,7 @@
+type SanitizedObject = {
+  [key: string]: string | number | SanitizedObject
+}
+
 export const useProtectXss = () => {
   const sanitizeInput = (input: string): string => {
     const regex = /[&<>"']/g
@@ -23,7 +27,32 @@ export const useProtectXss = () => {
     return validateInput(sanitizedInput) ? sanitizedInput : null
   }
 
+  const checkObject = (obj: { [key: string]: any }): SanitizedObject | null => {
+    if (!obj) return null
+
+    const sanitizedObj: { [key: string]: any } = {}
+
+    for (const key in obj) {
+      if (typeof obj[key] === 'string') {
+        const sanitizedInput = checkInput(obj[key])
+        if (sanitizedInput !== null) {
+          sanitizedObj[key] = sanitizedInput
+        }
+      } else if (typeof obj[key] === 'object') {
+        const sanitizedSubObj = checkObject(obj[key])
+        if (sanitizedSubObj !== null) {
+          sanitizedObj[key] = sanitizedSubObj
+        }
+      } else {
+        sanitizedObj[key] = obj[key]
+      }
+    }
+
+    return Object.keys(sanitizedObj).length > 0 ? sanitizedObj : null
+  }
+
   return {
     checkInput,
+    checkObject,
   }
 }
